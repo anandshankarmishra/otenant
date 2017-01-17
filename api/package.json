@@ -1,0 +1,29 @@
+{
+  "name": "otenant_api",
+  "version": "1.0.0",
+  "description": "otenant api",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://bitbucket.org/mohitf2004760/otenant.git"
+  },
+  "keywords": [
+    "otenant"
+  ],
+  "author": "mohitm",
+  "license": "ISC",
+  "homepage": "https://bitbucket.org/mohitf2004760/otenant#readme",
+  "dependencies": {
+    "body-parser": "^1.15.2",
+    "cors": "^2.8.1",
+    "emailjs": "^1.0.8",
+    "express": "^4.14.0",
+    "express-session": "^1.14.0",
+    "mongoose": "^4.5.4",
+    "multer": "^1.1.0",
+    "nodemailer": "^2.5.0"
+  }
+}

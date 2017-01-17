@@ -1,0 +1,50 @@
+<!--<searchForm-view>
+    </searchForm-view>-->
+    
+            
+<div class="text-center">
+    <a href="http://localhost:3000/">
+            <img src="app/homepage/images/O-tenant.svg" class="img-height" >
+            </a>
+     <form [formGroup]="searchForm" (submit)="searchTenants()" class="form-inline" id="commentForm" role="form"  novalidate="novalidate">
+                <input type="text" formControlName="searchCity" id="usr-city" required="required" class="width-fld" placeholder="CITY" aria-required="true" style="margin-top:7px">
+                <input type="text" formControlName="searchArea" id="usr-area" required="required" class="width-fld" placeholder="AREA" aria-required="true" style="margin-top:7px">
+                <select formControlName="search_type_of_tenant" id="type_of_tenant" class="width-fld" style="margin-top:7px">
+                    <option value="" disabled selected hidden>
+                        TYPE OF TENANTS
+                    </option>
+                    <option value="dfg">GROUP OF GIRLS</option>
+                    <option value="dfg">BACHELOR BOY</option>
+                    <option value="abc">FAMILY</option>
+                    <option value="dfg">BACHELOR GIRL</option>
+                    <option value="dfg">GROUP OF BOYS</option>
+                    <option value="dfg">UNMARRIED COUPLE</option>
+                    <option value="dfg">OTHERS</option>
+
+                </select>
+                
+                <button class="button-style2" id="btnimage" type="submit" >
+                    1
+                </button>
+                
+            </form>
+
+<!--<router-outlet></router-outlet>-->
+
+
+
+{{tenants.length}} tenants found! <br/>
+<div *ngFor="let te of tenants" >
+    <div>
+     {{te.userFullName}} <br>
+     {{te.userEmail}} 
+<!--<br/> <button (click)="showDialog = !showDialog">  Invite Tenant </button>-->
+<br/> <button type = "submit" (click)="onClick(te)">  Invite Tenant </button>
+ <invite-dialog [(visible)]="showDialog" [(tenantEmail)]="tenant_email">
+            </invite-dialog>
+</div>
+</div>
+
+
+
+

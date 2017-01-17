@@ -1,0 +1,64 @@
+
+<div [@dialog] *ngIf="visible" class="dialog">
+  <ng-content></ng-content>
+  <button *ngIf="closable" (click)="close()" aria-label="Close" class="dialog__close-btn">X</button>
+  <form>
+        <input #fullname type="text" placeholder="Full Name" name="fullname" required  >
+        <input #email type="text" placeholder="Email ID" name="email" required >
+
+        <input #password type="password" placeholder="Enter Password" name="password" required >
+        <input #repassword type="password" placeholder="Re-enter Password" name="repassword" required >
+        <input #city type="text" placeholder="City" name="city" required >
+        <input #area type="text" placeholder="Area" name="area" required >
+        
+        
+ 
+ 
+</form>
+
+<!--div>
+    <form>
+      <div>
+      <input id="fullName" #fullname type="text" placeholder="Full Name" name="fullname" required >
+      </div>
+      
+      
+      <div>
+        <input #email type="text" placeholder="Email ID" name="email" required >
+      </div>
+
+      <div>
+        <input #password type="password" placeholder="Enter Password" name="password" required >
+      </div>
+
+      <div>
+        <input #repassword type="password" placeholder="Re-enter Password" name="repassword" required >
+      </div>
+
+      <div>
+        <input #city type="text" placeholder="City" name="city" required >
+      </div>
+
+      <div>
+        <input #area type="text" placeholder="Area" name="area" required >
+      </div>
+      
+      <div>
+    <select id="lookingFor" required>
+    <option *ngFor="let pow of lookingFor" [value]="pow">{{pow}}</option>
+  </select>
+  </div>
+     
+    </form>
+</div-->
+
+<!--form [formGroup]="loginForm" (ngSubmit)="doLogin($event)">
+    <input formControlName="email" type="email" placeholder="Your email">
+    <input formControlName="password" type="password" placeholder="Your password">
+  <button type="submit">Log in</button>
+</form-->
+
+   <button (click)="signUp(fullname.value, email.value, password.value, city.value, area.value )" >Done</button>
+  <!--button type="submit" (click)="signUp(fullName.value)">Done</button-->
+</div>
+<div *ngIf="visible" class="overlay" (click)="close()"></div>

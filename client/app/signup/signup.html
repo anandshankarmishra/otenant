@@ -1,0 +1,114 @@
+
+<div [@dialog] *ngIf="visible" class="dialog">
+  <ng-content></ng-content>
+  <button *ngIf="closable" (click)="close()" aria-label="Close" class="dialog__close-btn">X</button>
+  <!--form>
+        <input #fullname type="text" placeholder="Full Name" name="fullname" required  >
+        <input #email type="text" placeholder="Email ID" name="email" required >
+
+        <input #password type="password" placeholder="Enter Password" name="password" required >
+        <input #repassword type="password" placeholder="Re-enter Password" name="repassword" required >
+        <input #city type="text" placeholder="City" name="city" required >
+        <input #area type="text" placeholder="Area" name="area" required >
+        
+        
+ 
+ 
+</form-->
+<div *ngIf="sucx==1">
+  <body>
+    Congratulations!
+  </body>
+  </div>
+
+<div *ngIf="sucx==2">
+  <body>
+    Error!
+  </body>
+  </div>
+
+
+<div>
+    <form [formGroup]="signUpForm" (submit)="saveUser()">
+
+      <div>
+      <input placeholder="Full Name" formControlName="name" id="name" />
+
+      <control-messages [control]="signUpForm.controls.name"></control-messages>
+      </div>
+    
+    <div>
+    <input placeholder="Email" formControlName="email" id="email" />
+  <control-messages [control]="signUpForm.controls.email"></control-messages>
+  </div>
+  
+  <div>
+      <input placeholder="Password" formControlName="password" id="password" />
+
+      <control-messages [control]="signUpForm.controls.password"></control-messages>
+      </div>
+
+      <div>
+      <input placeholder="Re-enter Password" formControlName="repassword" id="repassword" />
+
+      <control-messages [control]="signUpForm.controls.password"></control-messages>
+      </div>
+
+      <div [hidden]="!nomatch"> Passwords don't match.
+        </div>
+      <div>
+      <input  placeholder="City" formControlName="city" id="city" />
+
+      <control-messages [control]="signUpForm.controls.name"></control-messages>
+      </div>
+
+      <div>
+      <input placeholder="Area" formControlName="area" id="area" />
+
+      <control-messages [control]="signUpForm.controls.name"></control-messages>
+      </div>
+
+       <div>
+    <select placeholder="Tenant Type" formControlName="type_of_tenant" id="type_of_tenant" >
+    <option *ngFor="let type of type_of_tenant" [value]="type">{{type}}</option>
+  </select>
+  </div>
+ 
+
+  <button type="submit" [disabled]="!signUpForm.valid">Submit</button>
+     
+      <!--div>
+        <input #email type="text" placeholder="Email ID" name="email" required >
+      </div>
+
+      <div>
+        <input #password type="password" placeholder="Enter Password" name="password" required >
+      </div>
+
+      <div>
+        <input #repassword type="password" placeholder="Re-enter Password" name="repassword" required >
+      </div>
+
+      <div>
+        <input #city type="text" placeholder="City" name="city" required >
+      </div>
+
+      <div>
+        <input #area type="text" placeholder="Area" name="area" required >
+      </div>
+      
+     
+  </div-->
+     
+    </form>
+    
+  </div>
+</div>
+
+
+
+   <!--button (click)="signUp(fullname.value, email.value, password.value, city.value, area.value )" >Done</button-->
+  <!--button type="submit" (click)="signUp(fullName.value)">Done</button-->
+
+
+<div *ngIf="visible" class="overlay" (click)="close()"></div>

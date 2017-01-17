@@ -1,0 +1,41 @@
+require('crypto').createHash('sha1').update(req.body.password).digest('base64');
+
+APIs yet to be written 
+
+-signup
+-login
+-updateUserProfile
+-changePassword
+-updateUserFullName
+-getUserProfile --> return user profile based on email in session.user 
+-uploadPhoto --> will save the image with a filename which is encrypted form of email id
+-activateAccount
+-deactivateAccount
+-deleteAccount
+-signOut
+-getNotifications
+-approveNotification -- will send email to owner, update notification to approved=true, expects the full notification object as input.
+//markNotificationRead -- will update notification to unread=false.
+-updateNotifications -- will update all the notifications. 
+
+-searchTenants
+-inviteTenant -- will send email to tenant, make an entry in notification field of user 
+
+--
+Think about logging in nodejs.
+Think about encryption and decryption of password.
+Think about photo file name encryption.
+Think about delete account.
+Think about forgot password.             
+Think about putting different routes in different files.              
+Think about adding timestamp to signup.
+Think about stroing lastActivity and its timestamp to each user.
+Think about how to send success emailmessage to user in api response. Read comment in inviteTenant api. Stack overflow question 10551499.
+Vishesh --> Make a new popup when user clicks on notification and show user, the landlord details there.
+This popup will have an approve and a close buttons too.
+Think about error handling especially in approvenotification, phone no can go undefined to the landlord because user did not update all profile info.
+-Think about tenant being able to give multiple desired areas
+ Duplicate email error on signup 
+prevent same owner from inviting same tenant repeatedly
+what are tenant types
+--

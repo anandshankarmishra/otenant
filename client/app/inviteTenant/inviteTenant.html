@@ -1,0 +1,39 @@
+<div [@dialog] *ngIf="visible" class="dialog">
+  <!--<ng-content></ng-content>-->
+ Send your details to    : {{tenantEmail}}
+  <button *ngIf="closable" (click)="close()" aria-label="Close" class="dialog__close-btn">X</button>
+
+<div>
+    <form [formGroup]="inviteTenantForm" (submit)="inviteTenant(tenantEmail)">
+
+        <div>
+      <input placeholder="FULL NAME" formControlName="name" id="name" />
+
+      <control-messages [control]="inviteTenantForm.controls.name"></control-messages>
+      </div>
+
+      <div>
+      <input placeholder="Email" formControlName="email" id="email" />
+
+      <control-messages [control]="inviteTenantForm.controls.email"></control-messages>
+      </div>
+    
+  
+  <div>
+      <input placeholder="CONTACT NUMBER" formControlName="contact" id="contact" />
+
+      <control-messages [control]="inviteTenantForm.controls.contact"></control-messages>
+      </div>
+       
+  <div>
+      <input placeholder="Message" formControlName="message" id="message" />
+
+      <control-messages [control]="inviteTenantForm.controls.message"></control-messages>
+      </div>
+
+  <button type="submit" [disabled]="!inviteTenantForm.valid">Invite</button>
+     
+    </form>
+</div>
+
+

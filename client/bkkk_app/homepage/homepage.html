@@ -1,0 +1,75 @@
+<div class="container-fluid  text-center img-background" id="bg1" >
+
+        <div class="text-center pos-title ">
+            <img src="app/homepage/images/O-tenant.svg" class="img-height" >
+        </div>
+
+        <div class="text-center">
+            <form class="form-inline" id="commentForm" role="form"  novalidate="novalidate">
+                <input type="text"  name="usr-city" id="usr-city" required="required" class="width-fld" placeholder="CITY" aria-required="true" style="margin-top:7px">
+                <input type="text" name="usr-area" id="usr-area" required="required" class="width-fld" placeholder="AREA" aria-required="true" style="margin-top:7px">
+                <select class="width-fld" style="margin-top:7px">
+                    <option value="" disabled selected hidden>
+                        TYPE OF TENANTS
+                    </option>
+                    <option value="dfg">GROUP OF GIRLS</option>
+                    <option value="dfg">BACHELOR BOY</option>
+                    <option value="abc">FAMILY</option>
+                    <option value="dfg">BACHELOR GIRL</option>
+                    <option value="dfg">GROUP OF BOYS</option>
+                    <option value="dfg">UNMARRIED COUPLE</option>
+                    <option value="dfg">OTHERS</option>
+
+                </select>
+                <span class="visible-mob"><br/></span>
+                <button class="button-style2" id="btnimage" type="submit" >
+                    1
+                </button>
+            </form>
+        </div>
+
+        <div class="text-center pos-track">
+            <p class="font-style-1">
+                LANDLORDS LOOKING FOR TENANTS
+            </p>
+        </div>
+
+        <div class="text-center pos-btn">
+            
+            <button name="signup" type="submit" (click)="showDialog = !showDialog" class="btn" data-toggle="modal" data-target="#myModal2" class="btn btn-default pos-btn btn-property-1 font-style-2">
+                TENANTS SIGNUP HERE
+            </button>
+<signUp-dialog [(visible)]="showDialog">
+  <!-- Modal Content -->
+
+ <!--form>
+        <input #fullName type="text" placeholder="Full Name" name="fullname" required>
+        <input type="text" placeholder="Email ID" name="email" required>
+
+        <input type="password" placeholder="Enter Password" name="psw" required>
+        <input type="password" placeholder="Re-enter Password" name="psw" required>
+        <input type="text" placeholder="City" name="city" required>
+        <input type="text" placeholder="Area" name="area" required>
+        
+        
+ 
+  
+</form-->
+
+</signUp-dialog>
+        </div>
+
+        <p class="pos-or font-style-3">OR</p>
+        <div class="text-center">
+            <button name="login" type="submit" (click)="showLoginDialog = !showLoginDialog" data-toggle="modal" data-target="#myModal3" class="btn btn-default btn-property-2 font-style-2">
+                LOG IN
+            </button>
+            <login-dialog [(visible)]="showLoginDialog">
+            </login-dialog>
+        </div>
+
+
+
+
+
+    </div>
