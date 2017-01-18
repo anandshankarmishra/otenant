@@ -2,6 +2,9 @@
   <ng-content></ng-content>
   <button *ngIf="closable" (click)="close()" aria-label="Close" class="dialog__close-btn">X</button>
 
+<div *ngIf="invalid">
+  {{invalidMsg}}
+  </div>
 <div>
     <form [formGroup]="loginForm" (submit)="login()">
 

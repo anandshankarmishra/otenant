@@ -18,6 +18,9 @@ var LoginComponent = (function () {
         this.loginservice = loginservice;
         this.closable = true;
         this.visibleChange = new core_1.EventEmitter();
+        //if user enters invalid username/password
+        this.invalid = false;
+        this.invalidMsg = "Invalid username/passoword. Try again!";
         this.loginForm = this.formBuilder.group({
             'email': ['', [forms_1.Validators.required, validation_service_1.ValidationService.emailValidator]],
             'password': ['', [forms_1.Validators.required]]
@@ -29,10 +32,22 @@ var LoginComponent = (function () {
     };
     //if the form is valid, call login service
     LoginComponent.prototype.login = function () {
+        var _this = this;
         if (this.loginForm.dirty && this.loginForm.valid) {
-            this.loginservice.login(this.loginForm.value.email, this.loginForm.value.password);
+            this.loginservice.login(this.loginForm.value.email, this.loginForm.value.password)
+                .subscribe(function (result) {
+                if (result == false) {
+                    _this.close();
+                    console.log(" logged in!");
+                }
+                else {
+                    if (result == "invalid") {
+                        _this.invalid = true;
+                    }
+                }
+            });
         }
-        this.close();
+        //  this.close();
     };
     return LoginComponent;
 }());

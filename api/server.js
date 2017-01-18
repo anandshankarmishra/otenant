@@ -71,16 +71,16 @@ router.route("/signup")
 
             } if(!user) {
 		console.log("invalid username and password");
-               return res.status(404).send("Incorrect username or password.");
+              // return res.status(404).send("error": "invalid");
 
-		response = {"error" : true};
+		response = {"error" : "invalid"};
 		return res.json(response);
             }
            
            req.session.user = user; 
 	   			
 	   console.log("loggin in:" + req.session.user);
-	   response = {"success" : true, "loggedIn" : "yes"}
+	   response = {"error" : false, "loggedIn" : "yes"}
 	   return res.json(response);
 //           return res.status(200).send("Login successful. Welcome "+user.userFullName);
 

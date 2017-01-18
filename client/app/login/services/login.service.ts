@@ -19,9 +19,9 @@ export class LoginService {
 
       var json = JSON.stringify({email ,password});
       
-     this.http.post(this.loginURL,json,{headers: headers})
-          .map(res=> res.json().loggedIn)
-        .subscribe(result=> this.callback(result));
+     return this.http.post(this.loginURL,json,{headers: headers})
+          .map(res=> res.json().error)
+      //  .subscribe(result=> this.callback(result));
     
   }
 

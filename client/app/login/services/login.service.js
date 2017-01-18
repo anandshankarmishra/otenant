@@ -20,13 +20,12 @@ var LoginService = (function () {
         this.isLoggedIn = false;
     }
     LoginService.prototype.login = function (email, password) {
-        var _this = this;
         var headers = new http_2.Headers();
         headers.append('Content-Type', 'application/json');
         var json = JSON.stringify({ email: email, password: password });
-        this.http.post(this.loginURL, json, { headers: headers })
-            .map(function (res) { return res.json().loggedIn; })
-            .subscribe(function (result) { return _this.callback(result); });
+        return this.http.post(this.loginURL, json, { headers: headers })
+            .map(function (res) { return res.json().error; });
+        //  .subscribe(result=> this.callback(result));
     };
     // handle Response from login URL
     LoginService.prototype.callback = function (item) {

@@ -30,6 +30,10 @@ export class LoginComponent {
 
     loginForm: any;
 
+    //if user enters invalid username/password
+    private invalid:boolean = false;
+    private invalidMsg = "Invalid username/passoword. Try again!";
+
     constructor(private formBuilder: FormBuilder, private loginservice:LoginService) {
 
       this.loginForm = this.formBuilder.group({
@@ -49,11 +53,24 @@ export class LoginComponent {
 //if the form is valid, call login service
      login() {
         if (this.loginForm.dirty && this.loginForm.valid) {
-          this.loginservice.login(
-            this.loginForm.value.email, 
-            this.loginForm.value.password);
+              this.loginservice.login(
+                this.loginForm.value.email, 
+                this.loginForm.value.password)
+          .subscribe(result=> 
+          {
+            if (result == false) {
+                this.close();
+              console.log (" logged in!");
+            } else {
+              if (result == "invalid") {
+                this.invalid = true;
+              }
+            }
+
+          }
+          )
     }
-    this.close();
+  //  this.close();
 
   }
 }
