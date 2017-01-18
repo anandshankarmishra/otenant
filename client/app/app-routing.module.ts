@@ -9,8 +9,8 @@ import { TenantHomeComponent} from './tenantHome/component/tenantHome.component'
 const routes: Routes = [
   { path: '', component: HomePageComponent },
   { path: 'searchTenants',  component: SearchTenantsComponent },
-  { path: '**', component: HomePageComponent },
-  { path: 'home', component: TenantHomeComponent}
+  { path: 'home', component: TenantHomeComponent},
+  { path: '**', component: HomePageComponent }
   //{ path: 'detail/:id', component: HeroDetailComponent },
   //{ path: 'heroes',     component: HeroesComponent }
 ];

@@ -1,6 +1,7 @@
 import { Component, OnInit, Input, Output, OnChanges, EventEmitter, trigger, 
     state, style, animate, transition, NgModule } from '@angular/core';
 
+import {Router} from '@angular/router';
 import {LoginService} from '../services/login.service';
 import {ValidationService} from '../../commonServices/validation.service';
 import { FormBuilder, Validators } from '@angular/forms';
@@ -34,7 +35,12 @@ export class LoginComponent {
     private invalid:boolean = false;
     private invalidMsg = "Invalid username/passoword. Try again!";
 
-    constructor(private formBuilder: FormBuilder, private loginservice:LoginService) {
+    //navigate to Tenant Home
+    private tenantURL = "home";
+
+    constructor(private formBuilder: FormBuilder, 
+                private loginservice:LoginService,
+                private router:Router) {
 
       this.loginForm = this.formBuilder.group({
       'email': ['', [Validators.required, ValidationService.emailValidator]],
@@ -60,6 +66,8 @@ export class LoginComponent {
           {
             if (result == false) {
                 this.close();
+                this.router.navigate([this.tenantURL]);
+
               console.log (" logged in!");
             } else {
               if (result == "invalid") {

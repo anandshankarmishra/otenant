@@ -9,18 +9,22 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var core_1 = require("@angular/core");
+var router_1 = require("@angular/router");
 var login_service_1 = require("../services/login.service");
 var validation_service_1 = require("../../commonServices/validation.service");
 var forms_1 = require("@angular/forms");
 var LoginComponent = (function () {
-    function LoginComponent(formBuilder, loginservice) {
+    function LoginComponent(formBuilder, loginservice, router) {
         this.formBuilder = formBuilder;
         this.loginservice = loginservice;
+        this.router = router;
         this.closable = true;
         this.visibleChange = new core_1.EventEmitter();
         //if user enters invalid username/password
         this.invalid = false;
         this.invalidMsg = "Invalid username/passoword. Try again!";
+        //navigate to Tenant Home
+        this.tenantURL = "home";
         this.loginForm = this.formBuilder.group({
             'email': ['', [forms_1.Validators.required, validation_service_1.ValidationService.emailValidator]],
             'password': ['', [forms_1.Validators.required]]
@@ -38,6 +42,7 @@ var LoginComponent = (function () {
                 .subscribe(function (result) {
                 if (result == false) {
                     _this.close();
+                    _this.router.navigate([_this.tenantURL]);
                     console.log(" logged in!");
                 }
                 else {
@@ -81,7 +86,9 @@ LoginComponent = __decorate([
             ])
         ]
     }),
-    __metadata("design:paramtypes", [forms_1.FormBuilder, login_service_1.LoginService])
+    __metadata("design:paramtypes", [forms_1.FormBuilder,
+        login_service_1.LoginService,
+        router_1.Router])
 ], LoginComponent);
 exports.LoginComponent = LoginComponent;
 //# sourceMappingURL=login.component.js.map

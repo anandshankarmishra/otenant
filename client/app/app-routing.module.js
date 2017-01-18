@@ -17,8 +17,8 @@ var tenantHome_component_1 = require("./tenantHome/component/tenantHome.componen
 var routes = [
     { path: '', component: homepage_component_1.HomePageComponent },
     { path: 'searchTenants', component: searchTenantsComponent_1.SearchTenantsComponent },
-    { path: '**', component: homepage_component_1.HomePageComponent },
-    { path: 'home', component: tenantHome_component_1.TenantHomeComponent }
+    { path: 'home', component: tenantHome_component_1.TenantHomeComponent },
+    { path: '**', component: homepage_component_1.HomePageComponent }
 ];
 var AppRoutingModule = (function () {
     function AppRoutingModule() {
