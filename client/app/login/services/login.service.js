@@ -17,6 +17,7 @@ var LoginService = (function () {
     function LoginService(http) {
         this.http = http;
         this.loginURL = "http://localhost:3005/login";
+        this.isLoggedIn = false;
     }
     LoginService.prototype.login = function (email, password) {
         var _this = this;
@@ -24,11 +25,15 @@ var LoginService = (function () {
         headers.append('Content-Type', 'application/json');
         var json = JSON.stringify({ email: email, password: password });
         this.http.post(this.loginURL, json, { headers: headers })
-            .map(function (res) { return res.json().error; })
+            .map(function (res) { return res.json().loggedIn; })
             .subscribe(function (result) { return _this.callback(result); });
     };
     // handle Response from login URL
     LoginService.prototype.callback = function (item) {
+        if (item == "yes") {
+            localStorage.setItem('auth_key', item.json().token);
+            this.isLoggedIn = true;
+        }
         console.log("hi: " + item);
     };
     LoginService.prototype.handleError = function (error) {

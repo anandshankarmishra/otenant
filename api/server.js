@@ -48,7 +48,7 @@ router.route("/signup")
         // save() will run insert() command of MongoDB.
         // it will add new data in collection.
             if(err) {
-	console.log("POST:error got a server req");
+	console.log("Error saving user in DB:" + err);
                 response = {"error" : true,"message" : "Error adding data-->"+err.message};
             } else {
                 response = {"error" : false,"message" : "Data added"};
@@ -70,15 +70,19 @@ router.route("/signup")
 		
 
             } if(!user) {
-               // return res.status(404).send("Incorrect username or password.");
+		console.log("invalid username and password");
+               return res.status(404).send("Incorrect username or password.");
+
 		response = {"error" : true};
 		return res.json(response);
             }
            
            req.session.user = user; 
 	   			
-	
-           //return res.status(200).send("Login successful. Welcome "+user.userFullName);
+	   console.log("loggin in:" + req.session.user);
+	   response = {"success" : true, "loggedIn" : "yes"}
+	   return res.json(response);
+//           return res.status(200).send("Login successful. Welcome "+user.userFullName);
 
 	//for testing purpose
 	response = {"error" : false,"message" : "Data added"};

@@ -22,8 +22,11 @@ var SignUpComponent = (function () {
         this.submitted = false;
         this.type_of_tenant = ['Couple', 'Single',
             'Super Hot', 'Weather Changer'];
-        this.sucx = 0; //set 1 from true, 2 for false
-        this.successMessage = "";
+        //Print the result of SignUpService
+        this.sucx = 0; //set 1 for sign up success, 2 for error
+        this.signUpMessage = "";
+        this.successMsg = "Congratulations! You have successfully signed up to Otenant.";
+        this.errorDupEmailMsg = " This email already exists . Please try again with a different email id";
         this.visibleChange = new core_1.EventEmitter();
         //check if the 2 passwords match
         this.nomatch = false;
@@ -41,10 +44,7 @@ var SignUpComponent = (function () {
     SignUpComponent.prototype.close = function () {
         this.visible = false;
         this.visibleChange.emit(this.visible);
-        // this.router.navigateByUrl("");
-        this.router.dispose;
-        this.router.navigateByUrl('/home');
-        // this.router.navigateByUrl('/s');
+        this.sucx = 0;
     };
     SignUpComponent.prototype.saveUser = function () {
         if (this.signUpForm.value.password != this.signUpForm.value.repassword) {
@@ -62,9 +62,11 @@ var SignUpComponent = (function () {
             .subscribe(function (result) {
             if (result == false) {
                 _this.sucx = 1;
+                _this.signUpMessage = _this.successMsg;
             }
             else {
                 _this.sucx = 2;
+                _this.signUpMessage = _this.errorDupEmailMsg;
             }
         });
         //this.close();
@@ -92,7 +94,7 @@ SignUpComponent = __decorate([
         animations: [
             core_1.trigger('dialog', [
                 core_1.transition('void => *', [
-                    core_1.style({ transform: 'scale3d(.3, .3, .3)' }),
+                    core_1.style({ transform: 'scale3d(.2, .2, .2)' }),
                     core_1.animate(100)
                 ]),
                 core_1.transition('* => void', [

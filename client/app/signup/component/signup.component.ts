@@ -1,6 +1,6 @@
 
 import { Component, OnInit, Input, Output, OnChanges, EventEmitter, trigger, 
-    state, style, animate, transition } from '@angular/core';
+    state, style, animate, transition,} from '@angular/core';
 
 import { FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
@@ -17,7 +17,7 @@ import {ValidationService} from '../services/validation.service';
  animations: [
     trigger('dialog', [
       transition('void => *', [
-        style({ transform: 'scale3d(.3, .3, .3)' }),
+        style({ transform: 'scale3d(.2, .2, .2)' }),
         animate(100)
       ]),
       transition('* => void', [
@@ -41,9 +41,12 @@ export class SignUpComponent {
     //SignUp Form Object for validation, control etc
     private signUpForm: any;
 
-    private success:boolean;
-    private sucx: number = 0; //set 1 from true, 2 for false
-    private successMessage:string = "";
+    //Print the result of SignUpService
+    private sucx: number = 0; //set 1 for sign up success, 2 for error
+    private signUpMessage:string = "";
+    private successMsg = "Congratulations! You have successfully signed up to Otenant."
+    private errorDupEmailMsg = " This email already exists . Please try again with a different email id";
+
 
     constructor(private formBuilder: FormBuilder, 
                 private signupservice:SignUpService,
@@ -68,13 +71,7 @@ export class SignUpComponent {
     close() {
         this.visible = false;
         this.visibleChange.emit(this.visible);
-       
-      // this.router.navigateByUrl("");
-       this.router.dispose;
-       this.router.navigateByUrl('/home');
-
-
-      // this.router.navigateByUrl('/s');
+        this.sucx = 0;
     }
 
     //check if the 2 passwords match
@@ -111,11 +108,11 @@ export class SignUpComponent {
         {
           if (result == false) {
            this.sucx = 1;
-          // this.successMessage = "Congratulations! You have successfully signed up!";
+           this.signUpMessage = this.successMsg;
           }
           else { 
             this.sucx = 2;
-          //this.successMessage = "Error signing up!"
+            this.signUpMessage = this.errorDupEmailMsg;
           }
         });
 
