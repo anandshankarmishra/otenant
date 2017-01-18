@@ -34,7 +34,12 @@ export class InviteTenantComponent {
 
     inviteTenantForm: any;
     
-    
+    //Print result of inviteTenantservice {success|| failure}
+    private success:number = 0; //set 1 on success, 2 on failure
+    private inviteMsg = "";
+    private successMsg = "You have successfully invited ";
+    private errorMsg = "There was some error. Please invite the tenant again!";
+    private invited: boolean = false;
 
     constructor(private formBuilder: FormBuilder, private inviteTenantservice:InviteTenantService) {
 
@@ -65,9 +70,21 @@ export class InviteTenantComponent {
                         this.inviteTenantForm.value.email, 
                         this.inviteTenantForm.value.contact,
                         this.inviteTenantForm.value.message
-            );
+            )
+            .subscribe(result=> 
+            {
+              if (result == false) {
+                this.success = 1;
+                this.inviteMsg = this.successMsg;
+                this.invited = true;
+              } else {
+                this.success = 2;
+                this.inviteMsg = this.errorMsg;
+              }
+            }
+            )
     }
-    this.close();
+   // this.close();
 
   }
 }

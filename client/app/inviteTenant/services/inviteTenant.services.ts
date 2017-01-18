@@ -15,7 +15,8 @@ export class InviteTenantService {
                   landlordEmail:string, landlordPhoneNo: number, 
                   landlordMessage: string[])  {
       
-      console.log(landlordFullName + " (" + landlordEmail + "," + landlordPhoneNo + ")" + " is inviting " + tenantEmail);
+      console.log(landlordFullName + " (" + landlordEmail + "," + landlordPhoneNo + ")" 
+                    + " is inviting " + tenantEmail);
       var headers = new Headers();
       headers.append('Content-Type','application/json');
 
@@ -23,9 +24,9 @@ export class InviteTenantService {
                       landlordPhoneNo, landlordMessage});
       
       
-      this.http.put(this.inviteURL,json,{headers: headers})
+      return this.http.put(this.inviteURL,json,{headers: headers})
           .map(res=> res.json().error)
-          .subscribe(result=> this.callback(result));
+          //.subscribe(result=> this.callback(result));
 
     }
 

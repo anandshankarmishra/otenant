@@ -18,6 +18,12 @@ var InviteTenantComponent = (function () {
         this.inviteTenantservice = inviteTenantservice;
         this.closable = true;
         this.visibleChange = new core_1.EventEmitter();
+        //Print result of inviteTenantservice {success|| failure}
+        this.success = 0; //set 1 on success, 2 on failure
+        this.inviteMsg = "";
+        this.successMsg = "You have successfully invited ";
+        this.errorMsg = "There was some error. Please invite the tenant again!";
+        this.invited = false;
         this.inviteTenantForm = this.formBuilder.group({
             'name': ['', forms_1.Validators.required],
             'email': ['', [forms_1.Validators.required, validation_service_1.ValidationService.emailValidator]],
@@ -31,11 +37,23 @@ var InviteTenantComponent = (function () {
     };
     //if the form is valid, call login service
     InviteTenantComponent.prototype.inviteTenant = function (tenantEmail) {
+        var _this = this;
         if (this.inviteTenantForm.dirty && this.inviteTenantForm.valid) {
             console.log("tenant email:" + tenantEmail);
-            this.inviteTenantservice.inviteTenant(tenantEmail, this.inviteTenantForm.value.name, this.inviteTenantForm.value.email, this.inviteTenantForm.value.contact, this.inviteTenantForm.value.message);
+            this.inviteTenantservice.inviteTenant(tenantEmail, this.inviteTenantForm.value.name, this.inviteTenantForm.value.email, this.inviteTenantForm.value.contact, this.inviteTenantForm.value.message)
+                .subscribe(function (result) {
+                if (result == false) {
+                    _this.success = 1;
+                    _this.inviteMsg = _this.successMsg;
+                    _this.invited = true;
+                }
+                else {
+                    _this.success = 2;
+                    _this.inviteMsg = _this.errorMsg;
+                }
+            });
         }
-        this.close();
+        // this.close();
     };
     return InviteTenantComponent;
 }());

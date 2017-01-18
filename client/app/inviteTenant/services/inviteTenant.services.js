@@ -19,15 +19,15 @@ var InviteTenantService = (function () {
         this.inviteURL = "http://localhost:3005/inviteTenant";
     }
     InviteTenantService.prototype.inviteTenant = function (tenantEmail, landlordFullName, landlordEmail, landlordPhoneNo, landlordMessage) {
-        var _this = this;
-        console.log(landlordFullName + " (" + landlordEmail + "," + landlordPhoneNo + ")" + " is inviting " + tenantEmail);
+        console.log(landlordFullName + " (" + landlordEmail + "," + landlordPhoneNo + ")"
+            + " is inviting " + tenantEmail);
         var headers = new http_2.Headers();
         headers.append('Content-Type', 'application/json');
         var json = JSON.stringify({ tenantEmail: tenantEmail, landlordFullName: landlordFullName, landlordEmail: landlordEmail,
             landlordPhoneNo: landlordPhoneNo, landlordMessage: landlordMessage });
-        this.http.put(this.inviteURL, json, { headers: headers })
-            .map(function (res) { return res.json().error; })
-            .subscribe(function (result) { return _this.callback(result); });
+        return this.http.put(this.inviteURL, json, { headers: headers })
+            .map(function (res) { return res.json().error; });
+        //.subscribe(result=> this.callback(result));
     };
     // handle Response from login URL
     InviteTenantService.prototype.callback = function (item) {

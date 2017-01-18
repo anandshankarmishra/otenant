@@ -1,5 +1,10 @@
 <div [@dialog] *ngIf="visible" class="dialog">
   <!--<ng-content></ng-content>-->
+  <div *ngIf="success != 0">
+    <body>
+        {{inviteMsg}} {{tenantEmail}}
+        </body>
+      </div>
  Send your details to    : {{tenantEmail}}
   <button *ngIf="closable" (click)="close()" aria-label="Close" class="dialog__close-btn">X</button>
 
