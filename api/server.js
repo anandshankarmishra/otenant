@@ -7,14 +7,67 @@ var router          =   express.Router();
 var multer          =   require('multer');
 var nodemailer      =   require('nodemailer');
 var mongoose        =   require('mongoose'); 
-var cors	    =   require('cors');
+var cors	    =       require('cors');
+var jwt = require('jsonwebtoken');
+var atob = require('atob');
+
+//var HOST = '192.168.0.5';
+
+var passport = require('passport')
+  , LocalStrategy = require('passport-local').Strategy;
+
+passport.use(new LocalStrategy(
+  function(username, password, done) {
+      console.log("inside passport");
+    UserProfile.findOne({userEmail:username}, function (err, user) {
+        //console.log("passport use" + user);
+
+      if (err) { 
+          console.log("error mila:" + err);
+          return done(err); }
+      if (!user) {
+          console.log("user nahin");
+        return done(null, false, { message: 'Incorrect username.' });
+      }
+      
+     /* if (!user.validPassword(password)) {
+        return done(null, false, { message: 'Incorrect password.' });
+      }*/
+      console.log("great!" + user.userFullName);
+      return done(null, user);
+    });
+  }
+));
 
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended : false}));
 app.use(session({secret:"garbage",resave:false,saveUninitialized:true}));
-app.use(cors())
-;
+app.use(cors());
+app.options('*',cors());
+app.use(function(req, res, next) {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+  next();
+});
+
+app.use(passport.initialize());
+  //app.use(passport.session());
+
+
+passport.serializeUser(function(user, done) {
+  console.log("serializeUser" + user);
+  done(null, user.id);
+});
+
+passport.deserializeUser(function(id, done) {
+    console.log("deserializeUser:" + id);
+  UserProfile.findById({_id:id}, function(err, user) {
+      console.log("inside" +user) ;
+    done(err, user);
+  });
+});
+
 router.get("/",function(req,res){
     res.json({"error" : false,"message" : "Hello World"});
 });
@@ -57,11 +110,67 @@ router.route("/signup")
             res.json(response)
         });
     });
+
+  /*
+  app.post('/login',
+  passport.authenticate('local'),
+  function(req, res) {
+    // If this function gets called, authentication was successful.
+    // `req.user` contains the authenticated user.
+    console.log("here:" + JSON.stringify(req.session.passport) );
+    //res.redirect('/getUserProfile');
+    //req.session.user = req.session.passport.user;
+  }); */ 
+
+router.route("/login") 
+   .post(
+       function(req, res) {
+           console.log("inside login");
+  passport.authenticate('local',{ session: false }, function(err, user, info){
+    var token;
+
+    // If Passport throws/catches an error
+    if (err) {
+        console.log("passport error");
+      res.status(404).json(err);
+      return;
+    }
+
+    // If a user is found
+    if(user){
+    console.log("user is found" + user);
+      token = user.generateJwt();
+	//req.session.token = token;
+    //console.log("tok:" + req.session.token);
     
- router.route("/login") 
-   .post(function(req,res){
+      res.status(200);
+      res.json({
+        "token" : token
+      }
+      
+      )
+      ;
+    } else {
+      // If user is not found
+      console.log("user not found");
+      res.status(401).json(info);
+    }
+  })(req, res);
+
+});
+
+/* router.route("/login") 
+   .post(
+       /*passport.authenticate('local'),
+        function(req, res) {
+        // If this function gets called, authentication was successful.
+        // `req.user` contains the authenticated user.
+        console.log(req.user.userName);
+        }*/
+  /*     
+       function(req,res){
 		console.log("Login req");
-	var response = {};
+	    var response = {};
         var email = req.body.email;
         var password = require('crypto').createHash('sha1').update(req.body.password).digest('base64');
         UserProfile.findOne({userEmail:email,userPassword:password},function(err,user){
@@ -81,34 +190,65 @@ router.route("/signup")
 	   			
 	   console.log("loggin in:" + req.session.user);
 	   response = {"error" : false, "loggedIn" : "yes"}
-	   return res.json(response);
-//           return res.status(200).send("Login successful. Welcome "+user.userFullName);
+	  return res.json(req.session.user);
+           //return res.status(200).send("Login successful. Welcome "+user.userFullName);
 
 	//for testing purpose
 	response = {"error" : false,"message" : "Data added"};
 	res.json(response);
         });
     });
+*/
 
- router.route("/getUserProfile") 
-   .get(function(req,res){
-       if(!req.session.user){
+router.route("/getUserProfile") 
+   .get(function(req,res){  
+       if (req.query.token) {
+           console.log("getting token" + req.query.token);
+
+            let token = req.query.token;
+            var decoded = jwt.verify(token, 'MY_SECRET');
+            
+            //var id = getUserIdFromToken(token);
+            var id = decoded._id;
+            console.log("id:" + decoded._id) // bar
+            console.log("email:" + decoded.userEmail) // bar
+            console.log("city:" + decoded.userDesiredCity) // bar
+            
+            //console.log("in getUserProfile, gotid:" + id);
+            
+            var response = {};
+            UserProfile.findOne({'_id': id}, function (err,reqdUser){
+            if(err) {
+                response = {"error" : true,"message" : "Error fetching data"};
+            }
+            else{
+                //console.log("reqdUser:" + reqdUser);
+                response = reqdUser;
+            }  
+
+            return res.json(response);
+        });
+
+            return;
+       }
+       if(!req.session.token){
+           console.log("get user p NO:" + JSON.stringify(req.session.user));
            return res.status(401).send("You are not authorized to access this api"); 
        }
        else{
+           console.log("get user YES:" + req.session.token);
            var response = {};
-           UserProfile.findOne({'userEmail': req.session.user.userEmail}, function (err,reqdUser){
+         /*  UserProfile.findOne({'userEmail': req.session.user.userEmail}, function (err,reqdUser){
             if(err) {
                 response = {"error" : true,"message" : "Error fetching data"};
             }
             else{
                 res.json(reqdUser);
             }  
-       });
+       });*/
        }
        
     });
-
 
 router.route("/updateUserProfile/")
 .put(function(req,res){
@@ -441,9 +581,51 @@ router.route("/inviteTenant/")
               })
     });    
 
+function getUserIdFromToken(token) {
+	var payload = token.split('.')[1];
+//            console.log("plpp:" + payload);
+            
+            payload = atob(payload);
+            payload = JSON.parse(payload);
+
+            //let id =  JSON.stringify(payload._id);
+            var id = payload._id;
+            console.log("in getUserIdFromToken gotid:" + id);
+            console.log("got email:" + payload.userEmail);
+	    return id;
+
+}
+
 router.route("/getNotifications/")
       .get(function(req,res){
-         if(!req.session.user){
+
+	if (req.query.token) {
+        console.log("getting token" + req.query.token);
+        let token = req.query.token;
+         
+        var decoded = jwt.verify(token,'MY_SECRET');
+        //var id = getUserIdFromToken(token);
+        var id = decoded._id;
+        console.log("in getNotifications, gotid:" + id);
+
+        var response = {};
+        UserProfile.findOne({'_id': id}, function (err,reqdUser){
+        if(err) {
+            response = {"error" : true,"message" : "Error fetching data"};
+        }
+        else{
+            //console.log("notifff:" + reqdUser.userNotifications);
+            response = reqdUser.userNotifications;
+    
+        }  
+
+		return res.json(response);
+       });
+
+            return;
+       }
+	
+        /* if(!req.session.user){
              return res.status(401).send("You are not authorized to access this api.");
          }
          else{
@@ -456,7 +638,7 @@ router.route("/getNotifications/")
                 res.json(reqdUser.userNotifications);
              }  
             });
-         }
+         }*/
       }); 
 
 router.route("/updateNotifications/")
@@ -491,7 +673,42 @@ router.route("/updateNotifications/")
  
  router.route("/approveNotification/")
       .put(function(req,res){
-         if(!req.session.user){
+         if (req.body.token && req.body.notification)  {
+            console.log("approv token" + req.query.token);
+            let token = req.body.token;
+         
+	        var user_id = getUserIdFromToken(token);
+            //var notif_id = req.body.notification;
+            
+
+            var response = {};
+            var notification = req.body.notification;//JSON.stringify(req.body.notification);
+            console.log("in put, gotid:" + user_id + " notif:" + notification);
+
+            notification.approved = true; //approve the notification
+
+            UserProfile.findOneAndUpdate({'_id': user_id,
+                         'userNotifications._id':notification._id},{$set:{'userNotifications.$':notification}},
+                         function (err,doc){
+                             if(err){
+                                 console.log("error true")
+                                 response = {"error":true,"message":"error updating data"}
+                                 res.json(response);
+                             }
+                             else{
+                                 console.log("error false")
+                                  response = {"error":false,"message":"notification approved"}
+                                  res.json(response);
+                             }
+                         });
+         }
+         else{
+            console.log(" in else")
+            response = {"error":true ,"message":"error updating data"}
+            res.json(response);
+            return;
+         }
+/*	if(!req.session.user){
              return res.status(401).send("You are not authorized to access this api.");
          }
          else{
@@ -552,9 +769,9 @@ router.route("/updateNotifications/")
                     else{
                         console.log("Message sent: "+info.response);
                     }
-                });
+                });*/
              
-         }
+        // }
       });
 
 router.route('/searchTenants/')
@@ -599,7 +816,7 @@ router.route('/searchTenants/')
                    
 app.use('/',router);
 
-
 app.listen(3005);
+//app.listen(3005, HOST);
 console.log("Listening to PORT 3005");
 

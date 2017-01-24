@@ -23,8 +23,11 @@ var LoginComponent = (function () {
         //if user enters invalid username/password
         this.invalid = false;
         this.invalidMsg = "Invalid username/passoword. Try again!";
+        //if user is already logged in
+        this.loggedIn = false;
+        this.loggedInMsg = "You are already logged in!";
         //navigate to Tenant Home
-        this.tenantURL = "home";
+        this.tenantURL = "/home";
         this.loginForm = this.formBuilder.group({
             'email': ['', [forms_1.Validators.required, validation_service_1.ValidationService.emailValidator]],
             'password': ['', [forms_1.Validators.required]]
@@ -38,21 +41,21 @@ var LoginComponent = (function () {
     LoginComponent.prototype.login = function () {
         var _this = this;
         if (this.loginForm.dirty && this.loginForm.valid) {
-            this.loginservice.login(this.loginForm.value.email, this.loginForm.value.password)
-                .subscribe(function (result) {
-                if (result == false) {
+            var login = this.loginservice.login(this.loginForm.value.email, this.loginForm.value.password);
+            login.then(function (res) {
+                if (res) {
+                    console.log("in logincomp suc:");
+                    _this.loggedIn = true;
                     _this.close();
                     _this.router.navigate([_this.tenantURL]);
-                    console.log(" logged in!");
                 }
                 else {
-                    if (result == "invalid") {
-                        _this.invalid = true;
-                    }
+                    console.log('Invalid user');
+                    _this.loggedIn = false;
+                    _this.invalid = true;
                 }
             });
         }
-        //  this.close();
     };
     return LoginComponent;
 }());

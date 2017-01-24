@@ -13,12 +13,14 @@ var router_1 = require("@angular/router");
 var homepage_component_1 = require("./homepage/component/homepage.component");
 var searchTenantsComponent_1 = require("./searchTenants/component/searchTenantsComponent");
 var tenantHome_component_1 = require("./tenantHome/component/tenantHome.component");
+var authguard_services_1 = require("./common/auth guard/authguard.services");
 //import { HeroDetailComponent }  from './hero-detail.component';
 var routes = [
     { path: '', component: homepage_component_1.HomePageComponent },
     { path: 'searchTenants', component: searchTenantsComponent_1.SearchTenantsComponent },
-    { path: 'home', component: tenantHome_component_1.TenantHomeComponent },
-    { path: '**', component: homepage_component_1.HomePageComponent }
+    { path: 'home', component: tenantHome_component_1.TenantHomeComponent,
+        canActivate: [authguard_services_1.AuthGuard] },
+    { path: '**', component: homepage_component_1.HomePageComponent },
 ];
 var AppRoutingModule = (function () {
     function AppRoutingModule() {

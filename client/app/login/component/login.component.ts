@@ -35,8 +35,12 @@ export class LoginComponent {
     private invalid:boolean = false;
     private invalidMsg = "Invalid username/passoword. Try again!";
 
+    //if user is already logged in
+    private loggedIn = false;
+    private loggedInMsg = "You are already logged in!" ;
+
     //navigate to Tenant Home
-    private tenantURL = "home";
+    private tenantURL = "/home";
 
     constructor(private formBuilder: FormBuilder, 
                 private loginservice:LoginService,
@@ -59,26 +63,25 @@ export class LoginComponent {
 //if the form is valid, call login service
      login() {
         if (this.loginForm.dirty && this.loginForm.valid) {
-              this.loginservice.login(
+             let login = this.loginservice.login(
                 this.loginForm.value.email, 
-                this.loginForm.value.password)
-          .subscribe(result=> 
-          {
-            if (result == false) {
-                this.close();
-                this.router.navigate([this.tenantURL]);
+                this.loginForm.value.password);
 
-              console.log (" logged in!");
-            } else {
-              if (result == "invalid") {
-                this.invalid = true;
-              }
-            }
-
-          }
-          )
+                login.then((res) =>
+                  {
+                    if(res) {
+                        console.log("in logincomp suc:");
+                        this.loggedIn = true;
+                        this.close();
+                        this.router.navigate([this.tenantURL]);
+                        }
+                        else {
+                          console.log('Invalid user');
+                          this.loggedIn = false;
+                          this.invalid = true;
+                        }                    
+                  })  
+        }
     }
-  //  this.close();
 
-  }
 }

@@ -13,6 +13,7 @@ import { SearchTenantsComponent} from './searchTenants/component/searchTenantsCo
 import { SearchFormComponent } from './common/search/component/searchFormComponent';
 import { InviteTenantComponent } from './inviteTenant/component/inviteTenant.component';
 import { TenantHomeComponent} from './tenantHome/component/tenantHome.component';
+import { NotificationComponent} from './common/notifications/component/notifications.component';
 
 //import { SearchTenantsComponent } from './searchTenants/component/searchTenants.component';
 
@@ -22,6 +23,8 @@ import { SignUpService } from './signup/services/signup.service';
 import { ValidationService } from './signup/services/validation.service';
 import { SearchTenantsService } from './searchTenants/services/searchTenants.services';
 import { InviteTenantService } from './inviteTenant/services/inviteTenant.services';
+import {AuthGuard} from './common/auth guard/authguard.services';
+import { TenantService } from './tenantHome/services/tenantHome.services';
 
 
 import { AppRoutingModule }     from './app-routing.module';
@@ -46,7 +49,8 @@ import { AppRoutingModule }     from './app-routing.module';
     SearchTenantsComponent,
     SearchFormComponent,
     InviteTenantComponent,
-    TenantHomeComponent
+    TenantHomeComponent,
+    NotificationComponent
 
   ],
 
@@ -55,7 +59,9 @@ import { AppRoutingModule }     from './app-routing.module';
     LoginService,
     ValidationService,
     SearchTenantsService,
-    InviteTenantService
+    InviteTenantService,
+    AuthGuard,
+    TenantService
 
   ],
   bootstrap: [ AppComponent ]

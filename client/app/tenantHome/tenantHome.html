@@ -1,8 +1,15 @@
 <div>
-    Welcome!
+<a href="http://localhost:3000/">
+            <img src="app/homepage/images/O-tenant.svg" class="img-height" >
+            </a>  <a id="notif" (click)="showDialog = !showDialog">Notifications</a>
+    
+    
+<notif-dialog [(visible)]="showDialog"> </notif-dialog>
+Welcome {{tenant.userFullName}}! <a id="myLink" (click)="logout();">Sign Out</a>
+<!--<button type="submit" (click)="logout()"> Logout </button>-->
+<br/> 
+    city: {{tenant.userDesiredCity}} <br/>
+   
 </div>
 <br/>
 
-<div> 
-<button type="submit" > Logout </button>
-</div>

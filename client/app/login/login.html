@@ -5,6 +5,11 @@
 <div *ngIf="invalid">
   {{invalidMsg}}
   </div>
+
+<div *ngIf="loggedIn">
+  {{invalidMsg}}
+  </div>
+  
 <div>
     <form [formGroup]="loginForm" (submit)="login()">
 

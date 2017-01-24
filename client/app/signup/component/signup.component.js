@@ -91,17 +91,6 @@ SignUpComponent = __decorate([
         moduleId: module.id,
         templateUrl: '../signup.html',
         styleUrls: ['../signup.css'],
-        animations: [
-            core_1.trigger('dialog', [
-                core_1.transition('void => *', [
-                    core_1.style({ transform: 'scale3d(.2, .2, .2)' }),
-                    core_1.animate(100)
-                ]),
-                core_1.transition('* => void', [
-                    core_1.animate(100, core_1.style({ transform: 'scale3d(.0, .0, .0)' }))
-                ])
-            ])
-        ]
     }),
     __metadata("design:paramtypes", [forms_1.FormBuilder,
         signup_service_1.SignUpService,

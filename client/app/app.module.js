@@ -22,6 +22,7 @@ var searchTenantsComponent_1 = require("./searchTenants/component/searchTenantsC
 var searchFormComponent_1 = require("./common/search/component/searchFormComponent");
 var inviteTenant_component_1 = require("./inviteTenant/component/inviteTenant.component");
 var tenantHome_component_1 = require("./tenantHome/component/tenantHome.component");
+var notifications_component_1 = require("./common/notifications/component/notifications.component");
 //import { SearchTenantsComponent } from './searchTenants/component/searchTenants.component';
 //service imports
 var login_service_1 = require("./login/services/login.service");
@@ -29,6 +30,8 @@ var signup_service_1 = require("./signup/services/signup.service");
 var validation_service_1 = require("./signup/services/validation.service");
 var searchTenants_services_1 = require("./searchTenants/services/searchTenants.services");
 var inviteTenant_services_1 = require("./inviteTenant/services/inviteTenant.services");
+var authguard_services_1 = require("./common/auth guard/authguard.services");
+var tenantHome_services_1 = require("./tenantHome/services/tenantHome.services");
 var app_routing_module_1 = require("./app-routing.module");
 var AppModule = (function () {
     function AppModule() {
@@ -53,14 +56,17 @@ AppModule = __decorate([
             searchTenantsComponent_1.SearchTenantsComponent,
             searchFormComponent_1.SearchFormComponent,
             inviteTenant_component_1.InviteTenantComponent,
-            tenantHome_component_1.TenantHomeComponent
+            tenantHome_component_1.TenantHomeComponent,
+            notifications_component_1.NotificationComponent
         ],
         providers: [
             signup_service_1.SignUpService,
             login_service_1.LoginService,
             validation_service_1.ValidationService,
             searchTenants_services_1.SearchTenantsService,
-            inviteTenant_services_1.InviteTenantService
+            inviteTenant_services_1.InviteTenantService,
+            authguard_services_1.AuthGuard,
+            tenantHome_services_1.TenantService
         ],
         bootstrap: [app_component_1.AppComponent]
     }),

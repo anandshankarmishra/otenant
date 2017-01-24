@@ -14,7 +14,7 @@ import {ValidationService} from '../services/validation.service';
  moduleId:module.id,
  templateUrl:'../signup.html',
  styleUrls:['../signup.css'],
- animations: [
+ /*animations: [
     trigger('dialog', [
       transition('void => *', [
         style({ transform: 'scale3d(.2, .2, .2)' }),
@@ -24,7 +24,7 @@ import {ValidationService} from '../services/validation.service';
         animate(100, style({ transform: 'scale3d(.0, .0, .0)' }))
       ])
     ])
-  ]
+  ]*/
 })
 
 export class SignUpComponent { 

@@ -1,7 +1,10 @@
+<div class="modal text-center" id="myModal2" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+<!--<div [@dialog] *ngIf="visible" class="modal-dialog" role="document">-->
+  <!--<div *ngIf="visible" class="modal-dialog" role="document">-->
 
-<div [@dialog] *ngIf="visible" class="dialog">
-  <ng-content></ng-content>
-  <button *ngIf="closable" (click)="close()" aria-label="Close" class="dialog__close-btn">X</button>
+    <div class="modal-dialog" role="document">
+  <!--<ng-content></ng-content>-->
+  <!--<button *ngIf="closable" (click)="close()" aria-label="Close" class="dialog__close-btn">X</button>-->
   <!--form>
         <input #fullname type="text" placeholder="Full Name" name="fullname" required  >
         <input #email type="text" placeholder="Email ID" name="email" required >
@@ -21,84 +24,61 @@
   </body>
   </div>
 
-<!--<div *ngIf="sucx==2">
+<div class="modal-content">
+  <div *ngIf="sucx != 0">
   <body>
-    Error!
+    {{signUpMessage}}
   </body>
-  </div>-->
+  </div>
 
+    <form [formGroup]="signUpForm" (submit)="saveUser()" class="form-horizontal text-center">
 
-<div>
-    <form [formGroup]="signUpForm" (submit)="saveUser()">
-
-      <div>
-      <input placeholder="Full Name" formControlName="name" id="name" />
+      <p class=" pos-form-signup">SIGNUP</p>
+      <div class="form-group text-center">
+      <input type="text" class="form-control form-feed-input " placeholder="Full Name" formControlName="name" id="name" />
 
       <control-messages [control]="signUpForm.controls.name"></control-messages>
       </div>
     
-    <div>
-    <input placeholder="Email" formControlName="email" id="email" />
+    <div class="form-group text-center">
+    <input type="text" class="form-control form-feed-input " placeholder="Email" formControlName="email" id="email" />
   <control-messages [control]="signUpForm.controls.email"></control-messages>
   </div>
   
-  <div>
-      <input placeholder="Password" formControlName="password" id="password" />
+  <div class="form-group text-center"> 
+      <input type="password" class="form-control form-feed-input "placeholder="Password" formControlName="password" id="password" />
 
       <control-messages [control]="signUpForm.controls.password"></control-messages>
       </div>
 
-      <div>
-      <input placeholder="Re-enter Password" formControlName="repassword" id="repassword" />
+      <div class="form-group text-center">
+      <input  type="password" class="form-control form-feed-input " placeholder="Re-enter Password" formControlName="repassword" id="repassword" />
 
       <control-messages [control]="signUpForm.controls.password"></control-messages>
       </div>
 
       <div [hidden]="!nomatch"> Passwords don't match.
         </div>
-      <div>
-      <input  placeholder="City" formControlName="city" id="city" />
+      <div  class="form-group text-center">
+      <input type="text" class="form-control form-feed-input " placeholder="City" formControlName="city" id="city" />
 
       <control-messages [control]="signUpForm.controls.name"></control-messages>
       </div>
 
-      <div>
-      <input placeholder="Area" formControlName="area" id="area" />
+      <div class="form-group text-center">
+      <input type="text" class="form-control form-feed-input " placeholder="Area" formControlName="area" id="area" />
 
       <control-messages [control]="signUpForm.controls.name"></control-messages>
       </div>
 
-       <div>
-    <select placeholder="Tenant Type" formControlName="type_of_tenant" id="type_of_tenant" >
+       <div class="form-group text-center">
+    <select  class="form-control form-feed-input" placeholder="Tenant Type" formControlName="type_of_tenant" id="type_of_tenant" >
     <option *ngFor="let type of type_of_tenant" [value]="type">{{type}}</option>
   </select>
   </div>
  
 
-  <button type="submit" [disabled]="!signUpForm.valid">Submit</button>
-     
-      <!--div>
-        <input #email type="text" placeholder="Email ID" name="email" required >
-      </div>
-
-      <div>
-        <input #password type="password" placeholder="Enter Password" name="password" required >
-      </div>
-
-      <div>
-        <input #repassword type="password" placeholder="Re-enter Password" name="repassword" required >
-      </div>
-
-      <div>
-        <input #city type="text" placeholder="City" name="city" required >
-      </div>
-
-      <div>
-        <input #area type="text" placeholder="Area" name="area" required >
-      </div>
-      
-     
-  </div-->
+  <button class="form-group text-center" class="btn btn-default pos-btn btn-property-1modal font-style-2" type="submit" [disabled]="!signUpForm.valid">Submit</button>
      
     </form>
     
@@ -112,3 +92,4 @@
 
 
 <div *ngIf="visible" class="overlay" (click)="close()"></div>
+</div>
