@@ -23,7 +23,7 @@ var SignUpComponent = (function () {
         this.type_of_tenant = ['Couple', 'Single',
             'Super Hot', 'Weather Changer'];
         //Print the result of SignUpService
-        this.sucx = 0; //set 1 for sign up success, 2 for error
+        this.sucx = 0; //set 0 for sign up form,  1 for sign up success, 2 for error
         this.signUpMessage = "";
         this.successMsg = "Congratulations! You have successfully signed up to Otenant.";
         this.errorDupEmailMsg = " This email already exists . Please try again with a different email id";

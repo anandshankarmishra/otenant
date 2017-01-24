@@ -42,7 +42,7 @@ export class SignUpComponent {
     private signUpForm: any;
 
     //Print the result of SignUpService
-    private sucx: number = 0; //set 1 for sign up success, 2 for error
+    private sucx: number = 0; //set 0 for sign up form,  1 for sign up success, 2 for error
     private signUpMessage:string = "";
     private successMsg = "Congratulations! You have successfully signed up to Otenant."
     private errorDupEmailMsg = " This email already exists . Please try again with a different email id";
