@@ -18,19 +18,11 @@
  
  
 </form-->
-<div *ngIf="sucx != 0">
-  <body>
-    {{signUpMessage}}
-  </body>
+<div class="modal-content" *ngIf="sucx != 0">
+    {{signUpMessage}} <br><br>
   </div>
 
-<div class="modal-content">
-  <div *ngIf="sucx != 0">
-  <body>
-    {{signUpMessage}}
-  </body>
-  </div>
-
+<div *ngIf="sucx == 0" class="modal-content">
     <form [formGroup]="signUpForm" (submit)="saveUser()" class="form-horizontal text-center">
 
       <p class=" pos-form-signup">SIGNUP</p>
@@ -91,5 +83,5 @@
   <!--button type="submit" (click)="signUp(fullName.value)">Done</button-->
 
 
-<div *ngIf="visible" class="overlay" (click)="close()"></div>
+<!--<div *ngIf="visible" class="overlay" (click)="close()"></div>-->
 </div>
