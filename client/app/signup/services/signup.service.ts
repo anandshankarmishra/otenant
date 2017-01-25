@@ -7,10 +7,12 @@ import { Observable } from 'rxjs';
 import 'rxjs/add/operator/toPromise';
 import 'rxjs/add/operator/map';
 
+import {AppRoutes} from '../../app-routes';
+
 @Injectable()
 export class SignUpService {
 
-  private signUpURL:string = "http://localhost:3005/signup";
+  //private signUpURL:string = "http://localhost:3005/signup";
   
   constructor(private http: Http ) {}
 
@@ -52,7 +54,7 @@ signUp(fullname, email, password, desired_city, desired_area: String[], type_of_
     
     var self = this;
     
-  return this.http.post(this.signUpURL,json,{headers: headers})
+  return this.http.post(AppRoutes.signUpURL,json,{headers: headers})
      .map((res:Response) =>  res.json().error);
     
      //.subscribe(result=> this.callback(result))

@@ -13,10 +13,11 @@ var http_1 = require("@angular/http");
 var http_2 = require("@angular/http");
 require("rxjs/add/operator/toPromise");
 require("rxjs/add/operator/map");
+var app_routes_1 = require("../../app-routes");
 var SignUpService = (function () {
+    //private signUpURL:string = "http://localhost:3005/signup";
     function SignUpService(http) {
         this.http = http;
-        this.signUpURL = "http://localhost:3005/signup";
     }
     /*signUp(fullname, email, password, desired_city, desired_area: String[], type_of_tenant) {
         var headers = new Headers();
@@ -47,7 +48,7 @@ var SignUpService = (function () {
         });
         console.log(json);
         var self = this;
-        return this.http.post(this.signUpURL, json, { headers: headers })
+        return this.http.post(app_routes_1.AppRoutes.signUpURL, json, { headers: headers })
             .map(function (res) { return res.json().error; });
         //.subscribe(result=> this.callback(result))
         ;
