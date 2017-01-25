@@ -67,6 +67,17 @@
     background-color: #3a3a3a;
 }
 
+.pos-form-signup
+{
+    font-size: 20px;
+    padding-top: 20px;
+    padding-bottom: 10px;
+    padding-left: 20px;
+    font-family: "helvetica neue", helvetica, arial, sans-serif;
+    color: #3a3a3a;
+    font-weight: 600;
+}
+
 /*
 
 .overlay {

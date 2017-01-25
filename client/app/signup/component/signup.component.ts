@@ -69,8 +69,8 @@ export class SignUpComponent {
 
 
     close() {
-        this.visible = false;
-        this.visibleChange.emit(this.visible);
+        //this.visible = false;
+        //this.visibleChange.emit(this.visible);
         this.sucx = 0;
     }
 

@@ -18,11 +18,14 @@
  
  
 </form-->
+
 <div class="modal-content" *ngIf="sucx != 0">
-    {{signUpMessage}} <br><br>
+<button type="button" (click)="close()" class="close"  style="margin-right:10px; margin-top: 10px;" data-dismiss="modal">&times;</button>
+  <br><br>  {{signUpMessage}} <br><br>
   </div>
 
 <div *ngIf="sucx == 0" class="modal-content">
+    <button type="button" class="close"  style="margin-right:20px; margin-top: 20px;" data-dismiss="modal">&times;</button>
     <form [formGroup]="signUpForm" (submit)="saveUser()" class="form-horizontal text-center">
 
       <p class=" pos-form-signup">SIGNUP</p>

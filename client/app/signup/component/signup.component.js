@@ -42,8 +42,8 @@ var SignUpComponent = (function () {
     }
     SignUpComponent.prototype.onSubmit = function () { this.submitted = true; };
     SignUpComponent.prototype.close = function () {
-        this.visible = false;
-        this.visibleChange.emit(this.visible);
+        //this.visible = false;
+        //this.visibleChange.emit(this.visible);
         this.sucx = 0;
     };
     SignUpComponent.prototype.saveUser = function () {
