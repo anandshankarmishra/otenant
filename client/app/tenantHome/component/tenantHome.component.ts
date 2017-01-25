@@ -67,6 +67,8 @@ export class TenantHomeComponent implements OnInit{
     deleteAccount(): boolean {
         this.tenantService.deleteAccount(this.myTokn).
         subscribe((data) => {
+            console.log(data.status);
+            console.log(data.error);
             if(data.status == 200 && data.error == false) {
                 console.log(" account deleted successfully");
                 this.router.navigate(['']);

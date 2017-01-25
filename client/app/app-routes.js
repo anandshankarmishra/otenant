@@ -5,6 +5,8 @@ var AppRoutes = (function () {
     return AppRoutes;
 }());
 AppRoutes.ipadr = "http://192.168.0.7:3005";
+AppRoutes.searchTenantsURL = AppRoutes.ipadr + "/searchTenants";
+AppRoutes.inviteTenantURL = AppRoutes.ipadr + "/inviteTenant";
 AppRoutes.loginURL = AppRoutes.ipadr + "/login";
 AppRoutes.signUpURL = AppRoutes.ipadr + "/signup";
 AppRoutes.getUserProfileURL = AppRoutes.ipadr + "/getUserProfile";

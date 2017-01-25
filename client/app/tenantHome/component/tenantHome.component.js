@@ -52,6 +52,8 @@ var TenantHomeComponent = (function () {
         var _this = this;
         this.tenantService.deleteAccount(this.myTokn).
             subscribe(function (data) {
+            console.log(data.status);
+            console.log(data.error);
             if (data.status == 200 && data.error == false) {
                 console.log(" account deleted successfully");
                 _this.router.navigate(['']);

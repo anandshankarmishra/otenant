@@ -7,11 +7,12 @@ import 'rxjs/add/operator/toPromise';
 import 'rxjs/add/operator/map';
 
 import{Tenant } from '../../models/tenant';
+import {AppRoutes } from '../../app-routes';
 
 @Injectable()
 export class SearchTenantsService {
 
-  private searchURL:string = "http://localhost:3005/searchTenants";
+  //private searchURL:string = "http://localhost:3005/searchTenants";
   
   private tenants: Observable<Tenant[]>;
 //  tenant: Tenant;
@@ -38,7 +39,7 @@ export class SearchTenantsService {
      search: params }
     );
 
-   return this.http.get(this.searchURL, options)
+   return this.http.get(AppRoutes.searchTenantsURL, options)
     .map(res=> res.json())
     //.subscribe(result=> this.callback(result));
 

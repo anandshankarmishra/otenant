@@ -6,9 +6,11 @@ import {Headers} from '@angular/http';
 import 'rxjs/add/operator/toPromise';
 import 'rxjs/add/operator/map';
 
+import {AppRoutes } from '../../app-routes';
+
 @Injectable()
 export class InviteTenantService {
-    private inviteURL:string = "http://localhost:3005/inviteTenant";
+    //private inviteURL:string = "http://localhost:3005/inviteTenant";
     constructor(private http: Http) {}
 
     inviteTenant (tenantEmail:string, landlordFullName: string, 
@@ -24,7 +26,7 @@ export class InviteTenantService {
                       landlordPhoneNo, landlordMessage});
       
       
-      return this.http.put(this.inviteURL,json,{headers: headers})
+      return this.http.put(AppRoutes.inviteTenantURL,json,{headers: headers})
           .map(res=> res.json().error)
           //.subscribe(result=> this.callback(result));
 

@@ -13,11 +13,11 @@ var http_1 = require("@angular/http");
 var http_2 = require("@angular/http");
 require("rxjs/add/operator/toPromise");
 require("rxjs/add/operator/map");
+var app_routes_1 = require("../../app-routes");
 var SearchTenantsService = (function () {
     //  tenant: Tenant;
     function SearchTenantsService(http) {
         this.http = http;
-        this.searchURL = "http://localhost:3005/searchTenants";
     }
     SearchTenantsService.prototype.searchTenants = function (desired_city, desired_areas, types_of_tenant) {
         // console.log ("got param:" + desired_city + ", " + desired_areas + ", "  + types_of_tenant)
@@ -33,7 +33,7 @@ var SearchTenantsService = (function () {
         params.set("types_of_tenant", types_of_tenant);
         var options = new http_1.RequestOptions({ headers: headers,
             search: params });
-        return this.http.get(this.searchURL, options)
+        return this.http.get(app_routes_1.AppRoutes.searchTenantsURL, options)
             .map(function (res) { return res.json(); });
         //.subscribe(result=> this.callback(result));
         //return this.tenants;

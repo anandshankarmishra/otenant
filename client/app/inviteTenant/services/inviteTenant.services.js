@@ -13,10 +13,11 @@ var http_1 = require("@angular/http");
 var http_2 = require("@angular/http");
 require("rxjs/add/operator/toPromise");
 require("rxjs/add/operator/map");
+var app_routes_1 = require("../../app-routes");
 var InviteTenantService = (function () {
+    //private inviteURL:string = "http://localhost:3005/inviteTenant";
     function InviteTenantService(http) {
         this.http = http;
-        this.inviteURL = "http://localhost:3005/inviteTenant";
     }
     InviteTenantService.prototype.inviteTenant = function (tenantEmail, landlordFullName, landlordEmail, landlordPhoneNo, landlordMessage) {
         console.log(landlordFullName + " (" + landlordEmail + "," + landlordPhoneNo + ")"
@@ -25,7 +26,7 @@ var InviteTenantService = (function () {
         headers.append('Content-Type', 'application/json');
         var json = JSON.stringify({ tenantEmail: tenantEmail, landlordFullName: landlordFullName, landlordEmail: landlordEmail,
             landlordPhoneNo: landlordPhoneNo, landlordMessage: landlordMessage });
-        return this.http.put(this.inviteURL, json, { headers: headers })
+        return this.http.put(app_routes_1.AppRoutes.inviteTenantURL, json, { headers: headers })
             .map(function (res) { return res.json().error; });
         //.subscribe(result=> this.callback(result));
     };

@@ -483,7 +483,7 @@ router.route("/activateAccount")
  router.route("/deleteAccount")
       .put(function(req,res){
           if (req.body.token && req.body.token != undefined)  {
-           console.log("inside delete: token" + req.query.token);
+           console.log("inside delete: token" + req.body.token);
 
             let token = req.body.token;
             var decoded = jwt.verify(token, 'MY_SECRET');
@@ -496,12 +496,15 @@ router.route("/activateAccount")
             UserProfile.findOneAndRemove({'_id': id}, function (err,reqdUser){
                 if(err) {
                     response = {"error" : true,"message" : "Error in deleting account"};
+                    console.log(" error in deleting ");
                 }
                 else{
                     // we successfully deleted the document from the db
+                    console.log("deleted account");
                     res.status(200);
-                    response = {"error" : false,"message" : "Record deleted for -->"+ decoded.userEmail};
-                    res.json(response);
+                    //response = {};
+                    res.json({"error" : false,
+                             "status" : 200 });
                 }
               })
           }
@@ -634,8 +637,9 @@ router.route("/getNotifications/")
         }
         else{
             //console.log("notifff:" + reqdUser.userNotifications);
-            response = reqdUser.userNotifications;
-    
+            if (reqdUser != null) {
+                response = reqdUser.userNotifications;
+            }    
         }  
 
 		return res.json(response);
