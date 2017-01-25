@@ -482,22 +482,41 @@ router.route("/activateAccount")
  
  router.route("/deleteAccount")
       .put(function(req,res){
-         if(!req.session.user){
-             return res.status(401).send("You are not authorized to access this api.");
-         }
-         else{
-              UserProfile.findOneAndRemove({'userEmail': req.session.user.userEmail}, function (err,reqdUser){
+          if (req.body.token && req.body.token != undefined)  {
+           console.log("inside delete: token" + req.query.token);
+
+            let token = req.body.token;
+            var decoded = jwt.verify(token, 'MY_SECRET');
+            
+            var id = decoded._id;
+            console.log("id:" + decoded._id) // bar
+            
+            var response = {};
+            
+            UserProfile.findOneAndRemove({'_id': id}, function (err,reqdUser){
                 if(err) {
-                    response = {"error" : true,"message" : "Error fetching data"};
+                    response = {"error" : true,"message" : "Error in deleting account"};
                 }
                 else{
                     // we successfully deleted the document from the db
-                    response = {"error" : true,"message" : "Record deleted for -->"+req.session.user.userEmail};
+                    res.status(200);
+                    response = {"error" : false,"message" : "Record deleted for -->"+ decoded.userEmail};
                     res.json(response);
                 }
               })
+          }
+          else {
+              return res.status(401).send("You are not authorized to access this api.");
+          }
+        });
+
+        /* if(!req.session.user){
+             return res.status(401).send("You are not authorized to access this api.");
          }
-      }); 
+         else{
+              
+         }*/
+      //}); 
 
 router.route("/signout") 
    .post(function(req,res){

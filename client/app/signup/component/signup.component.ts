@@ -8,6 +8,7 @@ import { Router } from '@angular/router';
 import {SignUpService} from '../services/signup.service';
 import {ValidationService} from '../services/validation.service';
 
+declare var jQuery:any;
 
 @Component({
  selector:'signUp-dialog',
@@ -28,12 +29,12 @@ import {ValidationService} from '../services/validation.service';
 })
 
 export class SignUpComponent { 
-    @Input() closable = true;
-    @Input() visible: boolean;
+    //@Input() closable = true;
+    //@Input() visible: boolean;
 
-    private submitted = false;
+    //private submitted = false;
     
-    onSubmit() { this.submitted = true; }
+    //onSubmit() { this.submitted = true; }
 
     private type_of_tenant = ['Couple', 'Single',
             'Super Hot', 'Weather Changer'];
@@ -72,6 +73,8 @@ export class SignUpComponent {
         //this.visible = false;
         //this.visibleChange.emit(this.visible);
         this.sucx = 0;
+        this.signUpMessage = "";
+        jQuery("#myModal2").modal("hide");
     }
 
     //check if the 2 passwords match
@@ -111,8 +114,10 @@ export class SignUpComponent {
            this.signUpMessage = this.successMsg;
           }
           else { 
+            //error in signin up
             this.sucx = 2;
             this.signUpMessage = this.errorDupEmailMsg;
+           // this.signUpForm.reset();
           }
         });
 

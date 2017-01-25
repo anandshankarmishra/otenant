@@ -60,6 +60,15 @@ var TenantService = (function () {
         return this.http.put(app_routes_1.AppRoutes.approveNotification, json, { headers: headers })
             .map(function (res) { return res.json(); });
     };
+    TenantService.prototype.deleteAccount = function (token) {
+        var headers = new http_2.Headers();
+        headers.append('Content-Type', 'application/json');
+        var json = JSON.stringify({ token: token });
+        var params = new http_1.URLSearchParams();
+        params.set("token", token);
+        return this.http.put(app_routes_1.AppRoutes.deleteAccountURL, json, { headers: headers })
+            .map(function (res) { return res.json(); });
+    };
     return TenantService;
 }());
 TenantService = __decorate([

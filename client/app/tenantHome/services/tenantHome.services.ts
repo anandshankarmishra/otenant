@@ -71,5 +71,17 @@ export class TenantService {
                 .map((res)=> res.json());
                 
         }
+
+    deleteAccount(token) {
+        var headers = new Headers();
+        headers.append('Content-Type','application/json');
+
+        var json = JSON.stringify({token});
+
+        let params: URLSearchParams = new URLSearchParams();
+            params.set("token", token);
+            return this.http.put(AppRoutes.deleteAccountURL, json,{headers: headers})
+                .map((res)=> res.json());
+    }
 }
 

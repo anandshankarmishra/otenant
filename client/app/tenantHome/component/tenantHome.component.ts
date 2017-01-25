@@ -22,11 +22,10 @@ export class TenantHomeComponent implements OnInit{
 
     private myTokn = "";      //get tenant profile
     private newNotf:number; //new notifications
-
-
    
     constructor (private loginService: LoginService,
                     private tenantService: TenantService,
+                    private router: Router,
                     private http:Http ) {
                 this.myTokn = loginService.getToken();
                 console.log("myTokn:" + this.myTokn);
@@ -65,4 +64,18 @@ export class TenantHomeComponent implements OnInit{
         this.loginService.logout();
     }
     
+    deleteAccount(): boolean {
+        this.tenantService.deleteAccount(this.myTokn).
+        subscribe((data) => {
+            if(data.status == 200 && data.error == false) {
+                console.log(" account deleted successfully");
+                this.router.navigate(['']);
+            } 
+        },
+        (error) => {
+            console.log("error deleting account");
+        }
+        )
+        return;
+    }
 }

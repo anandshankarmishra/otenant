@@ -10,13 +10,15 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 var core_1 = require("@angular/core");
 var http_1 = require("@angular/http");
+var router_1 = require("@angular/router");
 var tenant_1 = require("../../models/tenant");
 var login_service_1 = require("../../login/services/login.service");
 var tenantHome_services_1 = require("../../tenantHome/services/tenantHome.services");
 var TenantHomeComponent = (function () {
-    function TenantHomeComponent(loginService, tenantService, http) {
+    function TenantHomeComponent(loginService, tenantService, router, http) {
         this.loginService = loginService;
         this.tenantService = tenantService;
+        this.router = router;
         this.http = http;
         this.tenant = new tenant_1.Tenant('', '');
         this.showDialog = false;
@@ -46,6 +48,19 @@ var TenantHomeComponent = (function () {
     TenantHomeComponent.prototype.logout = function () {
         this.loginService.logout();
     };
+    TenantHomeComponent.prototype.deleteAccount = function () {
+        var _this = this;
+        this.tenantService.deleteAccount(this.myTokn).
+            subscribe(function (data) {
+            if (data.status == 200 && data.error == false) {
+                console.log(" account deleted successfully");
+                _this.router.navigate(['']);
+            }
+        }, function (error) {
+            console.log("error deleting account");
+        });
+        return;
+    };
     return TenantHomeComponent;
 }());
 TenantHomeComponent = __decorate([
@@ -56,6 +71,7 @@ TenantHomeComponent = __decorate([
     }),
     __metadata("design:paramtypes", [login_service_1.LoginService,
         tenantHome_services_1.TenantService,
+        router_1.Router,
         http_1.Http])
 ], TenantHomeComponent);
 exports.TenantHomeComponent = TenantHomeComponent;

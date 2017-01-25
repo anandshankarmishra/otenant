@@ -2,7 +2,7 @@ import { Injectable }     from '@angular/core';
 import { Http, Response } from '@angular/http';
 import {Headers} from '@angular/http';
 import {Router} from '@angular/router';
-import {} from '@a'
+import {AppRoutes} from '../../app-routes'
 
 import { Observable } from 'rxjs';
 import 'rxjs/add/operator/toPromise';
@@ -10,7 +10,7 @@ import 'rxjs/add/operator/map';
 
 @Injectable()
 export class LoginService {
-    private loginURL:string = "http://192.168.0.5:3005/login";
+   // private loginURL:string = "http://192.168.0.5:3005/login";
     private isAuthenticated = false;
     private tokn = "auth_key";
   
@@ -44,7 +44,7 @@ export class LoginService {
       var json = JSON.stringify({username ,password});
       
       return new Promise((resolve) => {
-        this.http.post(this.loginURL, json, {headers: headers})
+        this.http.post(AppRoutes.loginURL, json, {headers: headers})
                   .subscribe((data) => {
                       if(data.status == 200) {
                         console.log("setting auth_key");

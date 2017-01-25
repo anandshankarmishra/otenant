@@ -12,13 +12,14 @@ var core_1 = require("@angular/core");
 var http_1 = require("@angular/http");
 var http_2 = require("@angular/http");
 var router_1 = require("@angular/router");
+var app_routes_1 = require("../../app-routes");
 require("rxjs/add/operator/toPromise");
 require("rxjs/add/operator/map");
 var LoginService = (function () {
     function LoginService(http, router) {
         this.http = http;
         this.router = router;
-        this.loginURL = "http://192.168.0.5:3005/login";
+        // private loginURL:string = "http://192.168.0.5:3005/login";
         this.isAuthenticated = false;
         this.tokn = "auth_key";
     }
@@ -43,7 +44,7 @@ var LoginService = (function () {
         console.log("here:" + username + password);
         var json = JSON.stringify({ username: username, password: password });
         return new Promise(function (resolve) {
-            _this.http.post(_this.loginURL, json, { headers: headers })
+            _this.http.post(app_routes_1.AppRoutes.loginURL, json, { headers: headers })
                 .subscribe(function (data) {
                 if (data.status == 200) {
                     console.log("setting auth_key");

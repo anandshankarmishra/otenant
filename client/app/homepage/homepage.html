@@ -61,40 +61,31 @@
             </p>
         </div>
 
-        <div class="text-center pos-btn">
-            
-            <button name="signup" type="submit" (click)="showDialog = !showDialog" class="btn" data-toggle="modal" data-target="#myModal2" class="btn btn-default pos-btn btn-property-1 font-style-2">
+      <div class="text-center pos-btn">
+            <button name="signup" type="submit" data-toggle="modal" data-target="#myModal2" class="btn btn-default pos-btn btn-property-1 font-style-2">
                 TENANTS SIGNUP HERE
             </button>
+        </div>
            
-<signUp-dialog [(visible)]="showDialog">
-  <!-- Modal Content -->
-
- <!--form>
-        <input #fullName type="text" placeholder="Full Name" name="fullname" required>
-        <input type="text" placeholder="Email ID" name="email" required>
-
-        <input type="password" placeholder="Enter Password" name="psw" required>
-        <input type="password" placeholder="Re-enter Password" name="psw" required>
-        <input type="text" placeholder="City" name="city" required>
-        <input type="text" placeholder="Area" name="area" required>
-        
-        
- 
-  
-</form-->
-
+<!--<signUp-dialog [(visible)]="showDialog">-->
+<signUp-dialog>
 </signUp-dialog>
         </div>
 
         <p class="pos-or font-style-3">OR</p>
+        
         <div class="text-center">
-            <button name="login" type="submit" (click)="showLoginDialog = !showLoginDialog" data-toggle="modal" data-target="#myModal3" class="btn btn-default btn-property-2 font-style-2">
+            <button name="login" type="submit" data-toggle="modal" data-target="#myModal3" class="btn btn-default btn-property-2 font-style-2">
                 LOG IN
             </button>
-            <login-dialog [(visible)]="showLoginDialog">
-            </login-dialog>
         </div>
+
+       <!-- <div class="text-center">
+            <button name="login" type="submit" (click)="showLoginDialog = !showLoginDialog" data-toggle="modal" data-target="#myModal3" class="btn btn-default btn-property-2 font-style-2">
+                LOG IN
+            </button>-->
+            <login-dialog >
+            </login-dialog>
 
 
 

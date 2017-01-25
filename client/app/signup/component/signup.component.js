@@ -18,8 +18,10 @@ var SignUpComponent = (function () {
         this.formBuilder = formBuilder;
         this.signupservice = signupservice;
         this.router = router;
-        this.closable = true;
-        this.submitted = false;
+        //@Input() closable = true;
+        //@Input() visible: boolean;
+        //private submitted = false;
+        //onSubmit() { this.submitted = true; }
         this.type_of_tenant = ['Couple', 'Single',
             'Super Hot', 'Weather Changer'];
         //Print the result of SignUpService
@@ -40,11 +42,12 @@ var SignUpComponent = (function () {
             'type_of_tenant': ['', forms_1.Validators.required]
         });
     }
-    SignUpComponent.prototype.onSubmit = function () { this.submitted = true; };
     SignUpComponent.prototype.close = function () {
         //this.visible = false;
         //this.visibleChange.emit(this.visible);
         this.sucx = 0;
+        this.signUpMessage = "";
+        jQuery("#myModal2").modal("hide");
     };
     SignUpComponent.prototype.saveUser = function () {
         if (this.signUpForm.value.password != this.signUpForm.value.repassword) {
@@ -65,6 +68,7 @@ var SignUpComponent = (function () {
                 _this.signUpMessage = _this.successMsg;
             }
             else {
+                //error in signin up
                 _this.sucx = 2;
                 _this.signUpMessage = _this.errorDupEmailMsg;
             }
@@ -73,14 +77,6 @@ var SignUpComponent = (function () {
     };
     return SignUpComponent;
 }());
-__decorate([
-    core_1.Input(),
-    __metadata("design:type", Object)
-], SignUpComponent.prototype, "closable", void 0);
-__decorate([
-    core_1.Input(),
-    __metadata("design:type", Boolean)
-], SignUpComponent.prototype, "visible", void 0);
 __decorate([
     core_1.Output(),
     __metadata("design:type", core_1.EventEmitter)
