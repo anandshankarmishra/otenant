@@ -419,15 +419,22 @@ router.route("/changePassword/")
 //var upload = multer({dest:'uploads/'}).single('photo');
 router.route("/uploadPhoto")
         .post(function(req,res){
-            if(!req.body.token){
+            let token = req.headers.authorization;
+            console.log("body:" + token);
+            /*if(!req.body.token){
              return res.status(401).send("You are not authorized to access this api.");
          }
          else
          {
-             
-             var response = {};
-             var imgFileName =  require('crypto').createHash('sha1').update(req.session.user.userEmail).digest('base64');
-             var storage =   multer.diskStorage({
+             */
+            if (token && token!= undefined) {
+                
+                var decoded = jwt.verify(token, 'MY_SECRET');
+                var id = decoded._id;
+                console.log("upload img for user id:" + decoded._id) // bar
+                
+                var imgFileName =  'test';//require('crypto').createHash('sha1').update(req.session.user.userEmail).digest('base64');
+                var storage =   multer.diskStorage({
                  destination: function (req, file, callback) {
                      callback(null, 'uploads/');
                     },
@@ -435,42 +442,50 @@ router.route("/uploadPhoto")
                         callback(null, imgFileName + '.jpg');
                     }
                 });
-             var upload = multer({ storage : storage}).single('photo');
-             upload(req,res,function(err){
-                 if (err){
-                     return res.end("Error in uploading file");
-                 }
-                 else
-                 {
+                var upload = multer({ storage : storage}).single('photo');
+                var response = {};
+
+                upload(req,res,function(err){
+                    if (err){
+                        console.log("error in upload:" + err);
+                        response = {"error" : true,"status":900};
+                        return res.json(response);
+                        //return res.end("Error in uploading file");
+                    } else {
                      console.log(req.file);
-                     return res.end("File uploaded!");
-                 }
-             })
-             
-             UserProfile.findOne({'userEmail': req.session.user.userEmail}, function (err,updatingUser){
-                if(err) {
-                    response = {"error" : true,"message" : "Error fetching data"};
-                }
-                else{
-                     // we got data from Mongo.
-                     // change it accordingly.
-                if(imgFileName !== undefined)
-                    {
-                        updatingUser.userPhotoFileName = imgFileName;
-                    }     
-                
-                updatingUser.save(function(err){
+                     UserProfile.findOne({'_id': id}, function (err,updatingUser){
                         if(err) {
-                            response = {"error" : true,"message" : "Error updating data"};
-                        } else {
-                            response = {"error" : false,"message" : "User photo file name is updated for --> "+req.session.user.userEmail};
+                            response = {"error" : true,"message" : "Error fetching data"};
                         }
-                        res.json(response);
-                    });
+                        else{
+                            // we got data from Mongo.
+                            // change it accordingly.
+                            if (updatingUser != null) {
+                                if(imgFileName !== undefined)
+                            {
+                                updatingUser.userPhotoFileName = imgFileName;
+                            }     
+                        
+                            updatingUser.save(function(err){
+                                if(err) {
+                                    response = {"error" : true,"status" : 900};
+                                } else {
+                                    response = {"error" : false, "status" : 999};
+                                }
+                                res.json(response);
+                            });
+                            } else { // user not found
+                                return res.status(401).send("You are not authorized to access this api.");
+                            }
+               
                 } 
               })
-             
-         }
+                
+                 }
+             })
+            } else { // no token or token is undefined
+                return res.status(401).send("You are not authorized to access this api.");
+            }
   }); 
 
 router.route("/activateAccount")

@@ -82,6 +82,25 @@ var TenantService = (function () {
         return this.http.put(app_routes_1.AppRoutes.changePassword, json, { headers: headers })
             .map(function (res) { return res.json(); });
     };
+    TenantService.prototype.uploadImage = function (token, photo) {
+        console.log("photo:" + photo.name);
+        console.log("token:" + token);
+        var headers = new http_2.Headers();
+        headers.append("Authorization", token);
+        //headers.append('Content-Type','multipart/form-data');
+        var options = new http_1.RequestOptions({ headers: headers });
+        var formData = new FormData();
+        formData.append('token', token);
+        formData.append('photo', photo);
+        //var json = JSON.stringify({token, photo});
+        /* let params: URLSearchParams = new URLSearchParams();
+             params.set("token", token);
+             params.set("password", photo);
+             return this.http.put(AppRoutes.deleteAccountURL, json,{headers: headers})
+                 .map((res)=> res.json());*/
+        return this.http.post(app_routes_1.AppRoutes.uploadImageURL, formData, options)
+            .map(function (res) { return res.json().error; });
+    };
     TenantService.prototype.deleteAccount = function (token, password) {
         var headers = new http_2.Headers();
         headers.append('Content-Type', 'application/json');

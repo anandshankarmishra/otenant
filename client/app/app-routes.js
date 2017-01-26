@@ -15,5 +15,6 @@ AppRoutes.approveNotification = AppRoutes.ipadr + "/approveNotification";
 AppRoutes.changePassword = AppRoutes.ipadr + "/changePassword";
 AppRoutes.deleteAccountURL = AppRoutes.ipadr + "/deleteAccount";
 AppRoutes.updateUserFullNameURL = AppRoutes.ipadr + "/updateUserFullName";
+AppRoutes.uploadImageURL = AppRoutes.ipadr + "/uploadPhoto";
 exports.AppRoutes = AppRoutes;
 //# sourceMappingURL=app-routes.js.map

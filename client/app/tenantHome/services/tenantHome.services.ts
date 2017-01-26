@@ -1,5 +1,5 @@
 import { Injectable }     from '@angular/core';
-import { Http, Response, URLSearchParams } from '@angular/http';
+import { Http, Response, URLSearchParams, RequestOptions } from '@angular/http';
 import {Headers} from '@angular/http';
 
 import { Observable } from 'rxjs';
@@ -99,6 +99,35 @@ export class TenantService {
             return this.http.put(AppRoutes.changePassword, json,{headers: headers})
                 .map((res)=> res.json());
 
+
+    }
+
+    uploadImage(token, photo) {
+        console.log("photo:" + photo.name)
+        console.log("token:" + token)
+        
+
+         var headers = new Headers();
+         headers.append("Authorization", token);
+        //headers.append('Content-Type','multipart/form-data');
+
+         let options = new RequestOptions({ headers: headers });
+         
+         let formData:FormData = new FormData();
+         formData.append('token', token);
+         formData.append('photo', photo);
+         
+         
+        //var json = JSON.stringify({token, photo});
+
+       /* let params: URLSearchParams = new URLSearchParams();
+            params.set("token", token);
+            params.set("password", photo);
+            return this.http.put(AppRoutes.deleteAccountURL, json,{headers: headers})
+                .map((res)=> res.json());*/
+            
+            return this.http.post(AppRoutes.uploadImageURL,formData, options)
+                    .map((res:Response) =>  res.json().error);
 
     }
     deleteAccount(token, password) {

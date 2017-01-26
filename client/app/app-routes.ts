@@ -10,4 +10,5 @@ export class AppRoutes {
     public static changePassword = AppRoutes.ipadr + "/changePassword";
     public static deleteAccountURL = AppRoutes.ipadr + "/deleteAccount";
     public static updateUserFullNameURL = AppRoutes.ipadr + "/updateUserFullName"
+    public static uploadImageURL = AppRoutes.ipadr + "/uploadPhoto";
 }
