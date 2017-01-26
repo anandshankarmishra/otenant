@@ -1,0 +1,9 @@
+<div>
+    You are about to delete your account. 
+
+    <div>
+        Password:<input #password type="password" placeholder="enter your password"/>
+    </div>
+    <div>{{error}} </div>
+    <div><button type="submit" (click)="cancel()"> Cancel</button>  <button type="submit" (click)="deleteAccount(password.value)"> Delete</button></div>
+</div>

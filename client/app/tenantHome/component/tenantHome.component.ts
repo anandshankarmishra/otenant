@@ -12,7 +12,7 @@ import {TenantService} from '../../tenantHome/services/tenantHome.services';
  selector:'tenant-view',
  moduleId:module.id,
  templateUrl:'../tenantHome.html',
-// styleUrls:['../inviteTenant.css']
+ styleUrls:['../tenantHome.css']
 })
 
 export class TenantHomeComponent implements OnInit{
@@ -23,6 +23,7 @@ export class TenantHomeComponent implements OnInit{
     private myTokn = "";      //get tenant profile
     private newNotf:number; //new notifications
    
+    //private changePswd: boolean = false //
     constructor (private loginService: LoginService,
                     private tenantService: TenantService,
                     private router: Router,
@@ -56,15 +57,37 @@ export class TenantHomeComponent implements OnInit{
         
     }
 
-    updateProfile(token) {
-
+    updateName(name:string) {
+        this.tenantService.updateName(this.myTokn, name)
+        .subscribe(
+            (data) => {
+                console.log("update error:" + data.error);
+                this.tenant.userFullName = name;
+            },
+            (err) => {
+                console.log("upload error:" + err.message);
+            }
+        )
     }
     
     logout() {
         this.loginService.logout();
     }
     
-    deleteAccount(): boolean {
+    changePassword(password:string) {
+        this.tenantService.changePassword(this.myTokn, password).
+        subscribe(
+            (data)=> {
+                console.log("error:" + data.error);
+                
+            }
+        )
+    }
+
+    deleteAccount() {
+        this.router.navigate(['/deleteAccount']);
+    }
+    /*deleteAccount(): boolean {
         this.tenantService.deleteAccount(this.myTokn).
         subscribe((data) => {
             console.log(data.status);
@@ -79,5 +102,5 @@ export class TenantHomeComponent implements OnInit{
         }
         )
         return;
-    }
+    }*/
 }

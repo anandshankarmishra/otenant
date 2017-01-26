@@ -12,6 +12,7 @@ var core_1 = require("@angular/core");
 var platform_browser_1 = require("@angular/platform-browser");
 var http_1 = require("@angular/http");
 var forms_1 = require("@angular/forms");
+var angular2_image_upload_1 = require("angular2-image-upload");
 //component imports
 var app_component_1 = require("./app.component");
 var homepage_component_1 = require("./homepage/component/homepage.component");
@@ -23,6 +24,7 @@ var searchFormComponent_1 = require("./common/search/component/searchFormCompone
 var inviteTenant_component_1 = require("./inviteTenant/component/inviteTenant.component");
 var tenantHome_component_1 = require("./tenantHome/component/tenantHome.component");
 var notifications_component_1 = require("./common/notifications/component/notifications.component");
+var deleteAccount_component_1 = require("./tenantHome/component/deleteAccount.component");
 //import { SearchTenantsComponent } from './searchTenants/component/searchTenants.component';
 //service imports
 var login_service_1 = require("./login/services/login.service");
@@ -32,6 +34,7 @@ var searchTenants_services_1 = require("./searchTenants/services/searchTenants.s
 var inviteTenant_services_1 = require("./inviteTenant/services/inviteTenant.services");
 var authguard_services_1 = require("./common/auth guard/authguard.services");
 var tenantHome_services_1 = require("./tenantHome/services/tenantHome.services");
+var uploadImage_component_1 = require("./common/uploadImage/component/uploadImage.component");
 var app_routing_module_1 = require("./app-routing.module");
 var AppModule = (function () {
     function AppModule() {
@@ -45,7 +48,8 @@ AppModule = __decorate([
             http_1.HttpModule,
             forms_1.FormsModule,
             forms_1.ReactiveFormsModule,
-            app_routing_module_1.AppRoutingModule
+            app_routing_module_1.AppRoutingModule,
+            angular2_image_upload_1.ImageUploadModule.forRoot(),
         ],
         declarations: [
             app_component_1.AppComponent,
@@ -57,7 +61,9 @@ AppModule = __decorate([
             searchFormComponent_1.SearchFormComponent,
             inviteTenant_component_1.InviteTenantComponent,
             tenantHome_component_1.TenantHomeComponent,
-            notifications_component_1.NotificationComponent
+            notifications_component_1.NotificationComponent,
+            uploadImage_component_1.UploadImageComponent,
+            deleteAccount_component_1.DeleteAccountComponent
         ],
         providers: [
             signup_service_1.SignUpService,

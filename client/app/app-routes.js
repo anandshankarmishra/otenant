@@ -4,7 +4,7 @@ var AppRoutes = (function () {
     }
     return AppRoutes;
 }());
-AppRoutes.ipadr = "http://192.168.0.7:3005";
+AppRoutes.ipadr = "http://localhost:3005";
 AppRoutes.searchTenantsURL = AppRoutes.ipadr + "/searchTenants";
 AppRoutes.inviteTenantURL = AppRoutes.ipadr + "/inviteTenant";
 AppRoutes.loginURL = AppRoutes.ipadr + "/login";
@@ -12,6 +12,8 @@ AppRoutes.signUpURL = AppRoutes.ipadr + "/signup";
 AppRoutes.getUserProfileURL = AppRoutes.ipadr + "/getUserProfile";
 AppRoutes.getNotificationsURL = AppRoutes.ipadr + "/getNotifications";
 AppRoutes.approveNotification = AppRoutes.ipadr + "/approveNotification";
+AppRoutes.changePassword = AppRoutes.ipadr + "/changePassword";
 AppRoutes.deleteAccountURL = AppRoutes.ipadr + "/deleteAccount";
+AppRoutes.updateUserFullNameURL = AppRoutes.ipadr + "/updateUserFullName";
 exports.AppRoutes = AppRoutes;
 //# sourceMappingURL=app-routes.js.map

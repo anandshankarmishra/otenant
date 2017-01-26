@@ -15,6 +15,7 @@ var tenant_1 = require("../../models/tenant");
 var login_service_1 = require("../../login/services/login.service");
 var tenantHome_services_1 = require("../../tenantHome/services/tenantHome.services");
 var TenantHomeComponent = (function () {
+    //private changePswd: boolean = false //
     function TenantHomeComponent(loginService, tenantService, router, http) {
         this.loginService = loginService;
         this.tenantService = tenantService;
@@ -43,25 +44,27 @@ var TenantHomeComponent = (function () {
     };
     TenantHomeComponent.prototype.viewNotifications = function () {
     };
-    TenantHomeComponent.prototype.updateProfile = function (token) {
+    TenantHomeComponent.prototype.updateName = function (name) {
+        var _this = this;
+        this.tenantService.updateName(this.myTokn, name)
+            .subscribe(function (data) {
+            console.log("update error:" + data.error);
+            _this.tenant.userFullName = name;
+        }, function (err) {
+            console.log("upload error:" + err.message);
+        });
     };
     TenantHomeComponent.prototype.logout = function () {
         this.loginService.logout();
     };
-    TenantHomeComponent.prototype.deleteAccount = function () {
-        var _this = this;
-        this.tenantService.deleteAccount(this.myTokn).
+    TenantHomeComponent.prototype.changePassword = function (password) {
+        this.tenantService.changePassword(this.myTokn, password).
             subscribe(function (data) {
-            console.log(data.status);
-            console.log(data.error);
-            if (data.status == 200 && data.error == false) {
-                console.log(" account deleted successfully");
-                _this.router.navigate(['']);
-            }
-        }, function (error) {
-            console.log("error deleting account");
+            console.log("error:" + data.error);
         });
-        return;
+    };
+    TenantHomeComponent.prototype.deleteAccount = function () {
+        this.router.navigate(['/deleteAccount']);
     };
     return TenantHomeComponent;
 }());
@@ -70,6 +73,7 @@ TenantHomeComponent = __decorate([
         selector: 'tenant-view',
         moduleId: module.id,
         templateUrl: '../tenantHome.html',
+        styleUrls: ['../tenantHome.css']
     }),
     __metadata("design:paramtypes", [login_service_1.LoginService,
         tenantHome_services_1.TenantService,

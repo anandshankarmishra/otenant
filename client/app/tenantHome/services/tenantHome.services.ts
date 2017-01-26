@@ -69,17 +69,47 @@ export class TenantService {
             params.set("_id:", notification);
             return this.http.put(AppRoutes.approveNotification, json,{headers: headers})
                 .map((res)=> res.json());
-                
-        }
+    }
 
-    deleteAccount(token) {
+    updateName(token:string, userFullName:string) {
+        console.log("updating name:" + name);
         var headers = new Headers();
         headers.append('Content-Type','application/json');
 
-        var json = JSON.stringify({token});
+        var json = JSON.stringify({token,userFullName});
 
         let params: URLSearchParams = new URLSearchParams();
             params.set("token", token);
+            params.set("userFullName", userFullName);
+            return this.http.put(AppRoutes.updateUserFullNameURL, json,{headers: headers})
+                .map((res)=> res.json());
+    }
+
+    changePassword(token:string, password:string) {
+        console.log(" new password: " + password);
+
+        var headers = new Headers();
+        headers.append('Content-Type','application/json');
+
+        var json = JSON.stringify({token,password});
+
+        let params: URLSearchParams = new URLSearchParams();
+            params.set("token", token);
+            params.set("password", password);
+            return this.http.put(AppRoutes.changePassword, json,{headers: headers})
+                .map((res)=> res.json());
+
+
+    }
+    deleteAccount(token, password) {
+        var headers = new Headers();
+        headers.append('Content-Type','application/json');
+
+        var json = JSON.stringify({token, password});
+
+        let params: URLSearchParams = new URLSearchParams();
+            params.set("token", token);
+            params.set("password", password);
             return this.http.put(AppRoutes.deleteAccountURL, json,{headers: headers})
                 .map((res)=> res.json());
     }

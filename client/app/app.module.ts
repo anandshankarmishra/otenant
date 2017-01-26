@@ -2,6 +2,7 @@ import { NgModule }      from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpModule }    from '@angular/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { ImageUploadModule} from 'angular2-image-upload';
 
 //component imports
 import { AppComponent }  from './app.component';
@@ -14,6 +15,7 @@ import { SearchFormComponent } from './common/search/component/searchFormCompone
 import { InviteTenantComponent } from './inviteTenant/component/inviteTenant.component';
 import { TenantHomeComponent} from './tenantHome/component/tenantHome.component';
 import { NotificationComponent} from './common/notifications/component/notifications.component';
+import { DeleteAccountComponent} from './tenantHome/component/deleteAccount.component';
 
 //import { SearchTenantsComponent } from './searchTenants/component/searchTenants.component';
 
@@ -23,8 +25,9 @@ import { SignUpService } from './signup/services/signup.service';
 import { ValidationService } from './signup/services/validation.service';
 import { SearchTenantsService } from './searchTenants/services/searchTenants.services';
 import { InviteTenantService } from './inviteTenant/services/inviteTenant.services';
-import {AuthGuard} from './common/auth guard/authguard.services';
+import { AuthGuard } from './common/auth guard/authguard.services';
 import { TenantService } from './tenantHome/services/tenantHome.services';
+import { UploadImageComponent } from './common/uploadImage/component/uploadImage.component';
 
 
 import { AppRoutingModule }     from './app-routing.module';
@@ -37,7 +40,8 @@ import { AppRoutingModule }     from './app-routing.module';
     HttpModule,
     FormsModule,
     ReactiveFormsModule,
-    AppRoutingModule
+    AppRoutingModule,
+    ImageUploadModule.forRoot(),
   ],
   
   declarations: [ 
@@ -50,7 +54,9 @@ import { AppRoutingModule }     from './app-routing.module';
     SearchFormComponent,
     InviteTenantComponent,
     TenantHomeComponent,
-    NotificationComponent
+    NotificationComponent,
+    UploadImageComponent,
+    DeleteAccountComponent
 
   ],
 

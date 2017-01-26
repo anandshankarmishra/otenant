@@ -8,6 +8,12 @@ export class Tenant {
     userEmail: string;
     userNotifications: string[];
     userDesiredArea: string[];
+    userCurrentCity: string;
+    userCurrentArea: string;
+    userPhoneNo: string;
+    userRequirementDescription: string;
+    userPhotoFileName: string;
+
     
     /*email: string;
     password: string;

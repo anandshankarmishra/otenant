@@ -60,12 +60,35 @@ var TenantService = (function () {
         return this.http.put(app_routes_1.AppRoutes.approveNotification, json, { headers: headers })
             .map(function (res) { return res.json(); });
     };
-    TenantService.prototype.deleteAccount = function (token) {
+    TenantService.prototype.updateName = function (token, userFullName) {
+        console.log("updating name:" + name);
         var headers = new http_2.Headers();
         headers.append('Content-Type', 'application/json');
-        var json = JSON.stringify({ token: token });
+        var json = JSON.stringify({ token: token, userFullName: userFullName });
         var params = new http_1.URLSearchParams();
         params.set("token", token);
+        params.set("userFullName", userFullName);
+        return this.http.put(app_routes_1.AppRoutes.updateUserFullNameURL, json, { headers: headers })
+            .map(function (res) { return res.json(); });
+    };
+    TenantService.prototype.changePassword = function (token, password) {
+        console.log(" new password: " + password);
+        var headers = new http_2.Headers();
+        headers.append('Content-Type', 'application/json');
+        var json = JSON.stringify({ token: token, password: password });
+        var params = new http_1.URLSearchParams();
+        params.set("token", token);
+        params.set("password", password);
+        return this.http.put(app_routes_1.AppRoutes.changePassword, json, { headers: headers })
+            .map(function (res) { return res.json(); });
+    };
+    TenantService.prototype.deleteAccount = function (token, password) {
+        var headers = new http_2.Headers();
+        headers.append('Content-Type', 'application/json');
+        var json = JSON.stringify({ token: token, password: password });
+        var params = new http_1.URLSearchParams();
+        params.set("token", token);
+        params.set("password", password);
         return this.http.put(app_routes_1.AppRoutes.deleteAccountURL, json, { headers: headers })
             .map(function (res) { return res.json(); });
     };

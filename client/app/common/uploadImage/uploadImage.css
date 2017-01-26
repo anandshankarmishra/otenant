@@ -1,0 +1,79 @@
+
+/*modal css*/
+
+.pos-form-signup
+{
+    font-size: 20px;
+    padding-top: 20px;
+    padding-bottom: 10px;
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    color: #3a3a3a;
+    font-weight: 600;
+}
+
+.form-feed-input
+{
+    font-size: 12px;
+    text-decoration: none;
+    width: 60%;
+    border: 1px solid #3a3a3a;
+    margin: auto;
+    -webkit-appearance: none;
+    box-sizing: border-box;
+    word-spacing: 1px;
+    letter-spacing: 1px;
+    box-shadow: none;
+    border-radius: 3px;
+    margin-top: 10px;
+}
+
+.form-feed-input:hover,
+.form-feed-input:visited,
+.form-feed-input:focus
+{
+    outline: none;
+    box-shadow: none;
+    border: 1px solid black;
+
+}
+
+.btn-property-1modal
+{
+    font-size: 12px;
+    text-decoration: none;
+    width: 60%;
+    border: 1px solid #3a3a3a;
+    margin: auto;
+    -webkit-appearance: none;
+    box-sizing: border-box;
+    word-spacing: 1px;
+    letter-spacing: 1px;
+    box-shadow: none;
+    border-radius: 3px;
+    color: white;
+    background-color: #3a3a3a;
+    margin-bottom: 30px;
+    margin-top: 10px;
+}
+
+
+.btn-property-1modal:hover,
+.btn-property-1modal:focus,
+.btn-property-1modal:visited
+{
+    text-decoration: none;
+    background-color: #636363;
+    color: white;
+    background-color: #3a3a3a;
+}
+
+.pos-form-signup
+{
+    font-size: 20px;
+    padding-top: 20px;
+    padding-bottom: 10px;
+    padding-left: 20px;
+    font-family: "helvetica neue", helvetica, arial, sans-serif;
+    color: #3a3a3a;
+    font-weight: 600;
+}

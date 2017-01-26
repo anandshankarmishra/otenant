@@ -87,7 +87,9 @@ router.route("/signup")
             {newUser.userEmail = req.body.email;} 
         // Hash the password using SHA1 algorithm.
         if(req.body.password !== undefined)
-            {newUser.userPassword = require('crypto').createHash('sha1').update(req.body.password).digest('base64');}
+            {
+                //newUser.userPassword = require('crypto').createHash('sha1').update(req.body.password).digest('base64');}
+            newUser.userPassword = req.body.password;}
         if(req.body.fullname !== undefined)
             {newUser.userFullName = req.body.fullname;} 
         if(req.body.desired_city !== undefined)
@@ -296,42 +298,88 @@ router.route("/updateUserProfile/")
 
 router.route("/changePassword/")
       .put(function(req,res){
-         if(!req.session.user){
-             return res.status(401).send("You are not authorized to access this api.");
+          if(req.body.token && req.body.token != undefined){
+              if(req.body.password && req.body.password != undefined) {
+                 var token = req.body.token;
+                 var decoded = jwt.verify(token, 'MY_SECRET');
+
+                 var id = decoded._id;
+                 console.log("id:" + decoded._id) // bar
+
+                 UserProfile.findOne({'_id': id}, function (err,updatingUser){
+                    if(err) {
+                        response = {"error" : true,"message" : "Error fetching data"};
+                    } else {
+                        // we got data from Mongo.
+                        // change it accordingly.
+
+                        if(updatingUser != null) {
+                            var newpassword = require('crypto').createHash('sha1').update(req.body.password).digest('base64');
+                            updatingUser.userPassword = newpassword;
+
+
+                        updatingUser.save(function(err){
+                                    if(err) {
+                                        response = {"error" : true, "status": 400};
+                                    } else {
+                                        response = {"error" : false, "status": 200};
+                                    }
+                                    res.json(response);
+                                });
+                        }            
+                    }
+                }); //end of database activity
          }
-         else
-         {
-             var response = {};
-            UserProfile.findOne({'userEmail': req.session.user.userEmail}, function (err,updatingUser){
-              if(err) {
-                response = {"error" : true,"message" : "Error fetching data"};
-            } 
-            else
-            {
-                // we got data from Mongo.
-                // change it accordingly.
-                if(req.body.password !== undefined)
-                    {
-                        var newpassword = require('crypto').createHash('sha1').update(req.body.password).digest('base64');
-                        updatingUser.userPassword = newpassword;
-                    }     
-                
-                updatingUser.save(function(err){
-                        if(err) {
-                            response = {"error" : true,"message" : "Error updating data"};
-                        } else {
-                            response = {"error" : false,"message" : "Password is updated for --> "+req.session.user.userEmail};
-                        }
-                        res.json(response);
-                    });
-             }
-           });
-         }
+
+    } else {
+        //invalid token or password
+        return res.status(401).send("You are not authorized to access this api.");
+    }
+             
       });
       
   router.route("/updateUserFullName/")
         .put(function(req,res){
-            if(!req.session.user){
+             if(req.body.token && req.body.token != undefined){
+              if(req.body.userFullName && req.body.userFullName != undefined) {
+                  console.log("inside update:" + req.body.token + " name:" + req.body.userFullName);
+                 var token = req.body.token;
+                 var decoded = jwt.verify(token, 'MY_SECRET');
+                 console.log("decoded:" + decoded);
+                 var id = decoded._id;
+                 console.log("updating full name for id:" + decoded._id  + " new name:" + req.body.userFullName);
+
+                 UserProfile.findOne({'_id': id}, function (err,updatingUser){
+                    if(err) {
+                        response = {"error" : true,"message" : "Error fetching data"};
+                    } else {
+                        // we got data from Mongo.
+                        // change it accordingly.
+
+                        if(updatingUser != null) {
+                            //var newpassword = require('crypto').createHash('sha1').update(req.body.password).digest('base64');
+                            updatingUser.userFullName = req.body.userFullName;
+
+
+                        updatingUser.save(function(err){
+                                    if(err) {
+                                        response = {"error" : true, "status": 400};
+                                    } else {
+                                        response = {"error" : false, "status": 200};
+                                    }
+                                    res.json(response);
+                                });
+                        }            
+                    }
+                }); //end of database activity
+         }
+
+    } else {
+        //invalid token or password
+        return res.status(401).send("You are not authorized to access this api.");
+    }
+             
+            /*if(!req.session.user){
              return res.status(401).send("You are not authorized to access this api.");
          }
          else
@@ -359,7 +407,7 @@ router.route("/changePassword/")
                     });
                 } 
               })
-         }
+         }*/
         }); 
 
 //Photo upload
@@ -371,7 +419,7 @@ router.route("/changePassword/")
 //var upload = multer({dest:'uploads/'}).single('photo');
 router.route("/uploadPhoto")
         .post(function(req,res){
-            if(!req.session.user){
+            if(!req.body.token){
              return res.status(401).send("You are not authorized to access this api.");
          }
          else
@@ -483,7 +531,8 @@ router.route("/activateAccount")
  router.route("/deleteAccount")
       .put(function(req,res){
           if (req.body.token && req.body.token != undefined)  {
-           console.log("inside delete: token" + req.body.token);
+              if (req.body.password && req.body.password != undefined) {
+                console.log("inside delete: token" + req.body.token + " password:" + req.body.password);
 
             let token = req.body.token;
             var decoded = jwt.verify(token, 'MY_SECRET');
@@ -493,7 +542,39 @@ router.route("/activateAccount")
             
             var response = {};
             
-            UserProfile.findOneAndRemove({'_id': id}, function (err,reqdUser){
+            //match that the user token and password are in the database
+            UserProfile.findOne({'_id': id, 'userPassword': req.body.password}, function(err,reqdUser) {
+                if(err) {
+                    console.log(" error in deleting: ");
+                    response = {"error" : true,"message" : "Error in deleting account"};
+                    
+                } else {
+                    console.log("reqdUser:" + reqdUser);
+                    
+                    if (reqdUser != null) {
+                        console.log(" user found");
+                        //if token and password match, delete the user account
+                        UserProfile.findOneAndRemove({'_id': id}, function(err,reqdUser) {
+                            if(err) {
+                            response = {"error" : true,"message" : "Error in deleting account"};
+                            console.log(" error in deleting ");
+                            } else {
+                                // we successfully deleted the document from the db
+                                console.log("deleted account");
+                                res.status(200);
+                                //response = {};
+                                res.json({"error" : false,
+                                        "status" : 900 });            
+                            }
+                    });
+                    } else { //reqdUser is null: id and password provided by user don't match
+                        response = {"error": true, "status" : 999 };
+                        res.json(response);
+                    }
+                }
+            });
+
+            /*UserProfile.findOneAndRemove({'_id': id}, function (err,reqdUser){
                 if(err) {
                     response = {"error" : true,"message" : "Error in deleting account"};
                     console.log(" error in deleting ");
@@ -506,7 +587,9 @@ router.route("/activateAccount")
                     res.json({"error" : false,
                              "status" : 200 });
                 }
-              })
+              })*/    
+              }
+           
           }
           else {
               return res.status(401).send("You are not authorized to access this api.");

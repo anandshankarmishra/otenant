@@ -1,3 +1,6 @@
+<!--<script src="../../js/jquery-2.1.4.js"></script>-->
+    <!--<script src="../../js/bootstrap.min.js"></script>-->
+
 <div>
 <a href="http://localhost:3000/">
             <img src="app/homepage/images/O-tenant.svg" class="img-height" >
@@ -6,10 +9,22 @@
     
 <notif-dialog [(visible)]="showDialog"> </notif-dialog>
 Welcome {{tenant.userFullName}}! <a id="myLink" (click)="logout();">Sign Out</a>
-<button type="submit" (click)="deleteAccount()"> Delete Account </button>
+<br><br>
+{{tenant.userFullName}}  <button type="submit" (click)="updateName('Ranjit Walia')"> Edit </button>
+<br><br>
+Email Id: {{tenant.userEmail}}
+<br><br>
+Current area: {{tenant.userCurrentArea}}  <button type="submit" (click)="updateCurrentArea('surat')"> Edit </button>
+
+<div><button type="submit" (click)="changePassword()"> Change Password </button></div>
+<div><button type="submit" (click)="deleteAccount()"> Delete Account </button></div>
 <br/> 
     city: {{tenant.userDesiredCity}} <br/>
    
 </div>
+<div> 
+ <button name="upload" type="submit" data-toggle="modal" data-target="#myModal5" class="btn btn-default btn-property-2 font-style-2"> Upload Image </button>
+</div>
+<uploadImage></uploadImage>
 <br/>
 

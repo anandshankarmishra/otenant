@@ -1,0 +1,29 @@
+<div class="modal text-center" id="myModal5" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+
+<div class="modal-dialog" role="document">
+
+  
+<div class="modal-content">
+    
+<button type="button" class="close"  style="margin-right:20px; margin-top: 20px;" data-dismiss="modal">&times;</button>
+
+    
+    <form class="form-horizontal text-center">
+       <p class=" pos-form-signup">Upload image</p>
+       
+    <image-upload [max]="1" [buttonCaption]="'Select Image'"></image-upload>
+    <!--<input #selectedImg type="file" name="fileToUpload"  id="fileToUpload" enctype="multipart/form-data">-->
+    <input type="submit" value="Upload Image" (click)="upload(selectedImg.value)" name="submit">
+
+    </form>
+
+    {{imgSrc}}
+</div>
+
+</div>
+
+</div>
+
+
+
+
