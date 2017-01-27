@@ -85,17 +85,18 @@ export class TenantService {
                 .map((res)=> res.json());
     }
 
-    changePassword(token:string, password:string) {
-        console.log(" new password: " + password);
+    changePassword(token:string, cur_password:string, new_password:string) {
+        console.log(" current password: " + cur_password);
+        console.log(" new password: " + new_password);
 
         var headers = new Headers();
         headers.append('Content-Type','application/json');
 
-        var json = JSON.stringify({token,password});
+        var json = JSON.stringify({token,cur_password, new_password});
 
-        let params: URLSearchParams = new URLSearchParams();
+        /*let params: URLSearchParams = new URLSearchParams();
             params.set("token", token);
-            params.set("password", password);
+            params.set("password", cur_password);*/
             return this.http.put(AppRoutes.changePassword, json,{headers: headers})
                 .map((res)=> res.json());
 

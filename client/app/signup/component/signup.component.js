@@ -12,7 +12,7 @@ var core_1 = require("@angular/core");
 var forms_1 = require("@angular/forms");
 var router_1 = require("@angular/router");
 var signup_service_1 = require("../services/signup.service");
-var validation_service_1 = require("../services/validation.service");
+var validation_service_1 = require("../../common/validation/services/validation.service");
 var SignUpComponent = (function () {
     function SignUpComponent(formBuilder, signupservice, router) {
         this.formBuilder = formBuilder;

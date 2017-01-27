@@ -6,7 +6,7 @@ import { FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 
 import {SignUpService} from '../services/signup.service';
-import {ValidationService} from '../services/validation.service';
+import {ValidationService} from '../../common/validation/services/validation.service';
 
 declare var jQuery:any;
 

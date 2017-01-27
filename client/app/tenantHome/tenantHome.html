@@ -16,10 +16,37 @@ Email Id: {{tenant.userEmail}}
 <br><br>
 Current area: {{tenant.userCurrentArea}}  <button type="submit" (click)="updateCurrentArea('surat')"> Edit </button>
 
-<div><button type="submit" (click)="changePassword()"> Change Password </button></div>
-<div><button type="submit" (click)="deleteAccount()"> Delete Account </button></div>
+<br><br>
+<div align="right"><button type="submit" (click)="showPswdDiv()"> Change Password </button>
+<div>{{errorMsg}} </div>
+<div *ngIf="chngPswd">
+    <form [formGroup]="chngPswdForm" (submit)="changePassword()"> 
+        
+        <div>
+            <input type="password" id="password" placeholder="Current Password" formControlName="cur_pswd"/> 
+            <control-messages [control]="chngPswdForm.controls.cur_pswd"></control-messages>
+        </div>
+        <div>
+            <input type="password" id="password" placeholder="New Password" formControlName="new_pswd" />
+            <control-messages [control]="chngPswdForm.controls.new_pswd"></control-messages>
+        </div>
+        <div>
+            <input type="password" id="password" placeholder="Re-type new Password" formControlName="new_repswd" />
+            <control-messages [control]="chngPswdForm.controls.new_repswd"></control-messages>    
+        </div>
+        <div [hidden]="!nomatch"> Passwords don't match.
+        </div>
+        <div>
+            <button type="submit" (click)="chngPswd=!chngPswd"> Cancel </button>    
+            <button type="submit" [disabled]="!chngPswdForm.valid"> Change Password </button> 
+        </div>
+    </form>
+</div>
+<br><br>
+<div align="right"><button type="submit" (click)="deleteAccount()"> Delete Account </button></div>
 <br/> 
-    city: {{tenant.userDesiredCity}} <br/>
+<div align="left">  city: {{tenant.userDesiredCity}} <br/> </div>
+   
    
 </div>
 <div> 

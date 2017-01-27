@@ -71,14 +71,15 @@ var TenantService = (function () {
         return this.http.put(app_routes_1.AppRoutes.updateUserFullNameURL, json, { headers: headers })
             .map(function (res) { return res.json(); });
     };
-    TenantService.prototype.changePassword = function (token, password) {
-        console.log(" new password: " + password);
+    TenantService.prototype.changePassword = function (token, cur_password, new_password) {
+        console.log(" current password: " + cur_password);
+        console.log(" new password: " + new_password);
         var headers = new http_2.Headers();
         headers.append('Content-Type', 'application/json');
-        var json = JSON.stringify({ token: token, password: password });
-        var params = new http_1.URLSearchParams();
-        params.set("token", token);
-        params.set("password", password);
+        var json = JSON.stringify({ token: token, cur_password: cur_password, new_password: new_password });
+        /*let params: URLSearchParams = new URLSearchParams();
+            params.set("token", token);
+            params.set("password", cur_password);*/
         return this.http.put(app_routes_1.AppRoutes.changePassword, json, { headers: headers })
             .map(function (res) { return res.json(); });
     };

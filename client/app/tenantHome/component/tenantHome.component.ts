@@ -1,11 +1,13 @@
 import { Component, OnInit} from '@angular/core';
 import {Http, Response, URLSearchParams} from '@angular/http';
 import { Router, ActivatedRoute, Params } from '@angular/router';
+import { FormBuilder, Validators } from '@angular/forms';
 
 import {Tenant} from '../../models/tenant';
 import {LoginService} from '../../login/services/login.service';
 import {TenantService} from '../../tenantHome/services/tenantHome.services';
 
+import {ValidationService} from '../../common/validation/services/validation.service';
 
 
 @Component({
@@ -23,7 +25,13 @@ export class TenantHomeComponent implements OnInit{
     private myTokn = "";      //get tenant profile
     private newNotf:number; //new notifications
    
-    //private changePswd: boolean = false //
+    private chngPswd: boolean = false //
+    private chngPswdForm;
+    private nomatch = false;
+    private errorMsg = '';
+    private successPswdMsg = 'Password changed successfully!';
+    private incorrectPswdError = "You entered incorrect current password. Try again!"
+    
     constructor (private loginService: LoginService,
                     private tenantService: TenantService,
                     private router: Router,
@@ -34,6 +42,14 @@ export class TenantHomeComponent implements OnInit{
 
     ngOnInit(){ 
         this.getProfile(this.myTokn);
+
+        let formB = new FormBuilder();
+
+        /*this.chngPswdForm = formB.group({
+            'cur_pswd': ['', [Validators.required, ValidationService.passwordValidator]],
+            'new_pswd': ['', [Validators.required, ValidationService.passwordValidator]],
+            'new_repswd': ['', [Validators.required, ValidationService.passwordValidator]],
+            });*/
     }
 
     getProfile(token) {
@@ -74,12 +90,38 @@ export class TenantHomeComponent implements OnInit{
         this.loginService.logout();
     }
     
-    changePassword(password:string) {
-        this.tenantService.changePassword(this.myTokn, password).
+    showPswdDiv() {
+        this.chngPswd = !this.chngPswd;
+        let formB = new FormBuilder();
+        this.chngPswdForm = formB.group({
+            'cur_pswd': ['', [Validators.required, ValidationService.passwordValidator]],
+            'new_pswd': ['', [Validators.required, ValidationService.passwordValidator]],
+            'new_repswd': ['', [Validators.required, ValidationService.passwordValidator]],
+            });
+    }
+
+    changePassword() {
+        if (this.chngPswdForm.value.new_pswd != this.chngPswdForm.value.new_repswd) {
+            this.nomatch = true;
+            return;
+        }
+        let oldpswd = this.chngPswdForm.value.cur_pswd;
+        let newpswd = this.chngPswdForm.value.new_pswd;
+
+        this.tenantService.changePassword(this.myTokn, oldpswd,newpswd).
         subscribe(
             (data)=> {
-                console.log("error:" + data.error);
+                console.log("data:" + data.status);
+                if(data.status == 900) {
+                    this.errorMsg = this.incorrectPswdError;
+                } else {
+                    this.errorMsg = this.successPswdMsg;
+                    this.chngPswd = false;
+                }
                 
+            }, 
+            (error)=> {
+                console.log("error:" + JSON.stringify(error));
             }
         )
     }
@@ -87,6 +129,9 @@ export class TenantHomeComponent implements OnInit{
     deleteAccount() {
         this.router.navigate(['/deleteAccount']);
     }
+
+    
+
     /*deleteAccount(): boolean {
         this.tenantService.deleteAccount(this.myTokn).
         subscribe((data) => {

@@ -8,7 +8,8 @@ import { ImageUploadModule} from 'angular2-image-upload';
 import { AppComponent }  from './app.component';
 import { HomePageComponent } from './homepage/component/homepage.component';
 import { SignUpComponent } from './signup/component/signup.component';
-import { ControlMessagesComponent } from './signup/component/control-messages.component';
+//import { ControlMessagesComponent } from './signup/component/control-messages.component';
+import { ControlMessagesComponent } from './common/control messages/component/control-messages.component';
 import { LoginComponent } from './login/component/login.component';
 import { SearchTenantsComponent} from './searchTenants/component/searchTenantsComponent';
 import { SearchFormComponent } from './common/search/component/searchFormComponent';
@@ -22,7 +23,8 @@ import { DeleteAccountComponent} from './tenantHome/component/deleteAccount.comp
 //service imports
 import { LoginService } from './login/services/login.service';
 import { SignUpService } from './signup/services/signup.service';
-import { ValidationService } from './signup/services/validation.service';
+//import { ValidationService } from './signup/services/validation.service';
+import { ValidationService } from './common/validation/services/validation.service';
 import { SearchTenantsService } from './searchTenants/services/searchTenants.services';
 import { InviteTenantService } from './inviteTenant/services/inviteTenant.services';
 import { AuthGuard } from './common/auth guard/authguard.services';

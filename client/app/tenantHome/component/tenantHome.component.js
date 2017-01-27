@@ -11,11 +11,12 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var core_1 = require("@angular/core");
 var http_1 = require("@angular/http");
 var router_1 = require("@angular/router");
+var forms_1 = require("@angular/forms");
 var tenant_1 = require("../../models/tenant");
 var login_service_1 = require("../../login/services/login.service");
 var tenantHome_services_1 = require("../../tenantHome/services/tenantHome.services");
+var validation_service_1 = require("../../common/validation/services/validation.service");
 var TenantHomeComponent = (function () {
-    //private changePswd: boolean = false //
     function TenantHomeComponent(loginService, tenantService, router, http) {
         this.loginService = loginService;
         this.tenantService = tenantService;
@@ -24,11 +25,22 @@ var TenantHomeComponent = (function () {
         this.tenant = new tenant_1.Tenant('', '');
         this.showDialog = false;
         this.myTokn = ""; //get tenant profile
+        this.chngPswd = false; //
+        this.nomatch = false;
+        this.errorMsg = '';
+        this.successPswdMsg = 'Password changed successfully!';
+        this.incorrectPswdError = "You entered incorrect current password. Try again!";
         this.myTokn = loginService.getToken();
         console.log("myTokn:" + this.myTokn);
     }
     TenantHomeComponent.prototype.ngOnInit = function () {
         this.getProfile(this.myTokn);
+        var formB = new forms_1.FormBuilder();
+        /*this.chngPswdForm = formB.group({
+            'cur_pswd': ['', [Validators.required, ValidationService.passwordValidator]],
+            'new_pswd': ['', [Validators.required, ValidationService.passwordValidator]],
+            'new_repswd': ['', [Validators.required, ValidationService.passwordValidator]],
+            });*/
     };
     TenantHomeComponent.prototype.getProfile = function (token) {
         var _this = this;
@@ -57,10 +69,35 @@ var TenantHomeComponent = (function () {
     TenantHomeComponent.prototype.logout = function () {
         this.loginService.logout();
     };
-    TenantHomeComponent.prototype.changePassword = function (password) {
-        this.tenantService.changePassword(this.myTokn, password).
+    TenantHomeComponent.prototype.showPswdDiv = function () {
+        this.chngPswd = !this.chngPswd;
+        var formB = new forms_1.FormBuilder();
+        this.chngPswdForm = formB.group({
+            'cur_pswd': ['', [forms_1.Validators.required, validation_service_1.ValidationService.passwordValidator]],
+            'new_pswd': ['', [forms_1.Validators.required, validation_service_1.ValidationService.passwordValidator]],
+            'new_repswd': ['', [forms_1.Validators.required, validation_service_1.ValidationService.passwordValidator]],
+        });
+    };
+    TenantHomeComponent.prototype.changePassword = function () {
+        var _this = this;
+        if (this.chngPswdForm.value.new_pswd != this.chngPswdForm.value.new_repswd) {
+            this.nomatch = true;
+            return;
+        }
+        var oldpswd = this.chngPswdForm.value.cur_pswd;
+        var newpswd = this.chngPswdForm.value.new_pswd;
+        this.tenantService.changePassword(this.myTokn, oldpswd, newpswd).
             subscribe(function (data) {
-            console.log("error:" + data.error);
+            console.log("data:" + data.status);
+            if (data.status == 900) {
+                _this.errorMsg = _this.incorrectPswdError;
+            }
+            else {
+                _this.errorMsg = _this.successPswdMsg;
+                _this.chngPswd = false;
+            }
+        }, function (error) {
+            console.log("error:" + JSON.stringify(error));
         });
     };
     TenantHomeComponent.prototype.deleteAccount = function () {

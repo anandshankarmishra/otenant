@@ -299,14 +299,50 @@ router.route("/updateUserProfile/")
 router.route("/changePassword/")
       .put(function(req,res){
           if(req.body.token && req.body.token != undefined){
-              if(req.body.password && req.body.password != undefined) {
+              //if(req.body.old_password && req.body.old_password != undefined) {
                  var token = req.body.token;
                  var decoded = jwt.verify(token, 'MY_SECRET');
 
                  var id = decoded._id;
-                 console.log("id:" + decoded._id) // bar
+                 console.log("chnage Pswd id:" + decoded._id) // bar
 
-                 UserProfile.findOne({'_id': id}, function (err,updatingUser){
+                 let cur_password = req.body.cur_password;
+                 let new_password = req.body.new_password;
+
+                 console.log("cur_password:" + cur_password);
+                 console.log (" new_password:" + new_password);
+
+                 if(cur_password && new_password) {
+                     //find the user with given id and current password
+                     UserProfile.findOne({'_id': id, 'userPassword': cur_password}, function (err,updatingUser){
+                     if(err) {
+                        response = {"error" : true,"message" : "Error fetching data"};
+                        }   else {
+                                //if user is found, update the new password for that user
+
+                                if (updatingUser != null) {
+                                    updatingUser.userPassword = new_password;
+
+                                    updatingUser.save(function(err){
+                                            if(err) {
+                                                response = {"error" : true, "status": 400};
+                                            } else {
+                                                console.log(" changed password!");
+                                                response = {"error" : false, "status": 200};
+                                            }
+                                            res.json(response);
+                                        });
+                                    } else {
+                                        console.log("Incorrect password!");
+                                        response = {"error" : true, "status": 900} // id and passwords did not match in database
+                                        res.json(response); 
+                                    }            
+
+                            }
+                        });// end of database activity
+                    }
+
+                 /*UserProfile.findOne({'_id': id}, function (err,updatingUser){
                     if(err) {
                         response = {"error" : true,"message" : "Error fetching data"};
                     } else {
@@ -328,8 +364,8 @@ router.route("/changePassword/")
                                 });
                         }            
                     }
-                }); //end of database activity
-         }
+                }); //end of database activity*/
+         //}
 
     } else {
         //invalid token or password
