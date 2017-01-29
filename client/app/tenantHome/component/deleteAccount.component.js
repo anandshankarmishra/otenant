@@ -36,6 +36,7 @@ var DeleteAccountComponent = (function () {
                     _this.error = _this.wrongPasswordMsg;
                 }
                 else if (data.error == false && data.status == 900) {
+                    _this.loginService.logout(); // remove token from local storage
                     _this.router.navigate(['']);
                 }
             }, function (error) {

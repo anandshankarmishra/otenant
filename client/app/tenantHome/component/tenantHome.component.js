@@ -30,6 +30,7 @@ var TenantHomeComponent = (function () {
         this.errorMsg = '';
         this.successPswdMsg = 'Password changed successfully!';
         this.incorrectPswdError = "You entered incorrect current password. Try again!";
+        this.editUser = false; // 
         this.myTokn = loginService.getToken();
         console.log("myTokn:" + this.myTokn);
     }
@@ -102,6 +103,11 @@ var TenantHomeComponent = (function () {
     };
     TenantHomeComponent.prototype.deleteAccount = function () {
         this.router.navigate(['/deleteAccount']);
+    };
+    TenantHomeComponent.prototype.showEditUser = function () {
+        this.editUser = !this.editUser;
+    };
+    TenantHomeComponent.prototype.updateProfile = function () {
     };
     return TenantHomeComponent;
 }());

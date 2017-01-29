@@ -10,12 +10,54 @@
 <notif-dialog [(visible)]="showDialog"> </notif-dialog>
 Welcome {{tenant.userFullName}}! <a id="myLink" (click)="logout();">Sign Out</a>
 <br><br>
-{{tenant.userFullName}}  <button type="submit" (click)="updateName('Ranjit Walia')"> Edit </button>
 <br><br>
-Email Id: {{tenant.userEmail}}
-<br><br>
-Current area: {{tenant.userCurrentArea}}  <button type="submit" (click)="updateCurrentArea('surat')"> Edit </button>
 
+<div> 
+{{tenant.userFullName}}  <button type="submit" (click)="showEditUser()"> Edit </button>  
+</div>
+
+<div> 
+    <table>
+    <tr>
+        <td><img src="http://localhost:3005/{{tenant.userPhotoFileName}}.jpg" class="img-height"/></td>
+        <td><button name="upload" type="submit" data-toggle="modal" data-target="#myModal5" class="btn btn-default btn-property-2 font-style-2"> Upload Image </button></td>
+        </tr>
+        
+</table>
+
+
+</div>
+<uploadImage></uploadImage>
+
+<div>
+Email Id: <div *ngIf="!editUser">{{tenant.userEmail}}
+            </div>
+            <div *ngIf="editUser">
+                <input #email type="text" placeholder='{{tenant.userEmail}}' />
+            </div>
+</div>
+<br>
+<div>
+Current area: <div *ngIf="!editUser">{{tenant.userCurrentArea}}
+            </div>
+            <div *ngIf="editUser">
+                <input #area type="text" placeholder='{{tenant.userCurrentArea}}' />
+            </div><br>
+</div>
+<div>
+Phone no. <div *ngIf="!editUser">{{tenant.userPhoneNo}}
+            </div>
+            <div *ngIf="editUser">
+                <input #phone type="text" placeholder='{{tenant.userPhoneNo}}' />
+            </div><br>
+</div>
+<div align="left">
+Desired City: <div *ngIf="!editUser">{{tenant.userDesiredCity}}
+            </div>
+            <div *ngIf="editUser">
+                <input type="text" placeholder='{{tenant.userDesiredCity}}' />
+            </div>
+</div>
 <br><br>
 <div align="right"><button type="submit" (click)="showPswdDiv()"> Change Password </button>
 <div>{{errorMsg}} </div>
@@ -45,13 +87,8 @@ Current area: {{tenant.userCurrentArea}}  <button type="submit" (click)="updateC
 <br><br>
 <div align="right"><button type="submit" (click)="deleteAccount()"> Delete Account </button></div>
 <br/> 
-<div align="left">  city: {{tenant.userDesiredCity}} <br/> </div>
-   
+
    
 </div>
-<div> 
- <button name="upload" type="submit" data-toggle="modal" data-target="#myModal5" class="btn btn-default btn-property-2 font-style-2"> Upload Image </button>
-</div>
-<uploadImage></uploadImage>
 <br/>
 

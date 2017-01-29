@@ -37,6 +37,7 @@ export class DeleteAccountComponent {
                         if (data.error == true && data.status == 999) {
                             this.error = this.wrongPasswordMsg;
                         } else if (data.error == false && data.status == 900) {
+                            this.loginService.logout(); // remove token from local storage
                             this.router.navigate(['']);
                         }
                     },

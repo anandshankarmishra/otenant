@@ -32,6 +32,8 @@ export class TenantHomeComponent implements OnInit{
     private successPswdMsg = 'Password changed successfully!';
     private incorrectPswdError = "You entered incorrect current password. Try again!"
     
+    private editUser: boolean = false; // 
+
     constructor (private loginService: LoginService,
                     private tenantService: TenantService,
                     private router: Router,
@@ -130,7 +132,13 @@ export class TenantHomeComponent implements OnInit{
         this.router.navigate(['/deleteAccount']);
     }
 
+    showEditUser() {
+        this.editUser = !this.editUser;
+    }
     
+    updateProfile() {
+    
+    }
 
     /*deleteAccount(): boolean {
         this.tenantService.deleteAccount(this.myTokn).
