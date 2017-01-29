@@ -14,8 +14,7 @@ var angular2_image_upload_1 = require("angular2-image-upload");
 var app_component_1 = require("./app.component");
 var homepage_component_1 = require("./homepage/component/homepage.component");
 var signup_component_1 = require("./signup/component/signup.component");
-//import { ControlMessagesComponent } from './signup/component/control-messages.component';
-var control_messages_component_1 = require("./common/control messages/component/control-messages.component");
+var control_messages_component_1 = require("./signup/component/control-messages.component");
 var login_component_1 = require("./login/component/login.component");
 var searchTenantsComponent_1 = require("./searchTenants/component/searchTenantsComponent");
 var searchFormComponent_1 = require("./common/search/component/searchFormComponent");
@@ -23,16 +22,18 @@ var inviteTenant_component_1 = require("./inviteTenant/component/inviteTenant.co
 var tenantHome_component_1 = require("./tenantHome/component/tenantHome.component");
 var notifications_component_1 = require("./common/notifications/component/notifications.component");
 var deleteAccount_component_1 = require("./tenantHome/component/deleteAccount.component");
+var test_component_1 = require("./test/component/test.component");
+var test_component_2 = require("./test/component/test.component");
 //import { SearchTenantsComponent } from './searchTenants/component/searchTenants.component';
 //service imports
 var login_service_1 = require("./login/services/login.service");
 var signup_service_1 = require("./signup/services/signup.service");
-//import { ValidationService } from './signup/services/validation.service';
-var validation_service_1 = require("./common/validation/services/validation.service");
+var validation_service_1 = require("./signup/services/validation.service");
 var searchTenants_services_1 = require("./searchTenants/services/searchTenants.services");
 var inviteTenant_services_1 = require("./inviteTenant/services/inviteTenant.services");
 var authguard_services_1 = require("./common/auth guard/authguard.services");
 var tenantHome_services_1 = require("./tenantHome/services/tenantHome.services");
+var searchForm_service_1 = require("./common/search/services/searchForm.service");
 var uploadImage_component_1 = require("./common/uploadImage/component/uploadImage.component");
 var app_routing_module_1 = require("./app-routing.module");
 var AppModule = (function () {
@@ -62,7 +63,9 @@ AppModule = __decorate([
             tenantHome_component_1.TenantHomeComponent,
             notifications_component_1.NotificationComponent,
             uploadImage_component_1.UploadImageComponent,
-            deleteAccount_component_1.DeleteAccountComponent
+            deleteAccount_component_1.DeleteAccountComponent,
+            test_component_1.TestComponent,
+            test_component_2.TrackScrollComponent
         ],
         providers: [
             signup_service_1.SignUpService,
@@ -71,7 +74,8 @@ AppModule = __decorate([
             searchTenants_services_1.SearchTenantsService,
             inviteTenant_services_1.InviteTenantService,
             authguard_services_1.AuthGuard,
-            tenantHome_services_1.TenantService
+            tenantHome_services_1.TenantService,
+            searchForm_service_1.SearchFormService
         ],
         bootstrap: [app_component_1.AppComponent]
     })

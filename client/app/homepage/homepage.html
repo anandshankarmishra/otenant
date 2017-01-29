@@ -6,7 +6,7 @@
 
 <div class="text-center">
 
-     <form [formGroup]="searchForm" (submit)="searchTenants()" class="form-inline" id="commentForm" role="form"  novalidate="novalidate">
+    <form [formGroup]="searchForm" (submit)="searchTenants()" class="form-inline" id="commentForm" role="form"  novalidate="novalidate">
                 <input type="text" formControlName="searchCity" id="usr-city" required="required" class="width-fld" placeholder="CITY" aria-required="true" style="margin-top:7px">
                 <input type="text" formControlName="searchArea" id="usr-area" required="required" class="width-fld" placeholder="AREA" aria-required="true" style="margin-top:7px">
                 <select formControlName="search_type_of_tenant" id="type_of_tenant" class="width-fld" style="margin-top:7px">
@@ -22,55 +22,28 @@
                     <option value="dfg">OTHERS</option>
 
                 </select>
-                <span class="visible-mob"><br/></span>
+                
                 <button class="button-style2" id="btnimage" type="submit" >
                     1
                 </button>
                 
-            </form>
-<!--<router-outlet></router-outlet>-->
+     </form>
+    <div class="text-center pos-track">
+        <p class="font-style-1">
+            LANDLORDS LOOKING FOR TENANTS
+        </p>
+    </div>
 
-
-        <!--<div class="text-center">
-            <form class="form-inline" id="commentForm" role="form"  novalidate="novalidate">
-                <input type="text"  name="usr-city" id="usr-city" required="required" class="width-fld" placeholder="CITY" aria-required="true" style="margin-top:7px">
-                <input type="text" name="usr-area" id="usr-area" required="required" class="width-fld" placeholder="AREA" aria-required="true" style="margin-top:7px">
-                <select class="width-fld" style="margin-top:7px">
-                    <option value="" disabled selected hidden>
-                        TYPE OF TENANTS
-                    </option>
-                    <option value="dfg">GROUP OF GIRLS</option>
-                    <option value="dfg">BACHELOR BOY</option>
-                    <option value="abc">FAMILY</option>
-                    <option value="dfg">BACHELOR GIRL</option>
-                    <option value="dfg">GROUP OF BOYS</option>
-                    <option value="dfg">UNMARRIED COUPLE</option>
-                    <option value="dfg">OTHERS</option>
-
-                </select>
-                <span class="visible-mob"><br/></span>
-                <button class="button-style2" id="btnimage" type="submit" >
-                    1
-                </button>
-            </form>
-        </div>
--->
-        <div class="text-center pos-track">
-            <p class="font-style-1">
-                LANDLORDS LOOKING FOR TENANTS
-            </p>
-        </div>
-
-      <div class="text-center pos-btn">
-            <button name="signup" type="submit" data-toggle="modal" data-target="#myModal2" class="btn btn-default pos-btn btn-property-1 font-style-2">
-                TENANTS SIGNUP HERE
-            </button>
-        </div>
+    <div class="text-center pos-btn">
+        <button name="signup" type="submit" data-toggle="modal" data-target="#myModal2" class="btn btn-default pos-btn btn-property-1 font-style-2">
+            TENANTS SIGNUP HERE
+        </button>
+    </div>
            
-<!--<signUp-dialog [(visible)]="showDialog">-->
-<signUp-dialog>
-</signUp-dialog>
-        </div>
+    <!--<signUp-dialog [(visible)]="showDialog">-->
+        <signUp-dialog>
+        </signUp-dialog>
+ </div>
 
         <p class="pos-or font-style-3">OR</p>
         

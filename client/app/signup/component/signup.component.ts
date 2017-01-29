@@ -6,7 +6,7 @@ import { FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 
 import {SignUpService} from '../services/signup.service';
-import {ValidationService} from '../../common/validation/services/validation.service';
+import {ValidationService} from '../services/validation.service';
 
 declare var jQuery:any;
 
@@ -95,8 +95,7 @@ export class SignUpComponent {
         this.signUpForm.value.password,
         this.signUpForm.value.city,
         this.signUpForm.value.area,
-        this.signUpForm.value.type_of_tenant,
-      
+        this.signUpForm.value.type_of_tenant
       );
     }
 

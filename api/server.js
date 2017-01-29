@@ -299,50 +299,14 @@ router.route("/updateUserProfile/")
 router.route("/changePassword/")
       .put(function(req,res){
           if(req.body.token && req.body.token != undefined){
-              //if(req.body.old_password && req.body.old_password != undefined) {
+              if(req.body.password && req.body.password != undefined) {
                  var token = req.body.token;
                  var decoded = jwt.verify(token, 'MY_SECRET');
 
                  var id = decoded._id;
-                 console.log("chnage Pswd id:" + decoded._id) // bar
+                 console.log("id:" + decoded._id) // bar
 
-                 let cur_password = req.body.cur_password;
-                 let new_password = req.body.new_password;
-
-                 console.log("cur_password:" + cur_password);
-                 console.log (" new_password:" + new_password);
-
-                 if(cur_password && new_password) {
-                     //find the user with given id and current password
-                     UserProfile.findOne({'_id': id, 'userPassword': cur_password}, function (err,updatingUser){
-                     if(err) {
-                        response = {"error" : true,"message" : "Error fetching data"};
-                        }   else {
-                                //if user is found, update the new password for that user
-
-                                if (updatingUser != null) {
-                                    updatingUser.userPassword = new_password;
-
-                                    updatingUser.save(function(err){
-                                            if(err) {
-                                                response = {"error" : true, "status": 400};
-                                            } else {
-                                                console.log(" changed password!");
-                                                response = {"error" : false, "status": 200};
-                                            }
-                                            res.json(response);
-                                        });
-                                    } else {
-                                        console.log("Incorrect password!");
-                                        response = {"error" : true, "status": 900} // id and passwords did not match in database
-                                        res.json(response); 
-                                    }            
-
-                            }
-                        });// end of database activity
-                    }
-
-                 /*UserProfile.findOne({'_id': id}, function (err,updatingUser){
+                 UserProfile.findOne({'_id': id}, function (err,updatingUser){
                     if(err) {
                         response = {"error" : true,"message" : "Error fetching data"};
                     } else {
@@ -364,8 +328,8 @@ router.route("/changePassword/")
                                 });
                         }            
                     }
-                }); //end of database activity*/
-         //}
+                }); //end of database activity
+         }
 
     } else {
         //invalid token or password
@@ -455,22 +419,15 @@ router.route("/changePassword/")
 //var upload = multer({dest:'uploads/'}).single('photo');
 router.route("/uploadPhoto")
         .post(function(req,res){
-            let token = req.headers.authorization;
-            console.log("body:" + token);
-            /*if(!req.body.token){
+            if(!req.body.token){
              return res.status(401).send("You are not authorized to access this api.");
          }
          else
          {
-             */
-            if (token && token!= undefined) {
-                
-                var decoded = jwt.verify(token, 'MY_SECRET');
-                var id = decoded._id;
-                console.log("upload img for user id:" + decoded._id) // bar
-                
-                var imgFileName =  'test';//require('crypto').createHash('sha1').update(req.session.user.userEmail).digest('base64');
-                var storage =   multer.diskStorage({
+             
+             var response = {};
+             var imgFileName =  require('crypto').createHash('sha1').update(req.session.user.userEmail).digest('base64');
+             var storage =   multer.diskStorage({
                  destination: function (req, file, callback) {
                      callback(null, 'uploads/');
                     },
@@ -478,50 +435,42 @@ router.route("/uploadPhoto")
                         callback(null, imgFileName + '.jpg');
                     }
                 });
-                var upload = multer({ storage : storage}).single('photo');
-                var response = {};
-
-                upload(req,res,function(err){
-                    if (err){
-                        console.log("error in upload:" + err);
-                        response = {"error" : true,"status":900};
-                        return res.json(response);
-                        //return res.end("Error in uploading file");
-                    } else {
+             var upload = multer({ storage : storage}).single('photo');
+             upload(req,res,function(err){
+                 if (err){
+                     return res.end("Error in uploading file");
+                 }
+                 else
+                 {
                      console.log(req.file);
-                     UserProfile.findOne({'_id': id}, function (err,updatingUser){
-                        if(err) {
-                            response = {"error" : true,"message" : "Error fetching data"};
-                        }
-                        else{
-                            // we got data from Mongo.
-                            // change it accordingly.
-                            if (updatingUser != null) {
-                                if(imgFileName !== undefined)
-                            {
-                                updatingUser.userPhotoFileName = imgFileName;
-                            }     
-                        
-                            updatingUser.save(function(err){
-                                if(err) {
-                                    response = {"error" : true,"status" : 900};
-                                } else {
-                                    response = {"error" : false, "status" : 999};
-                                }
-                                res.json(response);
-                            });
-                            } else { // user not found
-                                return res.status(401).send("You are not authorized to access this api.");
-                            }
-               
-                } 
-              })
-                
+                     return res.end("File uploaded!");
                  }
              })
-            } else { // no token or token is undefined
-                return res.status(401).send("You are not authorized to access this api.");
-            }
+             
+             UserProfile.findOne({'userEmail': req.session.user.userEmail}, function (err,updatingUser){
+                if(err) {
+                    response = {"error" : true,"message" : "Error fetching data"};
+                }
+                else{
+                     // we got data from Mongo.
+                     // change it accordingly.
+                if(imgFileName !== undefined)
+                    {
+                        updatingUser.userPhotoFileName = imgFileName;
+                    }     
+                
+                updatingUser.save(function(err){
+                        if(err) {
+                            response = {"error" : true,"message" : "Error updating data"};
+                        } else {
+                            response = {"error" : false,"message" : "User photo file name is updated for --> "+req.session.user.userEmail};
+                        }
+                        res.json(response);
+                    });
+                } 
+              })
+             
+         }
   }); 
 
 router.route("/activateAccount")
@@ -941,7 +890,7 @@ router.route('/searchTenants/')
           if(req.query.desired_city !== undefined)
           {
               desiredCity = req.query.desired_city;
-		console.log("desiredCity:" + desiredCity);
+		//console.log("desiredCity:" + desiredCity);
           }
           if(req.query.desired_areas !== undefined)
           {
@@ -951,11 +900,16 @@ router.route('/searchTenants/')
           {
               typesOfTenant = req.query.types_of_tenant;
           }
+          
+          let indx = req.query.index;
+          let lim = req.query.limit;
+          
+          console.log("index:" + indx + " lim:" + lim);
           //make a search in the db
           UserProfile.find({'userDesiredCity':desiredCity
 //				'userTypeOfTenant':{$in:typesOfTenant},
 //				'userDesiredArea':{$in:desiredAreas}
-				},function(err,reqdUsers){
+				}).skip(indx).limit(lim).exec(function(err,reqdUsers){
               if(err) {
 				console.log (" NO tenants found:!");
                 response = {"error" : true,"message" : "Error fetching data"};
@@ -963,6 +917,11 @@ router.route('/searchTenants/')
 		return res.json(response);
              }
              else{
+                 if (reqdUsers && reqdUsers.length == 0) {
+                     console.log("no tenants to return!");
+                     response = {"error" : false,"message" : "no tenants to return"}
+                     return  res.json(response);
+                 }
               //return res.json(reqdUsers);
 		console.log ("found tenants!");
 		return res.send(reqdUsers);

@@ -12,14 +12,16 @@ var searchTenantsComponent_1 = require("./searchTenants/component/searchTenantsC
 var tenantHome_component_1 = require("./tenantHome/component/tenantHome.component");
 var deleteAccount_component_1 = require("./tenantHome/component/deleteAccount.component");
 var authguard_services_1 = require("./common/auth guard/authguard.services");
+var test_component_1 = require("./test/component/test.component");
 //import { HeroDetailComponent }  from './hero-detail.component';
 var routes = [
+    { path: 'test', component: test_component_1.TestComponent },
     { path: '', component: homepage_component_1.HomePageComponent },
     { path: 'searchTenants', component: searchTenantsComponent_1.SearchTenantsComponent },
     { path: 'home', component: tenantHome_component_1.TenantHomeComponent,
         canActivate: [authguard_services_1.AuthGuard] },
     { path: 'deleteAccount', component: deleteAccount_component_1.DeleteAccountComponent },
-    { path: '**', component: homepage_component_1.HomePageComponent },
+    { path: '**', component: homepage_component_1.HomePageComponent }
 ];
 var AppRoutingModule = (function () {
     function AppRoutingModule() {

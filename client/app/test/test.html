@@ -1,0 +1,11 @@
+<div>
+<b>Test Component</b>
+<searchForm-view (tenantsSearched)=handleSearchedTenants($event) (resetTenantsArray)=handleResetTenantsArray($event)></searchForm-view>
+
+<div *ngFor="let te of searchedTenants" >
+    <div>
+     {{te.userFullName}} <br>
+     {{te.userEmail}} 
+</div>
+</div>
+</div>

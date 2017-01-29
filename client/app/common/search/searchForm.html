@@ -1,6 +1,7 @@
-<div class="text-center">
 
-     <form [formGroup]="searchForm" (submit)="searchTenants()" class="form-inline" id="commentForm" role="form"  novalidate="novalidate">
+
+<track-scroll [dontEmit]="dontSearchFurther" (pageScrolled)="handlePageScrollEvent($event)"></track-scroll>
+<form [formGroup]="searchForm" (submit)="searchTenants()" class="form-inline" id="commentForm" role="form"  novalidate="novalidate">
                 <input type="text" formControlName="searchCity" id="usr-city" class="width-fld" placeholder="CITYyyyy" aria-required="true" style="margin-top:7px">
                 <input type="text" formControlName="searchArea" id="usr-area" class="width-fld" placeholder="AREA" aria-required="true" style="margin-top:7px">
                 <select formControlName="search_type_of_tenant" id="type_of_tenant" class="width-fld" style="margin-top:7px">
@@ -20,9 +21,7 @@
                 <button class="button-style2" id="btnimage" type="submit" >
                     1
                 </button>
-                
-            </form>
-<!--<router-outlet></router-outlet>-->
+</form>
 
 
 

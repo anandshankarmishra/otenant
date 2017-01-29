@@ -12,7 +12,7 @@ import{Tenant } from '../../models/tenant';
  styleUrls:['../searchTenants.css']   
 })
 
-export class SearchTenantsComponent implements OnInit{
+export class SearchTenantsComponent {
        
     showDialog = false;
     tenant_email:string ='';
@@ -68,10 +68,12 @@ export class SearchTenantsComponent implements OnInit{
                       tenantType: this.searchForm.value. search_type_of_tenant} }
           );
 
+
             this.getTenants(this.searchForm.value.searchCity,
                       this.searchForm.value.searchArea,
                       this.searchForm.value. search_type_of_tenant);
-      }
+  
+    }
     }
 
     onClick(tenant:Tenant) {

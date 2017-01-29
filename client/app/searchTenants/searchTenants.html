@@ -5,7 +5,9 @@
 <div class="text-center">
     <a href="http://localhost:3000/">
             <img src="app/homepage/images/O-tenant.svg" class="img-height" >
-            </a>
+    </a>
+    
+    
      <form [formGroup]="searchForm" (submit)="searchTenants()" class="form-inline" id="commentForm" role="form"  novalidate="novalidate">
                 <input type="text" formControlName="searchCity" id="usr-city" required="required" class="width-fld" placeholder="CITY" aria-required="true" style="margin-top:7px">
                 <input type="text" formControlName="searchArea" id="usr-area" required="required" class="width-fld" placeholder="AREA" aria-required="true" style="margin-top:7px">
@@ -27,7 +29,8 @@
                     1
                 </button>
                 
-            </form>
+     </form>
+     
 
 <!--<router-outlet></router-outlet>-->
 
