@@ -16,6 +16,8 @@ var SearchFormComponent = (function () {
         this.searchFormService = searchFormService;
         this.route = route;
         this.router = router;
+        this.errorCityEmpty = "The city field can not be empty, please supply a value.";
+        this.errorMsg = "";
         this.myOptions = [
             { id: 'GOG', name: 'GROUP OF GIRLS' },
             { id: 'BB', name: 'BACHELOR BOY' },
@@ -59,11 +61,13 @@ var SearchFormComponent = (function () {
         this.searchFormService.searchTenants(desired_city, desired_area, type_of_tenant, indx, limt)
             .subscribe(function (result) {
             if (result.length % 20 != 0) {
+                console.log("from %20 wala if" + result);
                 _this.tenantsSearched.emit(result);
                 _this.dontSearchFurther = true;
                 return;
             }
             else {
+                console.log("from %20 wala else" + result);
                 _this.tenantsSearched.emit(result);
                 console.log("index:" + _this.index);
             }
@@ -79,6 +83,10 @@ var SearchFormComponent = (function () {
         this.index = 0; //show results from top
         this.dontSearchFurther = false;
         this.resetTenantsArray.emit(true);
+        if (searchCity == "") {
+            this.errorMsg = this.errorCityEmpty;
+            return;
+        }
         this.getTenants(searchCity, searchAreas, typesOfTenant, this.index, this.numOfTenantsToShow);
     };
     SearchFormComponent.prototype.handlePageScrollEvent = function (event) {
@@ -87,6 +95,7 @@ var SearchFormComponent = (function () {
         this.getTenants(this.searchCity, this.searchAreas, this.typesOfTenant, this.index, this.numOfTenantsToShow);
     };
     SearchFormComponent.prototype.onChange = function (event) {
+        console.log("got following from search form");
         console.log(event);
     };
     return SearchFormComponent;

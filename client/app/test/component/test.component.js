@@ -23,6 +23,7 @@ var TestComponent = (function () {
         //     this.searchedTenants = []; // reset the array
         //     return
         // }
+        console.log("from handleSearchedTenants" + tenants);
         if (this.searchedTenants.length == 0) {
             this.searchedTenants = tenants;
         }

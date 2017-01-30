@@ -16,12 +16,13 @@ export class TestComponent {
    // resetSearchedTenants:boolean = false;
     private searchedTenants:Tenant[] = [];    
         
-    handleSearchedTenants(tenants){
+    handleSearchedTenants(tenants:Tenant[]){
         
         // if (this.resetSearchedTenants == true) {
         //     this.searchedTenants = []; // reset the array
         //     return
         // }
+        console.log("from handleSearchedTenants"+tenants);
         if (this.searchedTenants.length == 0) {
             this.searchedTenants = tenants;    
         } else {

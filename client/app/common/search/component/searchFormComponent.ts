@@ -16,6 +16,8 @@ import {IMultiSelectOption,IMultiSelectSettings,IMultiSelectTexts} from 'angular
 
 export class SearchFormComponent {
 
+    private errorCityEmpty="The city field can not be empty, please supply a value.";
+    private errorMsg = "";
     private searchCity; private searchAreas; private typesOfTenant;
     private selectedOptions: String[];
     private myOptions: IMultiSelectOption[] = [
@@ -83,12 +85,14 @@ export class SearchFormComponent {
     {
 
       if (result.length % 20 !=0) {
+        console.log("from %20 wala if"+result);
         this.tenantsSearched.emit(result);
         this.dontSearchFurther = true;
         return;
          
       } else {
-        this.tenantsSearched.emit(result);
+       console.log("from %20 wala else"+result);
+       this.tenantsSearched.emit(result);
        console.log("index:" + this.index);
       }
       
@@ -111,6 +115,12 @@ export class SearchFormComponent {
      this.index = 0;//show results from top
      this.dontSearchFurther = false;
      this.resetTenantsArray.emit(true);
+     
+     if(searchCity == ""){
+       this.errorMsg = this.errorCityEmpty;
+       return;
+     }
+     
      this.getTenants(searchCity,searchAreas,typesOfTenant,this.index, this.numOfTenantsToShow);
       
     }
@@ -122,6 +132,7 @@ export class SearchFormComponent {
     }
 
     onChange(event){
+      console.log("got following from search form");
       console.log(event);
     }    
 

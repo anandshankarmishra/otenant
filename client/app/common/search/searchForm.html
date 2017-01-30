@@ -2,7 +2,7 @@
 <form class="form-inline" id="commentForm" role="form">
    <table>
         <tr>
-            <td><input type="text" #searchCity class="width-fld" placeholder="CITYyyyy" aria-required="true" style="margin-top:7px"></td>
+            <td><input type="text" #searchCity class="width-fld" placeholder="CITYyyyy" aria-required="true" style="margin-top:7px" required></td>
             <td><input type="text" #searchAreas class="width-fld" placeholder="AREA" aria-required="true" style="margin-top:7px"></td>
             <td>
                 <ss-multiselect-dropdown name="types_of_tenant" [(ngModel)]="selectedOptions" (ngModelChange)="onChange($event)" [options]="myOptions" [texts]="myTexts" [settings]="mySettings">

@@ -969,15 +969,17 @@ router.route("/updateNotifications/")
 
 router.route('/searchTenants/')
       .get(function(req,res){
-	console.log("searching now tenants..." + req.query.desired_city + " ," +  req.query.desired_areas + " ," + req.query.types_of_tenant);
+    	console.log("searching now tenants..." + req.query.desired_city + " ," +  req.query.desired_areas + " ," + req.query.types_of_tenant);
           //collect the search parameters
+          var queryJSON = {};
           var desiredCity = "";
           var desiredAreas = [];
           var typesOfTenant = [];
           if(req.query.desired_city !== undefined)
           {
               desiredCity = req.query.desired_city;
-		//console.log("desiredCity:" + desiredCity);
+		      //queryString = queryString+'"userDesiredCity":'+'"'+desiredCity+'"'
+              queryJSON['userDesiredCity']=desiredCity;
           }
           if(req.query.desired_areas !== undefined)
           {
@@ -985,6 +987,8 @@ router.route('/searchTenants/')
             if(desired_areas != null && desired_areas != undefined && desired_areas != '')
             {
                 desiredAreas = desired_areas.split(',');
+                //queryString = queryString + ",'userDesiredArea':{$in:desiredAreas}"
+                queryJSON['userDesiredArea']=desiredAreas;
             }
           }
           if(req.query.types_of_tenant !== undefined)
@@ -993,13 +997,14 @@ router.route('/searchTenants/')
             if(types_of_tenant != null && types_of_tenant != undefined && types_of_tenant != '')
             {
                 typesOfTenant = types_of_tenant.split(',');
+                //queryString = queryString + ",'userTypeOfTenant':{$in:typesOfTenant}"
+                queryJSON['userTypeOfTenant']=typesOfTenant;
             }
           }
 
-          if(req.query.types_of_tenant !== undefined)
-          {
-              typesOfTenant = req.query.types_of_tenant;
-          }
+          //queryString = queryString;
+          console.log(queryJSON);
+          //console.log(JSON.parse(queryJSON));
           
           let indx = req.query.index;
           let lim = req.query.limit;
@@ -1007,29 +1012,37 @@ router.route('/searchTenants/')
           console.log("index:" + indx + " lim:" + lim);
           console.log("Array of the areas:");
           console.log(desiredAreas);
-           console.log("Array of the types of tenants:");
+          console.log("Array of the types of tenants:");
           console.log(typesOfTenant);
           //make a search in the db
           
-          UserProfile.find({'userDesiredCity':desiredCity,
-				'userTypeOfTenant':{$in:typesOfTenant},
-				'userDesiredArea':{$in:desiredAreas}
-				}).skip(indx).limit(lim).exec(function(err,reqdUsers){
+          if(queryJSON == {})
+          {
+              // No parameters supplied, hence returning an error for now, need to look into it.
+                console.log ("NO tenants found:!");
+                response = {"error": true,"message" : "query string empty"};
+		        return res.json(response);
+          }
+          
+          
+          UserProfile.find(queryJSON).skip(indx).limit(lim).exec(function(err,reqdUsers){
               if(err) {
-				console.log (" NO tenants found:!");
-                response = {"error" : true,"message" : "Error fetching data"};
-		//comment this line later 
-		return res.json(response);
+				console.log ("Error fetching data. No tenants found:!");
+                response = {"error" : true,"message" : "Error fetching data.db ERROR."};
+    	        return res.json(response);
              }
              else{
 				if (reqdUsers && reqdUsers.length == 0) {
                      console.log("no tenants to return!");
-                     response = {"error" : false,"message" : "no tenants to return"}
-                     return  res.json(response);
+                     //response = {"error" : false,"message" : "no tenants to return"}
+                     //return  res.json(response);
+                     console.log(reqdUsers);
+                     return res.send(reqdUsers);
                  }
               //return res.json(reqdUsers);
-		console.log ("found tenants!");
-		return res.send(reqdUsers);
+        		console.log ("found tenants!");
+		        console.log(reqdUsers);
+                return res.send(reqdUsers);
              }  
                             
           });

@@ -8,29 +8,40 @@ var i;
 var city = ["noida","surat","delhi","gurgaon","jalesar","patna","lucknow"];
 var areas = ["sec51","sec52","sec53","sec54","sec55","sec56","sec57"];
 var types = ["BB","BG","GOG","GOB","UC","FAM","OTH"];
+var cityStub, areaStub,typeStub;
 //********CAUTION BELOW LINE WILL REMOVE ALL USERS*******
+cityStub = city[Math.floor(Math.random() * 8)];
+areaStub = areas[Math.floor(Math.random() * 8)];
+typeStub = types[Math.floor(Math.random() * 8)];
+
 db.users.remove({});
 db.users.insert({
 	"_id" : ObjectId("588c1f807d6893d132bee730"),
-	"userTypeOfTenant" : "BB",
-	"userDesiredCity" : "noida",
-	"userFullName" : "Mohit",
+	"userTypeOfTenant" : typeStub,
+	"userDesiredCity" : "'"+cityStub+"'",
+	"userFullName" : typeStub+"_"+cityStub+"_"+areaStub+"Mohit",
 	"userPassword" : "deadsea123",
 	"userEmail" : "0mittal@gmail.com",
 	"userNotifications" : [],
 	"userDesiredArea" : [
-		"sec52", "sec53", "sec54"
+		"'"+areaStub+"'"
 	],
     "__v" : 0
    });
 //CHANGE NUMBER HERE FOR A CERTAIN NUMBER OF RECORDS
 for (i = 1; i <= 4; i++) {
+
+   cityStub = city[Math.floor(Math.random() * 8)];
+   areaStub = areas[Math.floor(Math.random() * 8)];
+   typeStub = types[Math.floor(Math.random() * 8)];
+   
    x = db.users.findOne();
    x._id = new ObjectId()
    x.userEmail = i+"mittal"+"@gmail.com";
-   x.userDesiredCity = city[Math.floor(Math.random() * 8)];
-   x.userDesiredArea = areas[Math.floor(Math.random() * 8)];
-   x.userTypeOfTenant= types[Math.floor(Math.random() * 8)];
+   x.userDesiredCity = cityStub;
+   x.userDesiredArea = areaStub;
+   x.userTypeOfTenant= typeStub;
+   x.userFullName = typeStub+"_"+cityStub+"_"+areaStub+"Mohit";
    db.users.insert(x);
    
 }
