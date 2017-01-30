@@ -21,7 +21,6 @@ var SearchFormService = (function () {
     SearchFormService.prototype.searchTenants = function (desired_city, desired_areas, types_of_tenant, indx, limt) {
         var headers = new http_2.Headers();
         headers.append('Content-Type', 'application/json');
-        var json = JSON.stringify({ desired_city: desired_city, desired_areas: desired_areas, types_of_tenant: types_of_tenant });
         var params = new http_1.URLSearchParams();
         params.set("desired_city", desired_city);
         params.set("desired_areas", desired_areas);

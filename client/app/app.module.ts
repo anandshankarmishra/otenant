@@ -3,6 +3,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { HttpModule }    from '@angular/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ImageUploadModule} from 'angular2-image-upload';
+import {MultiselectDropdownModule} from 'angular-2-dropdown-multiselect/src/multiselect-dropdown';
 
 //component imports
 import { AppComponent }  from './app.component';
@@ -44,7 +45,9 @@ import { AppRoutingModule }     from './app-routing.module';
     FormsModule,
     ReactiveFormsModule,
     AppRoutingModule,
+    MultiselectDropdownModule,
     ImageUploadModule.forRoot(),
+    
   ],
   
   declarations: [ 

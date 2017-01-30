@@ -10,6 +10,7 @@ var platform_browser_1 = require("@angular/platform-browser");
 var http_1 = require("@angular/http");
 var forms_1 = require("@angular/forms");
 var angular2_image_upload_1 = require("angular2-image-upload");
+var multiselect_dropdown_1 = require("angular-2-dropdown-multiselect/src/multiselect-dropdown");
 //component imports
 var app_component_1 = require("./app.component");
 var homepage_component_1 = require("./homepage/component/homepage.component");
@@ -49,6 +50,7 @@ AppModule = __decorate([
             forms_1.FormsModule,
             forms_1.ReactiveFormsModule,
             app_routing_module_1.AppRoutingModule,
+            multiselect_dropdown_1.MultiselectDropdownModule,
             angular2_image_upload_1.ImageUploadModule.forRoot(),
         ],
         declarations: [

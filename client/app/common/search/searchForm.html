@@ -1,27 +1,58 @@
-
-
 <track-scroll [dontEmit]="dontSearchFurther" (pageScrolled)="handlePageScrollEvent($event)"></track-scroll>
-<form [formGroup]="searchForm" (submit)="searchTenants()" class="form-inline" id="commentForm" role="form"  novalidate="novalidate">
-                <input type="text" formControlName="searchCity" id="usr-city" class="width-fld" placeholder="CITYyyyy" aria-required="true" style="margin-top:7px">
-                <input type="text" formControlName="searchArea" id="usr-area" class="width-fld" placeholder="AREA" aria-required="true" style="margin-top:7px">
-                <select formControlName="search_type_of_tenant" id="type_of_tenant" class="width-fld" style="margin-top:7px">
+<form class="form-inline" id="commentForm" role="form">
+   <table>
+        <tr>
+            <td><input type="text" #searchCity class="width-fld" placeholder="CITYyyyy" aria-required="true" style="margin-top:7px"></td>
+            <td><input type="text" #searchAreas class="width-fld" placeholder="AREA" aria-required="true" style="margin-top:7px"></td>
+            <td>
+                <ss-multiselect-dropdown name="types_of_tenant" [(ngModel)]="selectedOptions" (ngModelChange)="onChange($event)" [options]="myOptions" [texts]="myTexts" [settings]="mySettings">
+                </ss-multiselect-dropdown>
+            </td>
+            <td>
+                <button class="button-style2" id="btnimage" type="submit" (click)="searchTenants(searchCity.value,searchAreas.value,selectedOptions)">
+                    1
+                </button>
+            </td>
+        </tr>
+    </table>
+                
+                
+                
+                <!--<select formControlName="search_type_of_tenant" id="types_of_tenant" class="width-fld" style="margin-top:7px">
                     <option value="" disabled selected hidden>
                         TYPE OF TENANTS
                     </option>
-                    <option value="dfg">GROUP OF GIRLS</option>
-                    <option value="dfg">BACHELOR BOY</option>
-                    <option value="abc">FAMILY</option>
-                    <option value="dfg">BACHELOR GIRL</option>
-                    <option value="dfg">GROUP OF BOYS</option>
-                    <option value="dfg">UNMARRIED COUPLE</option>
-                    <option value="dfg">OTHERS</option>
+                    <option value="GOG">GROUP OF GIRLS</option>
+                    <option value="BB">BACHELOR BOY</option>
+                    <option value="FAM">FAMILY</option>
+                    <option value="BG">BACHELOR GIRL</option>
+                    <option value="GOB">GROUP OF BOYS</option>
+                    <option value="UC">UNMARRIED COUPLE</option>
+                    <option value="OTH">OTHERS</option>
 
-                </select>
+                </select>-->
                 <!--<span class="visible-mob"><br/></span>-->
-                <button class="button-style2" id="btnimage" type="submit" >
-                    1
-                </button>
+                
+                
+
 </form>
 
 
+
+
+<!--<h2>jQuery MultiSelect With Select All Option</h2>
+<select name="langOpt3[]" multiple id="langOpt3">
+<option value="C++">C++</option>
+<option value="C#">C#</option>
+<option value="Java">Java</option>
+<option value="Objective-C">Objective-C</option>
+<option value="JavaScript">JavaScript</option>
+<option value="Perl">Perl</option>
+<option value="PHP">PHP</option>
+<option value="Ruby on Rails">Ruby on Rails</option>
+<option value="Android">Android</option>
+<option value="iOS">iOS</option>
+<option value="HTML">HTML</option>
+<option value="XML">XML</option>
+</select>-->
 

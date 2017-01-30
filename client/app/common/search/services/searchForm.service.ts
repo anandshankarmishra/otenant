@@ -19,8 +19,6 @@ export class SearchFormService {
     var headers = new Headers();
     headers.append('Content-Type','application/json');
 
-    var json = JSON.stringify({desired_city ,desired_areas, types_of_tenant});
-    
    let params: URLSearchParams = new URLSearchParams();
     params.set("desired_city", desired_city);
     params.set("desired_areas", desired_areas);
