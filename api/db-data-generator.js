@@ -29,11 +29,11 @@ db.users.insert({
     "__v" : 0
    });
 //CHANGE NUMBER HERE FOR A CERTAIN NUMBER OF RECORDS
-for (i = 1; i <= 4; i++) {
+for (i = 1; i <= 1000; i++) {
 
-   cityStub = city[Math.floor(Math.random() * 8)];
-   areaStub = areas[Math.floor(Math.random() * 8)];
-   typeStub = types[Math.floor(Math.random() * 8)];
+   cityStub = city[Math.floor(Math.random() * 7)];
+   areaStub = areas[Math.floor(Math.random() * 7)];
+   typeStub = types[Math.floor(Math.random() * 7)];
    
    x = db.users.findOne();
    x._id = new ObjectId()
@@ -45,6 +45,9 @@ for (i = 1; i <= 4; i++) {
    db.users.insert(x);
    
 }
+
+count = db.users.count();
+print("Inserted "+ count +" records. Example records follow.")
 
 // index = i;
 
@@ -69,8 +72,7 @@ for (i = 1; i <= 4; i++) {
 //    db.users.insert(x);
 // }
 
-count = db.users.count();
-print("Inserted "+ count +" records. Example records follow.")
+
 
 //  cursor = db.users.find();
 //  while ( cursor.hasNext() ) {

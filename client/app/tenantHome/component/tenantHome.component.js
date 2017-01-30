@@ -43,12 +43,6 @@ var TenantHomeComponent = (function () {
     }
     TenantHomeComponent.prototype.ngOnInit = function () {
         this.getProfile(this.myTokn);
-        //let formB = new FormBuilder();
-        /*this.chngPswdForm = formB.group({
-            'cur_pswd': ['', [Validators.required, ValidationService.passwordValidator]],
-            'new_pswd': ['', [Validators.required, ValidationService.passwordValidator]],
-            'new_repswd': ['', [Validators.required, ValidationService.passwordValidator]],
-            });*/
     };
     TenantHomeComponent.prototype.getProfile = function (token) {
         var _this = this;

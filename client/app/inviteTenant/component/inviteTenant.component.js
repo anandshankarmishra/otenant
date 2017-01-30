@@ -27,7 +27,7 @@ var InviteTenantComponent = (function () {
         this.inviteTenantForm = this.formBuilder.group({
             'name': ['', forms_1.Validators.required],
             'email': ['', [forms_1.Validators.required, validation_service_1.ValidationService.emailValidator]],
-            'contact': ['', [forms_1.Validators.required, validation_service_1.ValidationService.phoneValidator]],
+            'contact': ['', [forms_1.Validators.required, validation_service_1.ValidationService.phoneNumValidator]],
             'message': ['']
         });
     }

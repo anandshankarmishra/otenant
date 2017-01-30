@@ -2,7 +2,7 @@
 <b>Test Component</b>
 {{errorMsg}}
 <searchForm-view (tenantsSearched)=handleSearchedTenants($event) (resetTenantsArray)=handleResetTenantsArray($event)></searchForm-view>
-<div *ngIf = "searchedTenants.length !== 0">
+<div *ngIf = "searchedTenants.length !== 0">  
 <div *ngFor="let te of searchedTenants" >
     <div>
      {{te.userFullName}} <br>

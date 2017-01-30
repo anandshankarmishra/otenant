@@ -975,10 +975,11 @@ router.route('/searchTenants/')
           var desiredCity = "";
           var desiredAreas = [];
           var typesOfTenant = [];
+                    
           if(req.query.desired_city !== undefined)
           {
               desiredCity = req.query.desired_city;
-		      //queryString = queryString+'"userDesiredCity":'+'"'+desiredCity+'"'
+              console.log("desiredCity: "+desiredCity);
               queryJSON['userDesiredCity']=desiredCity;
           }
           if(req.query.desired_areas !== undefined)
@@ -987,8 +988,8 @@ router.route('/searchTenants/')
             if(desired_areas != null && desired_areas != undefined && desired_areas != '')
             {
                 desiredAreas = desired_areas.split(',');
-                //queryString = queryString + ",'userDesiredArea':{$in:desiredAreas}"
-                queryJSON['userDesiredArea']=desiredAreas;
+                console.log("desiredAreas: "+desiredAreas);
+                queryJSON['userDesiredArea']={$in:desiredAreas};
             }
           }
           if(req.query.types_of_tenant !== undefined)
@@ -997,14 +998,12 @@ router.route('/searchTenants/')
             if(types_of_tenant != null && types_of_tenant != undefined && types_of_tenant != '')
             {
                 typesOfTenant = types_of_tenant.split(',');
-                //queryString = queryString + ",'userTypeOfTenant':{$in:typesOfTenant}"
-                queryJSON['userTypeOfTenant']=typesOfTenant;
+                console.log("typesOfTenant: "+typesOfTenant);
+                queryJSON['userTypeOfTenant']={$in:typesOfTenant};
             }
           }
 
-          //queryString = queryString;
           console.log(queryJSON);
-          //console.log(JSON.parse(queryJSON));
           
           let indx = req.query.index;
           let lim = req.query.limit;
