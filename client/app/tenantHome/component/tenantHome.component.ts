@@ -19,7 +19,7 @@ import {ValidationService} from '../../common/validation/services/validation.ser
 
 export class TenantHomeComponent implements OnInit{
 
-    tenant:Tenant = new Tenant('','');
+    tenant:Tenant = new Tenant();
     private showDialog = false;
 
     private myTokn = "";      //get tenant profile
@@ -34,24 +34,31 @@ export class TenantHomeComponent implements OnInit{
     
     private editUser: boolean = false; // 
 
+    private updateProfileForm;
+
     constructor (private loginService: LoginService,
                     private tenantService: TenantService,
                     private router: Router,
                     private http:Http ) {
-                this.myTokn = loginService.getToken();
-                console.log("myTokn:" + this.myTokn);
+            
+            this.myTokn = loginService.getToken();
+
+                 
+            let formB = new FormBuilder();
+        
+            this.updateProfileForm = formB.group({
+            'userCurrentArea': [''],
+            'userPhoneNo': ['',[ValidationService.phoneNumValidator]],
+            'userDesiredCity': [''],
+            'userDesiredArea': [''],
+            'userRequirementDescription' : ['']
+            });
+
+
     }
 
     ngOnInit(){ 
         this.getProfile(this.myTokn);
-
-        let formB = new FormBuilder();
-
-        /*this.chngPswdForm = formB.group({
-            'cur_pswd': ['', [Validators.required, ValidationService.passwordValidator]],
-            'new_pswd': ['', [Validators.required, ValidationService.passwordValidator]],
-            'new_repswd': ['', [Validators.required, ValidationService.passwordValidator]],
-            });*/
     }
 
     getProfile(token) {
@@ -73,19 +80,6 @@ export class TenantHomeComponent implements OnInit{
 
     viewNotifications() {
         
-    }
-
-    updateName(name:string) {
-        this.tenantService.updateName(this.myTokn, name)
-        .subscribe(
-            (data) => {
-                console.log("update error:" + data.error);
-                this.tenant.userFullName = name;
-            },
-            (err) => {
-                console.log("upload error:" + err.message);
-            }
-        )
     }
     
     logout() {
@@ -132,14 +126,36 @@ export class TenantHomeComponent implements OnInit{
         this.router.navigate(['/deleteAccount']);
     }
 
+    //show the editable textboxes 
     showEditUser() {
         this.editUser = !this.editUser;
     }
     
     updateProfile() {
-    
+            console.log("updating profile!");
+
+            let tenant = new Tenant();
+            tenant.userCurrentArea = this.updateProfileForm.value.userCurrentArea;
+            tenant.userDesiredArea = this.updateProfileForm.value.userDesiredArea;
+            tenant.userPhoneNo = this.updateProfileForm.value.userPhoneNo;
+            tenant.userRequirementDescription = this.updateProfileForm.value.userRequirementDescription;
+
+
+            this.tenantService.updateTenantProfile(this.myTokn, tenant).
+            subscribe((data) => 
+            {
+                console.log("data:" + data.error);
+                this.router.navigate(['/home']);
+            },
+            (err) => {
+                console.log("error:" + JSON.stringify(err));
+            }
+            )
+
+
     }
 
+    
     /*deleteAccount(): boolean {
         this.tenantService.deleteAccount(this.myTokn).
         subscribe((data) => {

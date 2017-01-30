@@ -44,8 +44,21 @@ var TenantService = (function () {
                 .map(function (res) { return res.json(); });
         }
     };
-    TenantService.prototype.updateTenantProfile = function (token) {
+    TenantService.prototype.updateTenantProfile = function (token, tenant) {
         if (token) {
+            var headers = new http_2.Headers();
+            headers.append('Content-Type', 'application/json');
+            var userDesiredArea = tenant.userDesiredArea;
+            var userDesiredCity = tenant.userDesiredCity;
+            var userPhoneNo = tenant.userPhoneNo;
+            var userRequirementDescription = tenant.userRequirementDescription;
+            var userCurrentArea = tenant.userCurrentArea;
+            console.log("updating:" + userDesiredArea + userDesiredCity +
+                userPhoneNo + userRequirementDescription + userCurrentArea);
+            var json = JSON.stringify({ token: token, userDesiredArea: userDesiredArea, userDesiredCity: userDesiredCity,
+                userPhoneNo: userPhoneNo, userRequirementDescription: userRequirementDescription, userCurrentArea: userCurrentArea });
+            return this.http.put(app_routes_1.AppRoutes.updateUserProfileURL, json, { headers: headers })
+                .map(function (res) { return res.json(); });
         }
     };
     //takes user token and notification id to approve a particular notification
@@ -54,21 +67,7 @@ var TenantService = (function () {
         var headers = new http_2.Headers();
         headers.append('Content-Type', 'application/json');
         var json = JSON.stringify({ token: token, notification: notification });
-        var params = new http_1.URLSearchParams();
-        params.set("token", token);
-        params.set("_id:", notification);
         return this.http.put(app_routes_1.AppRoutes.approveNotification, json, { headers: headers })
-            .map(function (res) { return res.json(); });
-    };
-    TenantService.prototype.updateName = function (token, userFullName) {
-        console.log("updating name:" + name);
-        var headers = new http_2.Headers();
-        headers.append('Content-Type', 'application/json');
-        var json = JSON.stringify({ token: token, userFullName: userFullName });
-        var params = new http_1.URLSearchParams();
-        params.set("token", token);
-        params.set("userFullName", userFullName);
-        return this.http.put(app_routes_1.AppRoutes.updateUserFullNameURL, json, { headers: headers })
             .map(function (res) { return res.json(); });
     };
     TenantService.prototype.changePassword = function (token, cur_password, new_password) {
@@ -91,7 +90,7 @@ var TenantService = (function () {
         //headers.append('Content-Type','multipart/form-data');
         var options = new http_1.RequestOptions({ headers: headers });
         var formData = new FormData();
-        formData.append('token', token);
+        formData.append('token', token); //use same keys on server side to extract values
         formData.append('photo', photo);
         //var json = JSON.stringify({token, photo});
         /* let params: URLSearchParams = new URLSearchParams();

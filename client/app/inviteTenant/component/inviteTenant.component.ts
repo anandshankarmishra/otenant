@@ -2,7 +2,7 @@ import { Component, OnInit, Input, Output, OnChanges, EventEmitter, trigger,
     state, style, animate, transition, NgModule } from '@angular/core';
 
 import {InviteTenantService} from '../services/inviteTenant.services';
-import {ValidationService} from '../../commonServices/validation.service';
+import {ValidationService} from '../../common/validation/services/validation.service';
 import { FormBuilder, Validators } from '@angular/forms';
 
 @Component({
@@ -46,7 +46,7 @@ export class InviteTenantComponent {
         this.inviteTenantForm = this.formBuilder.group({
         'name': ['', Validators.required],
         'email': ['', [Validators.required, ValidationService.emailValidator]],
-        'contact': ['', Validators.required],
+        'contact': ['', [Validators.required, ValidationService.phoneNumValidator]],
         'message': ['']
         });
         

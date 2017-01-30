@@ -5,9 +5,9 @@ var ValidationService = (function () {
     ValidationService.getValidatorErrorMessage = function (validatorName, validatorValue) {
         var config = {
             'required': 'Required',
-            'invalidCreditCard': 'Is invalid credit card number',
             'invalidEmailAddress': 'Invalid email address',
             'invalidPassword': 'Invalid password. Password must be at least 6 characters long, and contain a number.',
+            'invalidPhoneNum': 'Phone number may take only numerics.',
             'minlength': "Minimum length " + validatorValue.requiredLength
         };
         return config[validatorName];
@@ -22,7 +22,8 @@ var ValidationService = (function () {
     }*/
     ValidationService.emailValidator = function (control) {
         // RFC 2822 compliant regex
-        if (control.value.match(/[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/)) {
+        if (control.value.match(/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/)) {
+            console.log("matched!");
             return null;
         }
         else {
@@ -37,6 +38,15 @@ var ValidationService = (function () {
         }
         else {
             return { 'invalidPassword': true };
+        }
+    };
+    ValidationService.phoneNumValidator = function (control) {
+        if (control.value.match(/^[\d]{10,15}$/) || control.value == '') {
+            console.log("matched!");
+            return null;
+        }
+        else {
+            return { 'invalidPhoneNum': true };
         }
     };
     return ValidationService;

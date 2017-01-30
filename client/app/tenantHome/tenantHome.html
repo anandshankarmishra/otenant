@@ -13,82 +13,142 @@ Welcome {{tenant.userFullName}}! <a id="myLink" (click)="logout();">Sign Out</a>
 <br><br>
 
 <div> 
-{{tenant.userFullName}}  <button type="submit" (click)="showEditUser()"> Edit </button>  
+{{tenant.userFullName}}   
 </div>
 
 <div> 
     <table>
     <tr>
         <td><img src="http://localhost:3005/{{tenant.userPhotoFileName}}.jpg" class="img-height"/></td>
-        <td><button name="upload" type="submit" data-toggle="modal" data-target="#myModal5" class="btn btn-default btn-property-2 font-style-2"> Upload Image </button></td>
+        <td><button name="upload" type="submit" data-toggle="modal" data-target="#myModal5" class="btn btn-default btn-property-2 font-style-2"> Upload Image </button>
+        <uploadImage></uploadImage>
+        </td>
         </tr>
         
 </table>
-
-
 </div>
-<uploadImage></uploadImage>
 
-<div>
-Email Id: <div *ngIf="!editUser">{{tenant.userEmail}}
-            </div>
-            <div *ngIf="editUser">
-                <input #email type="text" placeholder='{{tenant.userEmail}}' />
-            </div>
-</div>
+<div>Email Id: <div>{{tenant.userEmail}}</div>
 <br>
-<div>
-Current area: <div *ngIf="!editUser">{{tenant.userCurrentArea}}
-            </div>
-            <div *ngIf="editUser">
-                <input #area type="text" placeholder='{{tenant.userCurrentArea}}' />
-            </div><br>
-</div>
-<div>
-Phone no. <div *ngIf="!editUser">{{tenant.userPhoneNo}}
-            </div>
-            <div *ngIf="editUser">
-                <input #phone type="text" placeholder='{{tenant.userPhoneNo}}' />
-            </div><br>
-</div>
-<div align="left">
-Desired City: <div *ngIf="!editUser">{{tenant.userDesiredCity}}
-            </div>
-            <div *ngIf="editUser">
-                <input type="text" placeholder='{{tenant.userDesiredCity}}' />
-            </div>
-</div>
-<br><br>
-<div align="right"><button type="submit" (click)="showPswdDiv()"> Change Password </button>
-<div>{{errorMsg}} </div>
-<div *ngIf="chngPswd">
-    <form [formGroup]="chngPswdForm" (submit)="changePassword()"> 
-        
-        <div>
-            <input type="password" id="password" placeholder="Current Password" formControlName="cur_pswd"/> 
-            <control-messages [control]="chngPswdForm.controls.cur_pswd"></control-messages>
-        </div>
-        <div>
-            <input type="password" id="password" placeholder="New Password" formControlName="new_pswd" />
-            <control-messages [control]="chngPswdForm.controls.new_pswd"></control-messages>
-        </div>
-        <div>
-            <input type="password" id="password" placeholder="Re-type new Password" formControlName="new_repswd" />
-            <control-messages [control]="chngPswdForm.controls.new_repswd"></control-messages>    
-        </div>
-        <div [hidden]="!nomatch"> Passwords don't match.
-        </div>
-        <div>
-            <button type="submit" (click)="chngPswd=!chngPswd"> Cancel </button>    
-            <button type="submit" [disabled]="!chngPswdForm.valid"> Change Password </button> 
-        </div>
-    </form>
-</div>
-<br><br>
-<div align="right"><button type="submit" (click)="deleteAccount()"> Delete Account </button></div>
-<br/> 
 
-   
+<div>
+    <table><tr>
+        <td>Member Details:</td>
+        <td><button type="button" (click)="showEditUser()"> Edit </button></td>
+    </tr></table>
 </div>
+
+<div> 
+    <table>
+    <tr>
+        <td>
+                <form [formGroup]="updateProfileForm" (submit)="updateProfile()">    
+                
+                
+                Current area: <div *ngIf="!editUser">{{tenant.userCurrentArea}}</div>
+                        
+
+                <div *ngIf="editUser">
+                <input #area type="text" placeholder='{{tenant.userCurrentArea}}' formControlName="userCurrentArea" />
+                </div> 
+
+                <br>
+                
+
+               <div>
+                Phone No.: <div *ngIf="!editUser">{{tenant.userPhoneNo}}
+                            </div>
+                            <div *ngIf="editUser">
+                                <input type="text" placeholder='{{tenant.userPhoneNo}}' formControlName="userPhoneNo" />
+                                <control-messages [control]="updateProfileForm.controls.userPhoneNo"></control-messages>
+                            </div>
+                </div>
+                <br>
+                <div align="left">
+                Desired City: <div *ngIf="!editUser">{{tenant.userDesiredCity}}
+                            </div>
+                            <div *ngIf="editUser">
+                                <input type="text" placeholder='{{tenant.userDesiredCity}}' formControlName="userDesiredCity" />
+                            </div>
+                </div>
+                <br><br>
+
+                <div align="left">
+                Desired Area: <div *ngIf="!editUser">{{tenant.userDesiredArea}}
+                            </div>
+                            <div *ngIf="editUser">
+                                <input type="text" placeholder='{{tenant.userDesiredArea}}' formControlName="userDesiredArea" />
+                            </div>
+                </div>
+                <br><br>
+                <div>
+                Requirement Description <div *ngIf="!editUser">{{tenant.userRequirementDescription}}
+                            </div>
+                            <div *ngIf="editUser">
+                                <textarea rows="4" cols="50" formControlName="userRequirementDescription" > {{tenant.userRequirementDescription}} </textarea>
+                            </div><br>
+                </div>
+                <div>
+                    <button type="submit" [disabled]="!updateProfileForm.valid">Upate Info</button>
+                    </div>
+
+
+                </form>
+
+        </td>
+        <td style="width:400px"> </td>
+        <td>
+
+            <div align="right"><button type="submit" (click)="showPswdDiv()"> Change Password </button>
+            <div>{{errorMsg}} </div>
+            <div *ngIf="chngPswd">
+                <form [formGroup]="chngPswdForm" (submit)="changePassword()"> 
+                    
+                    <div>
+                        <input type="password" id="password" placeholder="Current Password" formControlName="cur_pswd"/> 
+                        <control-messages [control]="chngPswdForm.controls.cur_pswd"></control-messages>
+                    </div>
+                    <div>
+                        <input type="password" id="password" placeholder="New Password" formControlName="new_pswd" />
+                        <control-messages [control]="chngPswdForm.controls.new_pswd"></control-messages>
+                    </div>
+                    <div>
+                        <input type="password" id="password" placeholder="Re-type new Password" formControlName="new_repswd" />
+                        <control-messages [control]="chngPswdForm.controls.new_repswd"></control-messages>    
+                    </div>
+                    <div [hidden]="!nomatch"> Passwords don't match.
+                    </div>
+                    <div>
+                        <button type="submit" (click)="chngPswd=!chngPswd"> Cancel </button>    
+                        <button type="submit" [disabled]="!chngPswdForm.valid"> Change Password </button> 
+                    </div>
+                </form>
+            </div>
+            <br><br>
+            <div align="right"><button type="submit" (click)="deleteAccount()"> Delete Account </button></div>
+            <br/> 
+
+            
+            </div>
+
+
+        </td>
+        </tr>
+        
+</table>
+</div>
+
+
+
+
+
+<!--
+
+
+
+
+</form>
+
 <br/>
 
+-->

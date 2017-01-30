@@ -15,21 +15,19 @@ var UploadImageComponent = (function () {
     function UploadImageComponent(loginService, TenantService) {
         this.loginService = loginService;
         this.TenantService = TenantService;
+        this.uploadImg = false;
         this.errorMsg = '';
         this.failedMsg = 'Failed to load image. Try again!';
     }
-    UploadImageComponent.prototype.upload = function (img) {
-        console.log("image:" + img);
-        this.imgSrc = img;
-    };
-    UploadImageComponent.prototype.imageUploaded = function ($event) {
-        var img = $event.file;
-        console.log("event:" + img.name);
+    UploadImageComponent.prototype.upload = function () {
+        var _this = this;
+        console.log("uploading..");
         var token = this.loginService.getToken();
-        if (token) {
-            this.TenantService.uploadImage(token, img).
+        if (token && this.imgFile) {
+            this.TenantService.uploadImage(token, this.imgFile).
                 subscribe(function (data) {
-                console.log("data:" + data.error);
+                console.log("data:" + data.error); //successful
+                _this.uploadImg = false;
             }, function (error) {
                 console.log(" error:" + JSON.stringify(error));
             });
@@ -37,6 +35,10 @@ var UploadImageComponent = (function () {
         else {
             this.errorMsg = this.failedMsg;
         }
+    };
+    UploadImageComponent.prototype.imageUploaded = function ($event) {
+        this.imgFile = $event.file;
+        console.log("event:" + this.imgFile.name);
     };
     return UploadImageComponent;
 }());

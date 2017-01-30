@@ -14,7 +14,7 @@
        
     <image-upload (onFileUploadFinish)="imageUploaded($event)" [max]="1" [buttonCaption]="'Select Image'"></image-upload>
     <!--<input #selectedImg type="file" name="fileToUpload"  id="fileToUpload" enctype="multipart/form-data">-->
-    <input type="submit" value="Upload Image" (click)="upload(selectedImg.value)" name="submit">
+    <input type="submit" value="Upload Image" (click)="upload()" name="submit">
 
     </form>
 

@@ -22,7 +22,7 @@ var TenantHomeComponent = (function () {
         this.tenantService = tenantService;
         this.router = router;
         this.http = http;
-        this.tenant = new tenant_1.Tenant('', '');
+        this.tenant = new tenant_1.Tenant();
         this.showDialog = false;
         this.myTokn = ""; //get tenant profile
         this.chngPswd = false; //
@@ -32,11 +32,18 @@ var TenantHomeComponent = (function () {
         this.incorrectPswdError = "You entered incorrect current password. Try again!";
         this.editUser = false; // 
         this.myTokn = loginService.getToken();
-        console.log("myTokn:" + this.myTokn);
+        var formB = new forms_1.FormBuilder();
+        this.updateProfileForm = formB.group({
+            'userCurrentArea': [''],
+            'userPhoneNo': ['', [validation_service_1.ValidationService.phoneNumValidator]],
+            'userDesiredCity': [''],
+            'userDesiredArea': [''],
+            'userRequirementDescription': ['']
+        });
     }
     TenantHomeComponent.prototype.ngOnInit = function () {
         this.getProfile(this.myTokn);
-        var formB = new forms_1.FormBuilder();
+        //let formB = new FormBuilder();
         /*this.chngPswdForm = formB.group({
             'cur_pswd': ['', [Validators.required, ValidationService.passwordValidator]],
             'new_pswd': ['', [Validators.required, ValidationService.passwordValidator]],
@@ -56,16 +63,6 @@ var TenantHomeComponent = (function () {
         return tenant.userNotifications.length;
     };
     TenantHomeComponent.prototype.viewNotifications = function () {
-    };
-    TenantHomeComponent.prototype.updateName = function (name) {
-        var _this = this;
-        this.tenantService.updateName(this.myTokn, name)
-            .subscribe(function (data) {
-            console.log("update error:" + data.error);
-            _this.tenant.userFullName = name;
-        }, function (err) {
-            console.log("upload error:" + err.message);
-        });
     };
     TenantHomeComponent.prototype.logout = function () {
         this.loginService.logout();
@@ -104,10 +101,25 @@ var TenantHomeComponent = (function () {
     TenantHomeComponent.prototype.deleteAccount = function () {
         this.router.navigate(['/deleteAccount']);
     };
+    //show the editable textboxes 
     TenantHomeComponent.prototype.showEditUser = function () {
         this.editUser = !this.editUser;
     };
     TenantHomeComponent.prototype.updateProfile = function () {
+        var _this = this;
+        console.log("updating profile!");
+        var tenant = new tenant_1.Tenant();
+        tenant.userCurrentArea = this.updateProfileForm.value.userCurrentArea;
+        tenant.userDesiredArea = this.updateProfileForm.value.userDesiredArea;
+        tenant.userPhoneNo = this.updateProfileForm.value.userPhoneNo;
+        tenant.userRequirementDescription = this.updateProfileForm.value.userRequirementDescription;
+        this.tenantService.updateTenantProfile(this.myTokn, tenant).
+            subscribe(function (data) {
+            console.log("data:" + data.error);
+            _this.router.navigate(['/home']);
+        }, function (err) {
+            console.log("error:" + JSON.stringify(err));
+        });
     };
     return TenantHomeComponent;
 }());

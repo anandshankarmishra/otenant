@@ -11,7 +11,8 @@ import {TenantService} from '../../../tenantHome/services/tenantHome.services';
 })
 
 export class UploadImageComponent {
-    private imgSrc;
+    private uploadImg:boolean = false;
+    private imgFile;
     private errorMsg = '';
     private failedMsg = 'Failed to load image. Try again!';
 
@@ -21,20 +22,15 @@ export class UploadImageComponent {
 
     }
 
-    upload(img) {
-        console.log("image:" + img);
-        this.imgSrc = img;
-    }
-
-    imageUploaded($event) {
-        let img = $event.file; 
-        console.log("event:" + img.name);
+    upload() {
+        console.log("uploading..");
+        
         let token = this.loginService.getToken();
-
-        if (token) {
-            this.TenantService.uploadImage(token, img ).
+        if (token && this.imgFile) {
+            this.TenantService.uploadImage(token, this.imgFile ).
             subscribe((data) => {
-                console.log("data:" + data.error);
+                console.log("data:" + data.error);//successful
+                this.uploadImg = false;
             }, 
             (error)=> {
                 console.log(" error:" + JSON.stringify(error));
@@ -45,7 +41,10 @@ export class UploadImageComponent {
             this.errorMsg = this.failedMsg;
         }
 
-
     }
 
+    imageUploaded($event) {
+        this.imgFile = $event.file; 
+        console.log("event:" + this.imgFile.name);
+    }
 }

@@ -10,7 +10,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 var core_1 = require("@angular/core");
 var inviteTenant_services_1 = require("../services/inviteTenant.services");
-var validation_service_1 = require("../../commonServices/validation.service");
+var validation_service_1 = require("../../common/validation/services/validation.service");
 var forms_1 = require("@angular/forms");
 var InviteTenantComponent = (function () {
     function InviteTenantComponent(formBuilder, inviteTenantservice) {
@@ -27,7 +27,7 @@ var InviteTenantComponent = (function () {
         this.inviteTenantForm = this.formBuilder.group({
             'name': ['', forms_1.Validators.required],
             'email': ['', [forms_1.Validators.required, validation_service_1.ValidationService.emailValidator]],
-            'contact': ['', forms_1.Validators.required],
+            'contact': ['', [forms_1.Validators.required, validation_service_1.ValidationService.phoneValidator]],
             'message': ['']
         });
     }
