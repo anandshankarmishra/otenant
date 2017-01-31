@@ -25,6 +25,7 @@ var notifications_component_1 = require("./common/notifications/component/notifi
 var deleteAccount_component_1 = require("./tenantHome/component/deleteAccount.component");
 var test_component_1 = require("./test/component/test.component");
 var test_component_2 = require("./test/component/test.component");
+var updateProfile_component_1 = require("./tenantHome/component/updateProfile.component");
 //import { SearchTenantsComponent } from './searchTenants/component/searchTenants.component';
 //service imports
 var login_service_1 = require("./login/services/login.service");
@@ -67,7 +68,8 @@ AppModule = __decorate([
             uploadImage_component_1.UploadImageComponent,
             deleteAccount_component_1.DeleteAccountComponent,
             test_component_1.TestComponent,
-            test_component_2.TrackScrollComponent
+            test_component_2.TrackScrollComponent,
+            updateProfile_component_1.UpdateProfileComponent
         ],
         providers: [
             signup_service_1.SignUpService,

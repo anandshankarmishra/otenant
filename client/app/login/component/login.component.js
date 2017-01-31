@@ -20,6 +20,7 @@ var LoginComponent = (function () {
         this.router = router;
         this.closable = true;
         this.visibleChange = new core_1.EventEmitter();
+        this.tokn = "auth_key";
         //if user enters invalid username/password
         this.invalid = false;
         this.invalidMsg = "Invalid username/passoword. Try again!";
@@ -41,19 +42,35 @@ var LoginComponent = (function () {
     LoginComponent.prototype.login = function () {
         var _this = this;
         if (this.loginForm.dirty && this.loginForm.valid) {
-            var login = this.loginservice.login(this.loginForm.value.email, this.loginForm.value.password);
-            login.then(function (res) {
-                if (res) {
+            this.loginservice.login(this.loginForm.value.email, this.loginForm.value.password).
+                subscribe(function (data) {
+                console.log("data.status" + data.status);
+                if (data.status == 200) {
                     console.log("in logincomp suc:");
+                    window.localStorage.setItem(_this.tokn, data.json().token);
+                    // //set tenant detail
+                    // this.tenant = new Tenant();
+                    // this.tenant.userFullName = data.json().userFullName;
+                    // this.tenant.userEmail = data.json().userEmail;
+                    // this.tenant.userCurrentArea = data.json().userCurrentArea;
+                    // this.tenant.userCurrentCity = data.json().userCurrentCity;
+                    // this.tenant.userDesiredArea = data.json().userDesiredArea;
+                    // this.tenant.userDesiredCity = data.json().userDesiredCity;
+                    // this.tenant.userPhoneNo = data.json().userPhoneNo;
+                    // this.tenant.userRequirementDescription = data.json().userRequirementDescription
+                    // console.log("tenant details");
+                    // console.log(data.json().userFullName);
                     _this.loggedIn = true;
                     _this.close();
                     _this.router.navigate([_this.tenantURL]);
                 }
-                else {
+                else if (data.status == 401) {
                     console.log('Invalid user');
                     _this.loggedIn = false;
                     _this.invalid = true;
                 }
+            }, function (error) {
+                console.log("Error in login." + JSON.stringify(error));
             });
         }
     };

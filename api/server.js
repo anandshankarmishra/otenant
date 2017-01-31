@@ -147,7 +147,15 @@ router.route("/login")
     
       res.status(200);
       res.json({
-        "token" : token
+        "token" : token,
+        "userFullName" : user.userFullName,
+        "userEmail" : user.userEmail,
+        "userCurrentArea" : user.userCurrentArea,
+        "userDesiredArea" : user.userDesiredArea,
+        "userCurrentCity" : user.userCurrentCity,
+        "userDesiredCity" : user.userDesiredCity,
+        "userPhoneNo": user.userPhoneNo,
+        "userRequirementDescription": user.userRequirementDescription
       }
       
       )
@@ -313,7 +321,7 @@ router.route("/updateUserProfile/")
             let desired_city = req.body.userDesiredCity;
             let desired_area = req.body.userDesiredArea;
             let phone_no = req.body.userPhoneNo;
-            let requirement_description = req.body.requirement_description;
+            let requirement_description = req.body.userRequirementDescription;
 
             console.log("id:" + id) // bar
             console.log("email:" + email) // bar
@@ -349,13 +357,19 @@ router.route("/updateUserProfile/")
                 if(requirement_description !== undefined)
                     {updatingUser.userRequirementDescription = requirement_description;}    
                 
-                updatingUser.save(function(err){
+                updatingUser.save(function(err, updatedUser){
                         if(err) {
                             response = {"error" : true,"message" : "Error updating data"};
+                            res.json(response);
                         } else {
                             response = {"error" : false,"message" : "Data is updated"};
+                            console.log("updated user");
+                            console.log(updatedUser);
+
+                            res.json(updatedUser);
+                            
                         }
-                        res.json(response);
+                        //res.json(response);
                     });
              }
          });

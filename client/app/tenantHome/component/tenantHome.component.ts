@@ -1,4 +1,4 @@
-import { Component, OnInit} from '@angular/core';
+import { Component, OnInit, Output, EventEmitter} from '@angular/core';
 import {Http, Response, URLSearchParams} from '@angular/http';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import { FormBuilder, Validators } from '@angular/forms';
@@ -15,6 +15,8 @@ import {ValidationService} from '../../common/validation/services/validation.ser
  moduleId:module.id,
  templateUrl:'../tenantHome.html',
  styleUrls:['../tenantHome.css']
+//  templateUrl:'../tenant-homepage.html',
+//  styleUrls:['../style-tenant-home.css']
 })
 
 export class TenantHomeComponent implements OnInit{
@@ -42,19 +44,6 @@ export class TenantHomeComponent implements OnInit{
                     private http:Http ) {
             
             this.myTokn = loginService.getToken();
-
-                 
-            let formB = new FormBuilder();
-        
-            this.updateProfileForm = formB.group({
-            'userCurrentArea': [''],
-            'userPhoneNo': ['',[ValidationService.phoneNumValidator]],
-            'userDesiredCity': [''],
-            'userDesiredArea': [''],
-            'userRequirementDescription' : ['']
-            });
-
-
     }
 
     ngOnInit(){ 
@@ -67,12 +56,8 @@ export class TenantHomeComponent implements OnInit{
 
             this.tenant = (data);
             this.newNotf = this.getNewNotifications(this.tenant);
-        }
-        )
-        
-        ;
+        });
     }
-
     getNewNotifications(tenant:Tenant) {
         console.log("new not:" + tenant.userNotifications.length);
         return tenant.userNotifications.length;
@@ -126,50 +111,9 @@ export class TenantHomeComponent implements OnInit{
         this.router.navigate(['/deleteAccount']);
     }
 
-    //show the editable textboxes 
-    showEditUser() {
-        this.editUser = !this.editUser;
+    onClickNotification() {
+        console.log("clicked notification");
+        this.showDialog = !this.showDialog;
+     //   this.emitNotifEvent.emit();
     }
-    
-    updateProfile() {
-            console.log("updating profile!");
-
-            let tenant = new Tenant();
-            tenant.userCurrentArea = this.updateProfileForm.value.userCurrentArea;
-            tenant.userDesiredArea = this.updateProfileForm.value.userDesiredArea;
-            tenant.userPhoneNo = this.updateProfileForm.value.userPhoneNo;
-            tenant.userRequirementDescription = this.updateProfileForm.value.userRequirementDescription;
-
-
-            this.tenantService.updateTenantProfile(this.myTokn, tenant).
-            subscribe((data) => 
-            {
-                console.log("data:" + data.error);
-                this.router.navigate(['/home']);
-            },
-            (err) => {
-                console.log("error:" + JSON.stringify(err));
-            }
-            )
-
-
-    }
-
-    
-    /*deleteAccount(): boolean {
-        this.tenantService.deleteAccount(this.myTokn).
-        subscribe((data) => {
-            console.log(data.status);
-            console.log(data.error);
-            if(data.status == 200 && data.error == false) {
-                console.log(" account deleted successfully");
-                this.router.navigate(['']);
-            } 
-        },
-        (error) => {
-            console.log("error deleting account");
-        }
-        )
-        return;
-    }*/
 }

@@ -19,6 +19,7 @@ import { NotificationComponent} from './common/notifications/component/notificat
 import { DeleteAccountComponent} from './tenantHome/component/deleteAccount.component';
 import {TestComponent} from './test/component/test.component';
 import {TrackScrollComponent} from './test/component/test.component';
+import {UpdateProfileComponent} from './tenantHome/component/updateProfile.component';
 
 //import { SearchTenantsComponent } from './searchTenants/component/searchTenants.component';
 
@@ -64,7 +65,8 @@ import { AppRoutingModule }     from './app-routing.module';
     UploadImageComponent,
     DeleteAccountComponent,
     TestComponent,
-    TrackScrollComponent
+    TrackScrollComponent,
+    UpdateProfileComponent
   ],
 
   providers: [ 

@@ -36,41 +36,33 @@ var LoginService = (function () {
     };
     //Login a user with email and password
     LoginService.prototype.login = function (username, password) {
-        var _this = this;
         var headers = new http_2.Headers();
         headers.append('Content-Type', 'application/json');
         //headers.append('Access-Control-Allow-Origin','*');
         //headers.append('Access-Control-Allow-Headers','Origin, X-Requested-With, Content-Type, Accept');
-        console.log("here:" + username + password);
+        console.log("in login service:" + username + password);
         var json = JSON.stringify({ username: username, password: password });
-        return new Promise(function (resolve) {
-            _this.http.post(app_routes_1.AppRoutes.loginURL, json, { headers: headers })
-                .subscribe(function (data) {
-                if (data.status == 200) {
-                    console.log("setting auth_key");
-                    window.localStorage.setItem(_this.tokn, data.json().token);
-                    _this.isAuthenticated = true;
-                }
-                resolve(_this.isAuthenticated);
-            }, function (err) {
-                console.log("error:" + err);
-                if (err.status == 401) {
-                    console.log("invalid user");
-                }
-                resolve(_this.isAuthenticated);
-            });
-        });
-        /* return this.http.post(this.loginURL,json,{headers: headers})
-                  .subscribe(result => this.callback(result)
-                  , err=> (this.onError(err))
-                  )*/
-        //.map((res)=> this.extractData(res)
-        //      )
-        //  .subscribe(result=> this.callback(result));
-    };
-    LoginService.prototype.onError = function (res) {
-        console.log("error mila");
-        return JSON.stringify(res.status);
+        // return new Promise((resolve) => {
+        //   this.http.post(AppRoutes.loginURL, json, {headers: headers})
+        //             .subscribe((data) => {
+        //                 if(data.status == 200) {
+        //                   console.log("setting auth_key");
+        //                   window.localStorage.setItem(this.tokn, data.json().token);
+        //                   this.isAuthenticated = true;
+        //                  } 
+        //             resolve(this.isAuthenticated);
+        //             },
+        //             (err) => {
+        //               console.log("error:" + err);
+        //               if (err.status == 401) {
+        //                 console.log("invalid user");
+        //               }
+        //               resolve(this.isAuthenticated);
+        //             }
+        //   )
+        //   })
+        return this.http.post(app_routes_1.AppRoutes.loginURL, json, { headers: headers });
+        // .map((res)=> res.json);
     };
     // Logout the user
     LoginService.prototype.logout = function () {
@@ -80,22 +72,6 @@ var LoginService = (function () {
         localStorage.removeItem(this.tokn);
         // Send the user back to the public deals page after logout
         this.router.navigateByUrl('');
-    };
-    // handle Response from login URL
-    LoginService.prototype.callback = function (item) {
-        if (item.status == 200) {
-            console.log("in callback, token:" + item.json().token);
-            localStorage.setItem(this.tokn, item.json().token);
-            this.isAuthenticated = true;
-        }
-        if (item.status == 401) {
-            console.log(" user not foundaaa");
-        }
-        console.log("hi: " + item);
-    };
-    LoginService.prototype.handleError = function (error) {
-        console.error('An error occurred', error); // for demo purposes only
-        return Promise.reject(error.message || error);
     };
     return LoginService;
 }());
