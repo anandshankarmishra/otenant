@@ -64,13 +64,13 @@ a:focus
 
 
 /*form*/
-form input
+form td input
 {
-    height:44px;
+    height:34px;
     margin: 0 7px 0 0;
     padding-left: 17px;
     box-sizing: border-box;
-    border: none;
+    border: 1px lightgrey;
     border-radius: 5px;
     color: black;
     font-size: 14px;
@@ -88,12 +88,12 @@ input[type=number]::-webkit-outer-spin-button {
 
 form select
 {
-    height:44px;
+    height:34px;
     margin: 0 7px 0 0;
     padding-left: 17px;
     padding-right: 17px;
     box-sizing: border-box;
-    border: none;
+    border: 1px lightgray;
     border-radius: 5px;
     color: black;
     font-size: 14px;
@@ -129,22 +129,16 @@ option:hover
     text-align:left;
 }
 
-
-
 .width-fld
 {
-    width: 280px;
+    width: 226px;
     margin-top: 50px;
 }
-
-
-
 
 .visible-mob
 {
     display: none;
 }
-
 
 .button-style2
 {
@@ -156,6 +150,8 @@ option:hover
     width: 46px;
     color: white;
     margin-top: 20px;
+    background-position: center;
+    margin-left: 10px;
 }
 
 .button-style2:hover,
@@ -179,7 +175,7 @@ option:hover
 {
     font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
     font-size: 30px;
-    color: white;
+    color: darkslategrey;
     font-weight: 700;
 }
 
@@ -208,7 +204,7 @@ option:hover
 
 .pos-track
 {
-    padding-top: 60px;
+    padding-top: 30px;
 }
 
 .btn-property-1
@@ -266,29 +262,38 @@ option:hover
 {
 
     .width-fld {
-        width: 220px;
+        width: 226px;
         margin-top: 7px;
     }
 
     form input {
-        height: 40px;
+        height: 34px;
         font-size: 14px;
     }
 
     form select {
-        height: 40px;
+        height: 34px;
         font-size: 14px;
     }
 
     .visible-mob
     {
-        display: block;
+        display: none;
     }
+
 
 }
 
-@media only screen and (max-width:600px )
+@media only screen and (max-width:600px ) 
 {
+
+     .img-background
+    {
+        height: 100%;
+        background-image: url('app/homepage/images/pic.png');
+        background-size: cover;
+        background-position: center center;
+    }
 
     .font-style-1
     {
@@ -298,7 +303,7 @@ option:hover
 
     .pos-track
     {
-        padding-top: 3px;
+        padding-top: 0px;
     }
     .visible-mob
     {
@@ -311,21 +316,15 @@ option:hover
         height: 70px;
     }
 
-    .pos-title
-    {
-        padding-top: 10px;
-    }
-
-
     .width-fld
     {
-        width: 180px;
+        width: 208px;
         margin-top:7px;
     }
 
     form input
     {
-        height:30px;
+        height:34px;
         font-size: 11px;
     }
 
@@ -337,10 +336,15 @@ option:hover
         font-size: 11px;
     }
 
-
+    form td 
+    {
+        display: block;
+        margin-top: 20px;
+    }
+    
     .button-style2
     {
-        margin-top: -10px;
+        margin-top: -20px;
     }
 
 
@@ -367,7 +371,7 @@ option:hover
 
     .pos-btn
     {
-        margin-top: 3px;
+        margin-top: 1px;
     }
 
     .font-style-2
@@ -399,8 +403,92 @@ option:hover
 
     .pos-title
     {
-        padding-top:60px;
+        padding-top:30px;
     }
     
 }
 
+@media only screen and (max-width:841px) and (orientation:landscape)
+{
+
+    body
+    {
+        overflow: hidden;
+    }
+    .img-background
+    {
+        height: 100%;
+        background-image: url('app/homepage/images/background-img.jpg');
+        background-size: cover;
+        background-position: center center;
+    }
+
+     .pos-title
+    {
+        padding-top:5px;
+    }
+    form td 
+    {
+        display: inline-block;
+        margin-top: 1px;
+    }
+
+   .width-fld
+    {
+        width: 100px;
+        margin-top: -10px;
+        padding-top: -20px;
+    }
+
+    .btn-property-2
+    {
+        height: 35px;
+        width: 180px;
+        border-radius: 5px;
+    }
+
+     .btn-property-1
+    {
+        height: 35px;
+        width: 180px;
+        border-radius: 5px;
+    }
+
+        .pos-track
+    {
+        padding-top: 0px;
+    }
+
+
+    .pos-btn
+    {
+        margin-top: 1px;
+    }
+
+    .font-style-1
+    {
+        font-size: 15px;
+        font-weight: 700;
+    }
+    .font-style-2
+    {
+        font-size: 12px;
+        text-align: center;
+
+    }
+
+    .img-height
+    {
+        height: 60px;
+    }
+
+    p
+    {
+        margin-bottom: 0px;
+    }
+
+    .pos-or
+    {
+        margin-top: -20px
+    }
+}

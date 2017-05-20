@@ -1,4 +1,4 @@
-import { Component, OnInit} from '@angular/core';
+import { Component, OnInit, Output, EventEmitter} from '@angular/core';
 import {Http, Response, URLSearchParams} from '@angular/http';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import { FormBuilder, Validators } from '@angular/forms';
@@ -15,11 +15,13 @@ import {ValidationService} from '../../common/validation/services/validation.ser
  moduleId:module.id,
  templateUrl:'../tenantHome.html',
  styleUrls:['../tenantHome.css']
+//  templateUrl:'../tenant-homepage.html',
+//  styleUrls:['../style-tenant-home.css']
 })
 
 export class TenantHomeComponent implements OnInit{
 
-    tenant:Tenant = new Tenant('','');
+    tenant:Tenant = new Tenant();
     private showDialog = false;
 
     private myTokn = "";      //get tenant profile
@@ -34,24 +36,21 @@ export class TenantHomeComponent implements OnInit{
     
     private editUser: boolean = false; // 
 
+    private updateProfileForm;
+
+    private notifications = [];
+    
     constructor (private loginService: LoginService,
                     private tenantService: TenantService,
                     private router: Router,
                     private http:Http ) {
-                this.myTokn = loginService.getToken();
-                console.log("myTokn:" + this.myTokn);
+            console.log("inside constructor of tenanthome")
+            this.myTokn = loginService.getToken();
     }
 
     ngOnInit(){ 
+        console.log("I am in ngOnInit of tenant home.");
         this.getProfile(this.myTokn);
-
-        let formB = new FormBuilder();
-
-        /*this.chngPswdForm = formB.group({
-            'cur_pswd': ['', [Validators.required, ValidationService.passwordValidator]],
-            'new_pswd': ['', [Validators.required, ValidationService.passwordValidator]],
-            'new_repswd': ['', [Validators.required, ValidationService.passwordValidator]],
-            });*/
     }
 
     getProfile(token) {
@@ -59,33 +58,17 @@ export class TenantHomeComponent implements OnInit{
         .subscribe((data) => {
 
             this.tenant = (data);
-            this.newNotf = this.getNewNotifications(this.tenant);
-        }
-        )
-        
-        ;
+            //We may need the following line later, keep it for now, dont delete it.
+            //this.newNotf = this.getNewNotifications(this.tenant);
+        });
     }
-
     getNewNotifications(tenant:Tenant) {
         console.log("new not:" + tenant.userNotifications.length);
-        return tenant.userNotifications.length;
+            return tenant.userNotifications.length;
     }
 
     viewNotifications() {
         
-    }
-
-    updateName(name:string) {
-        this.tenantService.updateName(this.myTokn, name)
-        .subscribe(
-            (data) => {
-                console.log("update error:" + data.error);
-                this.tenant.userFullName = name;
-            },
-            (err) => {
-                console.log("upload error:" + err.message);
-            }
-        )
     }
     
     logout() {
@@ -132,28 +115,16 @@ export class TenantHomeComponent implements OnInit{
         this.router.navigate(['/deleteAccount']);
     }
 
-    showEditUser() {
-        this.editUser = !this.editUser;
-    }
-    
-    updateProfile() {
-    
-    }
-
-    /*deleteAccount(): boolean {
-        this.tenantService.deleteAccount(this.myTokn).
-        subscribe((data) => {
-            console.log(data.status);
-            console.log(data.error);
-            if(data.status == 200 && data.error == false) {
-                console.log(" account deleted successfully");
-                this.router.navigate(['']);
-            } 
+    onClickNotification() {
+        console.log("clicked notification");
+        this.showDialog = !this.showDialog;
+        this.tenantService.getNotifications(this.myTokn).
+        subscribe((data)=> {
+            this.notifications = data;
         },
-        (error) => {
-            console.log("error deleting account");
-        }
-        )
-        return;
-    }*/
+        (error)=> {
+            console.log("error! handle me please");
+        })
+     //   this.emitNotifEvent.emit();
+    }
 }

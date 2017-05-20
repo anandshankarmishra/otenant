@@ -1,5 +1,5 @@
 export class AppRoutes {
-    public static ipadr = "http://localhost:3005";
+    public static ipadr = "http://192.168.0.3:3005";
     public static searchTenantsURL = AppRoutes.ipadr + "/searchTenants";
     public static inviteTenantURL = AppRoutes.ipadr + "/inviteTenant";
     public static loginURL = AppRoutes.ipadr + "/login";
@@ -11,4 +11,5 @@ export class AppRoutes {
     public static deleteAccountURL = AppRoutes.ipadr + "/deleteAccount";
     public static updateUserFullNameURL = AppRoutes.ipadr + "/updateUserFullName"
     public static uploadImageURL = AppRoutes.ipadr + "/uploadPhoto";
+    public static updateUserProfileURL = AppRoutes.ipadr + "/updateUserProfile";
 }

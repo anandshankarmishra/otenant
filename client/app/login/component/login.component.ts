@@ -5,6 +5,8 @@ import {Router} from '@angular/router';
 import {LoginService} from '../services/login.service';
 import {ValidationService} from '../../commonServices/validation.service';
 import { FormBuilder, Validators } from '@angular/forms';
+import {Constants} from '../../stringconstants';
+declare var jQuery:any;
 
 @Component({
  selector:'login-dialog',
@@ -30,14 +32,15 @@ export class LoginComponent {
     @Output() visibleChange: EventEmitter<boolean> = new EventEmitter<boolean>();
 
     loginForm: any;
+    private tokn = "auth_key";
 
     //if user enters invalid username/password
     private invalid:boolean = false;
-    private invalidMsg = "Invalid username/passoword. Try again!";
+    private invalidLoginMsg = Constants.invalidLoginMsg;
 
     //if user is already logged in
     private loggedIn = false;
-    private loggedInMsg = "You are already logged in!" ;
+    private loggedInMsg = Constants.loggedInMsg;
 
     //navigate to Tenant Home
     private tenantURL = "/home";
@@ -56,6 +59,7 @@ export class LoginComponent {
     close() {
         this.visible = false;
         this.visibleChange.emit(this.visible);
+        jQuery( ".modal-backdrop.in").removeClass("modal-backdrop");       
     }
 
     
@@ -63,25 +67,42 @@ export class LoginComponent {
 //if the form is valid, call login service
      login() {
         if (this.loginForm.dirty && this.loginForm.valid) {
-             let login = this.loginservice.login(
-                this.loginForm.value.email, 
-                this.loginForm.value.password);
+          this.loginservice.login(this.loginForm.value.email, 
+                  this.loginForm.value.password).
+                  subscribe((data)=> {
+                    console.log("data.status" + data.status);
+                    if(data.status == 200) {
+                      console.log("in logincomp suc:");
+                      window.localStorage.setItem(this.tokn, data.json().token);
 
-                login.then((res) =>
-                  {
-                    if(res) {
-                        console.log("in logincomp suc:");
-                        this.loggedIn = true;
-                        this.close();
-                        this.router.navigate([this.tenantURL]);
-                        }
-                        else {
-                          console.log('Invalid user');
+                      // //set tenant detail
+                      // this.tenant = new Tenant();
+                      // this.tenant.userFullName = data.json().userFullName;
+                      // this.tenant.userEmail = data.json().userEmail;
+                      // this.tenant.userCurrentArea = data.json().userCurrentArea;
+                      // this.tenant.userCurrentCity = data.json().userCurrentCity;
+                      // this.tenant.userDesiredArea = data.json().userDesiredArea;
+                      // this.tenant.userDesiredCity = data.json().userDesiredCity;
+                      // this.tenant.userPhoneNo = data.json().userPhoneNo;
+                      // this.tenant.userRequirementDescription = data.json().userRequirementDescription
+
+                      // console.log("tenant details");
+                      // console.log(data.json().userFullName);
+
+                      this.loggedIn = true;
+                      this.close();
+                      this.router.navigate([this.tenantURL]);
+                    } 
+                  },
+                  (error) => {
+                    console.log("Error in login." + JSON.stringify(error));
+                    if (error.status == 401) {
+                        console.log('Invalid user');
                           this.loggedIn = false;
                           this.invalid = true;
-                        }                    
-                  })  
-        }
+                    }
+                  })
+          }
     }
 
 }

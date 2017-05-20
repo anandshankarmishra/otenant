@@ -2,36 +2,19 @@ import { Component, OnInit, Input, Output, OnChanges, EventEmitter, trigger,
     state, style, animate, transition, NgModule } from '@angular/core';
 
 import {InviteTenantService} from '../services/inviteTenant.services';
-import {ValidationService} from '../../commonServices/validation.service';
+import {ValidationService} from '../../common/validation/services/validation.service';
 import { FormBuilder, Validators } from '@angular/forms';
 
 @Component({
  selector:'invite-dialog',
  moduleId:module.id,
  templateUrl:'../inviteTenant.html',
- styleUrls:['../inviteTenant.css'],
-
- animations: [
-    trigger('dialog', [
-      transition('void => *', [
-        style({ transform: 'scale3d(.3, .3, .3)' }),
-        animate(100)
-      ]),
-      transition('* => void', [
-        animate(100, style({ transform: 'scale3d(.0, .0, .0)' }))
-      ])
-    ])
-  ]
+ styleUrls:['../inviteTenant.css']
 })
 
 export class InviteTenantComponent { 
-    @Input() closable = true;
-    @Input() visible: boolean;
-    @Output() visibleChange: EventEmitter<boolean> = new EventEmitter<boolean>();
 
     @Input() tenantEmail:string;
-
-
     inviteTenantForm: any;
     
     //Print result of inviteTenantservice {success|| failure}
@@ -46,15 +29,15 @@ export class InviteTenantComponent {
         this.inviteTenantForm = this.formBuilder.group({
         'name': ['', Validators.required],
         'email': ['', [Validators.required, ValidationService.emailValidator]],
-        'contact': ['', Validators.required],
+        'contact': ['', [Validators.required, ValidationService.phoneNumValidator]],
         'message': ['']
         });
         
     }
 
     close() {
-        this.visible = false;
-        this.visibleChange.emit(this.visible);
+        //this.visible = false;
+        //this.visibleChange.emit(this.visible);
     }
 
     

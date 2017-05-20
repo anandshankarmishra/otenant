@@ -1,5 +1,9 @@
-<div [@dialog] *ngIf="visible" class="dialog">
-  <!--<ng-content></ng-content>-->
+
+
+
+
+<!--<div [@dialog] *ngIf="visible" class="dialog">
+
   <div *ngIf="success != 0">
     <body>
         {{inviteMsg}} {{tenantEmail}}
@@ -39,6 +43,51 @@
   <button type="submit" [disabled]="!inviteTenantForm.valid">Invite</button>
      
     </form>
+</div>-->
+
+<div class="modal text-center" id="myModal4" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                <div class="modal-dialog" role="document">
+
+                    <div class="modal-content">
+                        <button type="button" class="close"  style="margin-right:20px; margin-top: 20px;" data-dismiss="modal">&times;</button>     <!--new end-->
+                        <form [formGroup]="inviteTenantForm" (submit)="inviteTenant(tenantEmail)" class="form-horizontal text-center">
+                            
+                            <div *ngIf="success != 0">
+                            <body>
+                                {{inviteMsg}} {{tenantEmail}}
+                            </body>
+                            </div>
+                            
+                            <p class=" pos-form-signup text-center">TENANTS WILL CONTACT YOU</p>
+                            Send your details to    : {{tenantEmail}}
+                                                        
+
+                            <div class="form-group text-center">
+                                <input type="text" formControlName="name" class="form-control form-feed-input " id="name1" name="name1" placeholder="FullName">
+                                <control-messages [control]="inviteTenantForm.controls.name"></control-messages>
+                            </div>
+
+                            <div class="form-group text-center">
+                                <input type="text" formControlName="email" class="form-control form-feed-input " id="email1" name="email1" placeholder="Email ID">
+                                <control-messages [control]="inviteTenantForm.controls.email"></control-messages>
+                            </div>
+
+                            <div class="form-group text-center">
+                                <input type="text" formControlName="contact" class="form-control form-feed-input " id="contact" name="contact" placeholder="CONTACT NUMBER">
+                                <control-messages [control]="inviteTenantForm.controls.contact"></control-messages>
+                            </div>
+
+                            <div class="form-group text-center">
+                                <textarea type="text-area" rows="4" cols="50" formControlName="message" class="form-control form-feed-input " id="message" name="message" placeholder="MESSAGE"></textarea>
+                                <control-messages [control]="inviteTenantForm.controls.name"></control-messages>
+                            </div>
+
+                            <div class="form-group text-center">
+                                <button name="signup" type="submit" class="btn btn-default pos-btn btn-property-1modal font-style-2" [disabled]="!inviteTenantForm.valid">
+                                    INVITE
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
 </div>
-
-

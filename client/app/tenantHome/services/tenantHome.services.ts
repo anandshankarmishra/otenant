@@ -22,6 +22,7 @@ export class TenantService {
     constructor(private http: Http) {}
 
     getTenantProfile(token): Observable<Tenant> {
+       console.log("getting tenant profile");
       if(token) {
             let params: URLSearchParams = new URLSearchParams();
             params.set("token", token);
@@ -49,9 +50,24 @@ export class TenantService {
     
     }
 
-    updateTenantProfile(token:string) {
+    updateTenantProfile(token:string, tenant:Tenant) {
       if(token) {
-        
+        var headers = new Headers();
+        headers.append('Content-Type','application/json');
+
+        let userDesiredArea = tenant.userDesiredArea;
+        let userDesiredCity = tenant.userDesiredCity;
+        let userPhoneNo  = tenant.userPhoneNo;
+        let userRequirementDescription= tenant.userRequirementDescription;
+        let userCurrentArea = tenant.userCurrentArea;
+
+        console.log("updating:" + userDesiredArea + userDesiredCity + 
+                                userPhoneNo + userRequirementDescription + userCurrentArea);
+        var json = JSON.stringify({token, userDesiredArea, userDesiredCity,
+                                    userPhoneNo, userRequirementDescription, userCurrentArea});
+
+            return this.http.put(AppRoutes.updateUserProfileURL, json,{headers: headers})
+                .map((res)=> res.json());
       }
     }
 
@@ -62,26 +78,9 @@ export class TenantService {
       var headers = new Headers();
       headers.append('Content-Type','application/json');
 
-       var json = JSON.stringify({token,notification});
-
-      let params: URLSearchParams = new URLSearchParams();
-            params.set("token", token);
-            params.set("_id:", notification);
-            return this.http.put(AppRoutes.approveNotification, json,{headers: headers})
-                .map((res)=> res.json());
-    }
-
-    updateName(token:string, userFullName:string) {
-        console.log("updating name:" + name);
-        var headers = new Headers();
-        headers.append('Content-Type','application/json');
-
-        var json = JSON.stringify({token,userFullName});
-
-        let params: URLSearchParams = new URLSearchParams();
-            params.set("token", token);
-            params.set("userFullName", userFullName);
-            return this.http.put(AppRoutes.updateUserFullNameURL, json,{headers: headers})
+        var json = JSON.stringify({token,notification});
+        
+        return this.http.put(AppRoutes.approveNotification, json,{headers: headers})
                 .map((res)=> res.json());
     }
 
@@ -115,7 +114,7 @@ export class TenantService {
          let options = new RequestOptions({ headers: headers });
          
          let formData:FormData = new FormData();
-         formData.append('token', token);
+         formData.append('token', token); //use same keys on server side to extract values
          formData.append('photo', photo);
          
          
@@ -131,6 +130,7 @@ export class TenantService {
                     .map((res:Response) =>  res.json().error);
 
     }
+
     deleteAccount(token, password) {
         var headers = new Headers();
         headers.append('Content-Type','application/json');

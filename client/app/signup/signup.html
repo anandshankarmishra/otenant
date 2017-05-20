@@ -34,24 +34,24 @@
       <div class="form-group text-center">
       <input type="text" class="form-control form-feed-input " placeholder="Full Name" formControlName="name" id="name" />
 
-      <control-messages [control]="signUpForm.controls.name"></control-messages>
+      <control-messages style="color:red" [control]="signUpForm.controls.name"></control-messages>
       </div>
     
     <div class="form-group text-center">
     <input type="text" class="form-control form-feed-input " placeholder="Email" formControlName="email" id="email" />
-  <control-messages [control]="signUpForm.controls.email"></control-messages>
+  <control-messages  style="color:red" [control]="signUpForm.controls.email"></control-messages>
   </div>
   
   <div class="form-group text-center"> 
       <input type="password" class="form-control form-feed-input "placeholder="Password" formControlName="password" id="password" />
 
-      <control-messages [control]="signUpForm.controls.password"></control-messages>
+      <control-messages  style="color:red" [control]="signUpForm.controls.password"></control-messages>
       </div>
 
       <div class="form-group text-center">
       <input  type="password" class="form-control form-feed-input " placeholder="Re-enter Password" formControlName="repassword" id="repassword" />
 
-      <control-messages [control]="signUpForm.controls.password"></control-messages>
+      <control-messages  style="color:red" [control]="signUpForm.controls.repassword"></control-messages>
       </div>
 
       <div [hidden]="!nomatch"> Passwords don't match.
@@ -59,13 +59,13 @@
       <div  class="form-group text-center">
       <input type="text" class="form-control form-feed-input " placeholder="City" formControlName="city" id="city" />
 
-      <control-messages [control]="signUpForm.controls.name"></control-messages>
+      <control-messages  style="color:red" [control]="signUpForm.controls.city"></control-messages>
       </div>
 
       <div class="form-group text-center">
       <input type="text" class="form-control form-feed-input " placeholder="Area" formControlName="area" id="area" />
 
-      <control-messages [control]="signUpForm.controls.name"></control-messages>
+      <control-messages  style="color:red" [control]="signUpForm.controls.area"></control-messages>
       </div>
 
        <div class="form-group text-center">

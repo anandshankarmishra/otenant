@@ -10,7 +10,7 @@ export class ControlMessagesComponent {
   //errorMess: string;
   @Input() control: FormControl;
   constructor() { }
-
+  
   get errorMessage() {
     for (let propertyName in this.control.errors) {
       if (this.control.errors.hasOwnProperty(propertyName) && this.control.touched) {

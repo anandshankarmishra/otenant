@@ -1,10 +1,11 @@
 "use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
 var AppRoutes = (function () {
     function AppRoutes() {
     }
     return AppRoutes;
 }());
-AppRoutes.ipadr = "http://localhost:3005";
+AppRoutes.ipadr = "http://192.168.0.3:3005";
 AppRoutes.searchTenantsURL = AppRoutes.ipadr + "/searchTenants";
 AppRoutes.inviteTenantURL = AppRoutes.ipadr + "/inviteTenant";
 AppRoutes.loginURL = AppRoutes.ipadr + "/login";
@@ -16,5 +17,6 @@ AppRoutes.changePassword = AppRoutes.ipadr + "/changePassword";
 AppRoutes.deleteAccountURL = AppRoutes.ipadr + "/deleteAccount";
 AppRoutes.updateUserFullNameURL = AppRoutes.ipadr + "/updateUserFullName";
 AppRoutes.uploadImageURL = AppRoutes.ipadr + "/uploadPhoto";
+AppRoutes.updateUserProfileURL = AppRoutes.ipadr + "/updateUserProfile";
 exports.AppRoutes = AppRoutes;
 //# sourceMappingURL=app-routes.js.map

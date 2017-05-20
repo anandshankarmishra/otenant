@@ -28,11 +28,13 @@ import { Http } from '@angular/http';
 export class NotificationComponent implements OnInit { 
     @Input() closable = true;
     @Input() visible: boolean;
+    @Input() notifs = []; //get notifications in this array
     @Output() visibleChange: EventEmitter<boolean> = new EventEmitter<boolean>();
     
     private myTokn = "";      //get tenant profile
     private newNotf:number; //new notifications
-    private notifs = []; //get notifications in this array
+    
+    
     private approved: boolean = false; //disable approve button once notif is approved
     private isDisabled:boolean = false;
 
@@ -46,7 +48,7 @@ export class NotificationComponent implements OnInit {
     }
 
     ngOnInit() {
-        this.getNotifications(this.myTokn);
+        //this.getNotifications(this.myTokn);
     }
     close() {
         this.visible = false;

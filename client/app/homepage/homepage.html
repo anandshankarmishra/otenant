@@ -1,33 +1,34 @@
-<div class="container-fluid  text-center img-background" id="bg1" >
-
+<div class="container-fluid img-background" id="bg2">
+  
         <div class="text-center pos-title ">
             <img src="app/homepage/images/O-tenant.svg" class="img-height" >
         </div>
 
-<div class="text-center">
+    <div class="text-center">
+        <table style="margin:0 auto">
+            <tr>
+                <form class="form-inline" id="commentForm" role="form">
+                    <td>
+                        <input type="text" #searchCity class=" width-fld" placeholder="CITY" aria-required="true" style="margin-top:7px;border:1px solid lightgrey;" required>
+                    </td>
+                    <td>
+                        <input type="text" #searchAreas class="width-fld" placeholder="AREA" aria-required="true" style="margin-top:7px;border:1px solid lightgrey;">
+                    </td>
+                    <td>        
+                        <ss-multiselect-dropdown name="types_of_tenant" [(ngModel)]="selectedOptions" (ngModelChange)="onChange($event)" [options]="myOptions" [texts]="myTexts" [settings]="mySettings">
+                        </ss-multiselect-dropdown>
+                    </td>
+                    <td style="text-align: center;">
+                        <div class="visible-mob"><br/></div>
+                        <button class="button-style2" id="btnimage" type="button" (click)="searchTenants(searchCity.value,searchAreas.value,selectedOptions)">
+                        1
+                        </button>
+                    </td>
+                </form>
+            </tr>
+        </table>
+    </div>
 
-    <form [formGroup]="searchForm" (submit)="searchTenants()" class="form-inline" id="commentForm" role="form"  novalidate="novalidate">
-                <input type="text" formControlName="searchCity" id="usr-city" required="required" class="width-fld" placeholder="CITY" aria-required="true" style="margin-top:7px">
-                <input type="text" formControlName="searchArea" id="usr-area" required="required" class="width-fld" placeholder="AREA" aria-required="true" style="margin-top:7px">
-                <select formControlName="search_type_of_tenant" id="type_of_tenant" class="width-fld" style="margin-top:7px">
-                    <option value="" disabled selected hidden>
-                        TYPE OF TENANTS
-                    </option>
-                    <option value="dfg">GROUP OF GIRLS</option>
-                    <option value="dfg">BACHELOR BOY</option>
-                    <option value="abc">FAMILY</option>
-                    <option value="dfg">BACHELOR GIRL</option>
-                    <option value="dfg">GROUP OF BOYS</option>
-                    <option value="dfg">UNMARRIED COUPLE</option>
-                    <option value="dfg">OTHERS</option>
-
-                </select>
-                
-                <button class="button-style2" id="btnimage" type="submit" >
-                    1
-                </button>
-                
-     </form>
     <div class="text-center pos-track">
         <p class="font-style-1">
             LANDLORDS LOOKING FOR TENANTS
@@ -43,7 +44,7 @@
     <!--<signUp-dialog [(visible)]="showDialog">-->
         <signUp-dialog>
         </signUp-dialog>
- </div>
+ 
 
         <p class="pos-or font-style-3">OR</p>
         
@@ -52,16 +53,7 @@
                 LOG IN
             </button>
         </div>
-
-       <!-- <div class="text-center">
-            <button name="login" type="submit" (click)="showLoginDialog = !showLoginDialog" data-toggle="modal" data-target="#myModal3" class="btn btn-default btn-property-2 font-style-2">
-                LOG IN
-            </button>-->
             <login-dialog >
             </login-dialog>
-
-
-
-
-
-    </div>
+  
+</div>

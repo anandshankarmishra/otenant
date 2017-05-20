@@ -1,47 +1,68 @@
 
-.overlay {
-  position: fixed;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  background-color: rgba(0, 0, 0, 0.5);
-  z-index: 999;
+/*modal css*/
+
+.pos-form-signup
+{
+    font-size: 20px;
+    padding-top: 20px;
+    padding-bottom: 10px;
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    color: #3a3a3a;
+    font-weight: 600;
 }
 
-.dialog {
-  z-index: 1000;
-  position: fixed;
-  right: 0;
-  left: 0;
-  top: 20px;
-  margin-right: auto;
-  margin-left: auto;
-  min-height: 200px;
-  width: 90%;
-  max-width: 520px;
-  background-color: #fff;
-  padding: 12px;
-  box-shadow: 0 7px 8px -4px rgba(0, 0, 0, 0.2), 0 13px 19px 2px rgba(0, 0, 0, 0.14), 0 5px 24px 4px rgba(0, 0, 0, 0.12);
+.form-feed-input
+{
+    font-size: 12px;
+    text-decoration: none;
+    width: 60%;
+    border: 1px solid #3a3a3a;
+    margin: auto;
+    -webkit-appearance: none;
+    box-sizing: border-box;
+    word-spacing: 1px;
+    letter-spacing: 1px;
+    box-shadow: none;
+    border-radius: 3px;
+    margin-top: 10px;
 }
 
-@media (min-width: 768px) {
-  .dialog {
-    top: 40px;
-  }
+.form-feed-input:hover,
+.form-feed-input:visited,
+.form-feed-input:focus
+{
+    outline: none;
+    box-shadow: none;
+    border: 1px solid black;
+
 }
 
-.dialog__close-btn {
-  border: 0;
-  background: none;
-  color: #2d2d2d;
-  position: absolute;
-  top: 8px;
-  right: 8px;
-  font-size: 1.2em;
+.btn-property-1modal
+{
+    font-size: 12px;
+    text-decoration: none;
+    width: 60%;
+    border: 1px solid #3a3a3a;
+    margin: auto;
+    -webkit-appearance: none;
+    box-sizing: border-box;
+    word-spacing: 1px;
+    letter-spacing: 1px;
+    box-shadow: none;
+    border-radius: 3px;
+    color: white;
+    background-color: #3a3a3a;
+    margin-bottom: 30px;
+    margin-top: 10px;
 }
 
-/* Add padding to containers */
-.container {
-    padding: 16px;
+
+.btn-property-1modal:hover,
+.btn-property-1modal:focus,
+.btn-property-1modal:visited
+{
+    text-decoration: none;
+    background-color: #636363;
+    color: white;
+    background-color: #3a3a3a;
 }

@@ -1,3 +1,519 @@
+
+.pad-top1
+{
+    padding-top: 40px;
+}
+.pad-bottom
+{
+    padding-bottom: 20px;
+}
+.logo-position1
+{
+    margin-left: 45px;
+    height:55px;
+}
+.font-style-11
+{
+    font-family: "helvetica neue", helvetica, arial, sans-serif;
+    font-size: 17px;
+    color: grey;
+    font-weight: 700;
+    display: inline-block;
+}
+
+.font-style-12
+{
+    font-family: "helvetica neue", helvetica, arial, sans-serif;
+    font-size: 15px;
+    color: grey;
+    font-weight: 400;
+    display: inline-block;
+}
+
+.font-style-13
+{
+    font-family: "helvetica neue", helvetica, arial, sans-serif;
+    font-size: 13px;
+    color: black;
+    font-weight: 700;
+    display: inline-block;
+    line-height: 1px;
+
+}
+.font-style-14
+{
+    font-family: "helvetica neue", helvetica, arial, sans-serif;
+    font-size: 13px;
+    color: grey;
+    font-weight: 400;
+    
+}
+
+.pipe-style
+{
+    margin-left:20px ;
+    margin-right: 20px;
+    display: inline-block;
+}
+
+hr
+{
+    margin-top: -11px;
+    margin-bottom: 9px;
+}
+
+.profile-pic-style
+{
+    display: inline-block;
+    padding-right: 10px;
+}
+
+.btn-property-submit
+{
+    height: 30px;
+    width: 480px;
+    margin-top: 0;
+}
+
+
+
+.pad-right
+{
+    padding-right : 10px;
+    padding-bottom: -10px;
+}
+p
+{
+    line-height: 80%;
+}
+
+.flex-prop
+{
+    display: flex;
+    flex-wrap: wrap;
+    
+}
+
+@media only screen and (max-width:800px )
+{
+    .pipe-style
+    {
+        margin-left:35px ;
+        margin-right: 35px;
+    }
+}
+
+
+a
+{
+    text-decoration: none;
+    cursor: pointer;
+}
+a:visited,
+a:focus
+{
+    text-decoration: none;
+    outline: none;
+    border: none;
+}
+
+.container-fluid
+{
+    margin: 0;
+    padding: 0;
+}
+
+.page-width
+{
+    max-width: 2500px;
+    margin: 0 auto;
+}
+
+.html
+{
+    height: 100%;
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+.body
+{
+    min-height: 100%;
+}
+
+.pos-rel
+{
+    position: relative;
+}
+
+.pos-abs
+{
+    position: absolute;
+}
+
+.img-background
+{
+        height: 100%;
+        background-image: url('app/homepage/images/background-img.jpg');
+        background-size: cover;
+        background-position: center center;
+}
+
+.img-height
+{
+    height: 100px;
+}
+
+.pos-title
+{
+    padding-top:120px;
+}
+
+
+
+/*form*/
+form td input
+{
+    height:34px;
+    margin: 0 7px 0 0;
+    padding-left: 17px;
+    box-sizing: border-box;
+    border: 1px lightgrey;
+    border-radius: 5px;
+    color: black;
+    font-size: 14px;
+    word-spacing: 1px;
+    -webkit-appearance: none;
+    text-align: left;
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
+input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+form select
+{
+    height:34px;
+    margin: 0 7px 0 0;
+    padding-left: 17px;
+    padding-right: 17px;
+    box-sizing: border-box;
+    border: 1px lightgray;
+    border-radius: 5px;
+    color: black;
+    font-size: 14px;
+    word-spacing: 1px;
+    text-align: left;
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    background: white;
+}
+
+option:hover
+{
+    background-color: #636363;
+    color: white;
+}
+
+::-webkit-input-placeholder {
+    color: #444444;
+    text-align:left;
+}
+
+:-moz-placeholder { /* Firefox 18- */
+    color: #444444;
+    text-align:left;
+}
+
+::-moz-placeholder {  /* Firefox 19+ */
+    color: #444444;
+    text-align:left;
+}
+
+:-ms-input-placeholder {
+    color: #444444;
+    text-align:left;
+}
+
+.width-fld
+{
+    width: 200px;
+    
+}
+
+.visible-mob
+{
+    display: none;
+}
+
+.button-style2
+{
+    background-color: #636363;
+    border: 1px solid #636363;
+    border-radius: 60px;
+    cursor: pointer;
+    height: 46px;
+    width: 46px;
+    color: white;
+    
+
+}
+
+.button-style2:hover,
+.button-style2:focus
+{
+    outline: none;
+}
+
+#btnimage
+{
+    background-image: url('app/homepage/images/right-arrow.svg');
+    background-repeat: no-repeat;
+    height: 46px;
+    width: 46px;
+    font-size: 0px;
+    background-position: center;
+    text-decoration: none;
+}
+
+.font-style-1
+{
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-size: 30px;
+    color: white;
+    font-weight: 700;
+}
+
+.font-style-2
+{
+    font-family:"Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-size: 16px;
+    text-align: center;
+
+}
+
+.font-style-3
+{
+    font-size: 26px;
+    color: white;
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
+.pos-or
+{
+    margin-left: -295px;
+    margin-top: -10px;
+    margin-bottom: -10px;
+}
+
+.pos-track
+{
+    padding-top: 60px;
+}
+
+.btn-property-1
+{
+    height: 55px;
+    width: 250px;
+    text-decoration: none;
+    border-radius: 5px;
+    border: none;
+    color: white;
+    background-color: #636363;
+    word-spacing: 1px;
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
+
+.btn-property-1:hover,
+.btn-property-1:focus,
+.btn-property-1:visited
+{
+    text-decoration: none;
+    background-color: #636363;
+    color: white;
+}
+
+.btn-property-2
+{
+    height: 55px;
+    width: 250px;
+    text-decoration: none;
+    border-radius: 5px;
+    border: none;
+    color: #636363;
+    background-color: white;
+    word-spacing: 1px;
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
+
+.btn-property-2:hover,
+.btn-property-2:focus,
+.btn-property-2:visited
+{
+    text-decoration: none;
+    background-color: white;
+    color: #636363;
+}
+
+.pos-btn
+{
+    margin-top: 30px;
+}
+
+@media only screen and (max-width:1200px )
+{
+
+    .width-fld {
+        width: 200px;
+        margin-top: 7px;
+    }
+
+    form input {
+        height: 34px;
+        font-size: 14px;
+    }
+
+    form select {
+        height: 34px;
+        font-size: 14px;
+    }
+    
+
+    .visible-mob
+    {
+        display: block;
+    }
+
+}
+
+@media only screen and (max-width:600px )
+{
+
+    .font-style-1
+    {
+        font-size: 15px;
+        font-weight: 700;
+    }
+
+    .pos-track
+    {
+        padding-top: 3px;
+    }
+    .visible-mob
+    {
+        display: block;
+    }
+
+
+    .img-height
+    {
+        height: 70px;
+    }
+
+    .pos-title
+    {
+        padding-top: 10px;
+    }
+
+
+    .width-fld
+    {
+        width: 180px;
+        margin-top:7px;
+    }
+
+    form input
+    {
+        height:34px;
+        font-size: 11px;
+    }
+
+
+    form
+    {
+        margin-bottom: -14px;
+    }
+    form select
+    {
+        height:30px;
+        font-size: 11px;
+    }
+
+
+
+    .btn-property-1
+    {
+        height: 45px;
+        width: 180px;
+        border-radius: 5px;
+    }
+
+    .btn-property-2
+    {
+        height: 45px;
+        width: 180px;
+        border-radius: 5px;
+    }
+
+    .pos-or
+    {
+        margin-left: -225px;
+        margin-top: -11px;
+        margin-bottom: -11px;
+    }
+
+    .pos-btn
+    {
+        margin-top: 3px;
+    }
+
+    .font-style-2
+    {
+        font-size: 13px;
+    }
+
+    .font-style-3
+    {
+        font-size: 20px;
+    }
+
+}
+
+@media only screen and (max-width:641px) and (orientation:portrait)
+{
+    .img-background
+    {
+        height: 100%;
+        background-image: url('app/homepage/images/pic.png');
+        background-size: cover;
+        background-position: center center;
+    }
+    
+    .img-height
+    {
+        height: 70px;
+    }
+
+    .pos-title
+    {
+        padding-top:60px;
+    }
+    
+}
+
+
+
+
+
+
+
+
+
+
+
 a
 {
     text-decoration: none;
@@ -66,11 +582,11 @@ a:focus
 /*form*/
 form input
 {
-    height:44px;
+    height:34px;
     margin: 0 7px 0 0;
     padding-left: 17px;
     box-sizing: border-box;
-    border: none;
+    border: 1px lightgray;
     border-radius: 5px;
     color: black;
     font-size: 14px;
@@ -88,12 +604,12 @@ input[type=number]::-webkit-outer-spin-button {
 
 form select
 {
-    height:44px;
+    height:34px;
     margin: 0 7px 0 0;
     padding-left: 17px;
     padding-right: 17px;
     box-sizing: border-box;
-    border: none;
+    border: 1px lightgray;
     border-radius: 5px;
     color: black;
     font-size: 14px;
@@ -134,7 +650,6 @@ option:hover
 .width-fld
 {
     width: 280px;
-    margin-top: 50px;
 }
 
 
@@ -155,7 +670,6 @@ option:hover
     height: 46px;
     width: 46px;
     color: white;
-    margin-top: 20px;
 }
 
 .button-style2:hover,
@@ -271,12 +785,12 @@ option:hover
     }
 
     form input {
-        height: 40px;
+        height: 34px;
         font-size: 14px;
     }
 
     form select {
-        height: 40px;
+        height: 34px;
         font-size: 14px;
     }
 
@@ -335,12 +849,6 @@ option:hover
     {
         height:30px;
         font-size: 11px;
-    }
-
-
-    .button-style2
-    {
-        margin-top: -10px;
     }
 
 
@@ -403,4 +911,27 @@ option:hover
     }
     
 }
+
+.max-nav
+{
+    max-width: 1200px;
+    margin: 0 auto;
+}
+.max-nav1
+{
+    max-width: 1100px;
+    margin: 0 auto;
+}
+.max-nav2
+{
+    max-width:500px;
+    margin: 0 auto;
+    padding-right: 25px;
+    padding-top: 40px;
+}
+
+tr td {
+    padding: 12px;
+}
+
 

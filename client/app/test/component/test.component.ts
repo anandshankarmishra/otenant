@@ -1,4 +1,5 @@
 import { Component, OnInit, Input,Output, NgModule, EventEmitter, HostListener,Inject } from '@angular/core';
+import { Router, ActivatedRoute, Params } from '@angular/router';
 import {Tenant} from '../../models/tenant';
 import { DOCUMENT } from '@angular/platform-browser';
 
@@ -10,24 +11,19 @@ import { DOCUMENT } from '@angular/platform-browser';
  styleUrls:['../test.css']   
 })
 
-export class TestComponent {
+export class TestComponent implements OnInit {
     
-    @Input()
-   // resetSearchedTenants:boolean = false;
+   
+    ngOnInit() {}
+ 
     private searchedTenants:Tenant[] = [];    
         
-    handleSearchedTenants(tenants){
-        
-        // if (this.resetSearchedTenants == true) {
-        //     this.searchedTenants = []; // reset the array
-        //     return
-        // }
+    handleSearchedTenants(tenants:Tenant[]){
         if (this.searchedTenants.length == 0) {
             this.searchedTenants = tenants;    
         } else {
             console.log("here in laundap:");
             tenants.map(te => this.searchedTenants.push(te));
-            //this.searchedTenants.push(tenants.map(te => te as Tenant[]));
         }
         
         //console.log(tenants);

@@ -7,6 +7,7 @@ import { Router } from '@angular/router';
 
 import {SignUpService} from '../services/signup.service';
 import {ValidationService} from '../services/validation.service';
+import {Constants} from '../../stringconstants';
 
 declare var jQuery:any;
 
@@ -45,8 +46,9 @@ export class SignUpComponent {
     //Print the result of SignUpService
     private sucx: number = 0; //set 0 for sign up form,  1 for sign up success, 2 for error
     private signUpMessage:string = "";
-    private successMsg = "Congratulations! You have successfully signed up to Otenant."
-    private errorDupEmailMsg = " This email already exists . Please try again with a different email id";
+    //private successMsg = "Congratulations! You have successfully signed up to Otenant."
+    private successMsg = Constants.successfulSignupMsg;
+    private errorDupEmailMsg = Constants.errorDupEmailMsg ;
 
 
     constructor(private formBuilder: FormBuilder, 
@@ -75,6 +77,7 @@ export class SignUpComponent {
         this.sucx = 0;
         this.signUpMessage = "";
         jQuery("#myModal2").modal("hide");
+        
     }
 
     //check if the 2 passwords match
@@ -100,6 +103,8 @@ export class SignUpComponent {
     }
 
   }
+  
+
 
   //calls signUp service
     signUp(fullName, email, password, city, area: String[], type_of_tenant){               

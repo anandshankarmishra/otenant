@@ -1,53 +1,70 @@
-<!--<searchForm-view>
-    </searchForm-view>-->
-    
-            
-<div class="text-center">
-    <a href="http://localhost:3000/">
-            <img src="app/homepage/images/O-tenant.svg" class="img-height" >
-    </a>
-    
-    
-     <form [formGroup]="searchForm" (submit)="searchTenants()" class="form-inline" id="commentForm" role="form"  novalidate="novalidate">
-                <input type="text" formControlName="searchCity" id="usr-city" required="required" class="width-fld" placeholder="CITY" aria-required="true" style="margin-top:7px">
-                <input type="text" formControlName="searchArea" id="usr-area" required="required" class="width-fld" placeholder="AREA" aria-required="true" style="margin-top:7px">
-                <select formControlName="search_type_of_tenant" id="type_of_tenant" class="width-fld" style="margin-top:7px">
-                    <option value="" disabled selected hidden>
-                        TYPE OF TENANTS
-                    </option>
-                    <option value="dfg">GROUP OF GIRLS</option>
-                    <option value="dfg">BACHELOR BOY</option>
-                    <option value="abc">FAMILY</option>
-                    <option value="dfg">BACHELOR GIRL</option>
-                    <option value="dfg">GROUP OF BOYS</option>
-                    <option value="dfg">UNMARRIED COUPLE</option>
-                    <option value="dfg">OTHERS</option>
-
-                </select>
-                
-                <button class="button-style2" id="btnimage" type="submit" >
-                    1
-                </button>
-                
-     </form>
+        <nav class="navbar nav-style">
+            <div class="container-fluid max-nav">
+                <div class="navbar-header" style="display: inline-block">
+                    <a class="navbar-brand" href="#">
+                        <img src="app/searchTenants/images/O-tenant.svg" class="logo-position1" style="margin-top: -7px">
+                    </a>
+                </div>
      
+                <track-scroll [dontEmit]="dontSearchFurther" (pageScrolled)="handlePageScrollEvent($event)"></track-scroll>           
+                <form class="form-inline" id="commentForm" role="form" >
+                <table>
+                    <tr>
+                        <td><input name="searchCity" type="text" class="width-fld margin-top1" placeholder="CITY_homepage" [(ngModel)]="searchCity" aria-required="true"  required></td>
+                        <td><input type="text" name="searchAreas" class="width-fld" placeholder="AREA_homepage" [(ngModel)]="searchAreas" aria-required="true" ></td>
+                        <td>
+                            <ss-multiselect-dropdown name="types_of_tenant" [(ngModel)]="selectedOptions" (ngModelChange)="onChange($event)" [options]="myOptions" [texts]="myTexts" [settings]="mySettings">
+                            </ss-multiselect-dropdown>
+                         </td>
+                         <td>
+                              <!--<button class="button-style2" id="btnimage" type="button" (click)="searchTenants(searchCity.value,searchAreas.value,selectedOptions)">
+                                    1
+                                </button>-->
+                               <button class="button-style2" id="btnimage" type="button" (click)="onClickResetAndSearch(searchCity,searchAreas,selectedOptions)" style="margin-left: 18px;">
+                                    1
+                                </button>
+                          </td>
+                      </tr>
+                   </table>
+                </form>
 
-<!--<router-outlet></router-outlet>-->
+<div *ngIf = "searchedTenants.length !== 0"> 
 
+     <div class="container-fluid max-nav1 pad-top flex-prop" >
+        
+          
+       <span *ngFor="let te of searchedTenants" class="max-nav2">
+                <div class="font-style-11">{{te.userFullName}}</div>
+                <div class="text-center pipe-style" >|</div>
+                <div class="font-style-12 text-center" >{{te.userTypeOfTenant}}</div>
+                <div class="text-center pipe-style">|</div>
+                <div class="font-style-12 text-center">City:New Delhi</div>
 
+                <hr/>
+                        <div class="pull-left profile-pic-style">
+                            <img src="app/searchTenants/images/DUMMMY-IMAGE.png" >
+                        </div>
+                            <div class="font-style-13 pad-right " >Current Area:SaketSakeSaketSakeSaketSake</div>
+                            <div class="font-style-13 " >Desired Area:Saket</div>
+                <div class="font-style-14" style="padding-top:10px;" >
+                    Requirement Description:
+                        <div style="padding-bottom:10px"></div>
+                            abcd efghijkl mnop qrstuv wxyz abcd efghijkl mnop qrstuv wxyz abcd efghijkl mnop qrstuv wxyz abcd efghijkl mnop qrstuv wxyz
+                            abcd efghijkl mnop qrstuv wxyz abcd efghijkl mnop qrstuv wxyz abcd efghijkl mnop qrstuv wxyz abcd efghijkl
+                            mnop qrstuv wxyz abcd efghijkl mnop qrstuv wxyz abcd efghijkl mnop qrstuv wxyz abcd efghijkl mnop qrstuv
+                            wxyz abcd efghijkl mnop qrstuv wxyz abcd efghijkl mnop qrstuv wxyz abcd efghijkl mnop qrstuv wxyz abcd
+                            efghijkl mnop qrstuv wxyz abcd efghijkl mnop qrstuv wxyz abcd efghijkl mnop qrstuv wxyz
+                        </div>
+                <button name="inviteTenant" type="submit"(click)="onClickInvite(te)" class="btn btn-default  btn-property-submit font-style-2" data-toggle="modal" data-target="#myModal4" >
+                    INVITE TENANT TO VISIT PROPERTY
+                </button>
+                <invite-dialog [(tenantEmail)]="tenant_email"></invite-dialog>
 
-{{tenants.length}} tenants found! <br/>
-<div *ngFor="let te of tenants" >
-    <div>
-     {{te.userFullName}} <br>
-     {{te.userEmail}} 
-<!--<br/> <button (click)="showDialog = !showDialog">  Invite Tenant </button>-->
-<br/> <button type = "submit" (click)="onClick(te)">  Invite Tenant </button>
- <invite-dialog [(visible)]="showDialog" [(tenantEmail)]="tenant_email">
-            </invite-dialog>
+        </span>
+        
+     </div>
 </div>
-</div>
+       
 
 
-
-
+       

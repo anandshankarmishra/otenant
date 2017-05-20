@@ -1,9 +1,10 @@
 import { Component, OnInit, Input,Output, NgModule, EventEmitter } from '@angular/core';
-import { FormBuilder, Validators } from '@angular/forms';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import { Observable }        from 'rxjs/Observable';
 import {SearchFormService} from '../services/searchForm.service';
 import{Tenant } from '../../../models/tenant';
+import {IMultiSelectOption,IMultiSelectSettings,IMultiSelectTexts} from 'angular-2-dropdown-multiselect/src/multiselect-dropdown';
+
 
 
 @Component({
@@ -14,10 +15,50 @@ import{Tenant } from '../../../models/tenant';
 })
 
 export class SearchFormComponent {
-       
+
+    private errorCityEmpty="The city field can not be empty, please supply a value.";
+    private errorMsg = "";
+    private searchCity; private searchAreas; private typesOfTenant;
+    private selectedOptions: String[];
+    private myOptions: IMultiSelectOption[] = [
+        { id: 'GOG', name: 'GROUP OF GIRLS' },
+        { id: 'BB', name: 'BACHELOR BOY' },
+        { id: 'FAM', name: 'FAMILY' },
+        { id: 'BG', name: 'BACHELOR GIRL' },
+        { id: 'GOB', name: 'GROUP OF BOYS' },
+        { id: 'UC', name: 'UNMARRIED COUPLE' },
+        { id: 'OTH', name: 'OTHERS' }
+    ];
+      private searchTenantsURL: string = './searchTenants';    
+      private mySettings: IMultiSelectSettings = {
+        pullRight: false,
+        enableSearch: false,
+        checkedStyle: 'checkboxes',
+        buttonClasses: 'btn btn-default',
+        selectionLimit: 0,
+        closeOnSelect: false,
+        showCheckAll: true,
+        showUncheckAll: true,
+        dynamicTitleMaxItems: 0,
+        maxHeight: '300px',
+    };
+
+    private myTexts: IMultiSelectTexts = {
+        checkAll: 'Check all',
+        uncheckAll: 'Uncheck all',
+        checked: 'checked',
+        checkedPlural: 'checked',
+        searchPlaceholder: 'Search...',
+        defaultTitle: 'Select',
+    };
+
+
     showDialog = false;
     tenant_email:string ='';
    
+    @Input()
+    cameFromHomePage;
+    
     @Output()
     tenantsSearched = new EventEmitter();
     
@@ -30,35 +71,52 @@ export class SearchFormComponent {
     
     private numOfTenantsToShow:number = 20; // number of tenants to show on page at any given time
     private index = 0; //on every scroll, index will be set to fetch next numOfTenantsToShow Tenants
-    
-    searchForm: any; 
 
     constructor (private searchFormService: SearchFormService,
                  private route: ActivatedRoute,
-                 private formBuilder: FormBuilder,
                  private router: Router            
-         ) {
-        
-        this.searchForm = this.formBuilder.group({
-          'searchCity': ['', Validators.required],
-          'searchArea': ['' ],
-          'search_type_of_tenant' : ['']
-        });
-    }
+         ) {}
+         
+    ngOnInit() {
+
+      console.log("cameFromHomePage ngoninit");
+      console.log(this.cameFromHomePage);
+      // console.log(this.route);
+      // let desired_city = this.route.snapshot.queryParams["desired_city"];
+      // console.log("ngoninit city: " + desired_city);
+      // let desired_area = this.route.snapshot.queryParams["desired_areas"];
+      // console.log("ngoninit area: " + desired_area);
+      // let types_of_tenant = this.route.snapshot.queryParams["types_of_tenant"];
+      // console.log("ngoninit types_of_tenant: " + types_of_tenant);
+      // let index = this.route.snapshot.queryParams["index"];
+      // console.log("ngoninit index: " + index);
+      // let limit = this.route.snapshot.queryParams["limit"];
+      // console.log("ngoninit limit: " + limit);
+
+    
+      // this.getTenants(desired_city, desired_area, types_of_tenant,index,limit);
+    }// end of ngOnInit
   
   getTenants(desired_city, desired_area, type_of_tenant, indx, limt): void {
+  
+
+  console.log("here in gettenants of seachFormComponent")
+     
   this.searchFormService.searchTenants(desired_city, desired_area, type_of_tenant, indx, limt)
   .subscribe(
     result=> 
     {
-      //this.tenants =(result)
+
       if (result.length % 20 !=0) {
+        console.log("from %20 wala if"+result);
+        console.log(result);
+        this.tenantsSearched.emit(result);
         this.dontSearchFurther = true;
         return;
-        //this.tenantsSearched.emit(this.dontSearchFurther); 
+         
       } else {
-        this.tenantsSearched.emit(result);
-     // this.index = this.index + this.rsltsToShow;
+       console.log("from %20 wala else"+result);
+       this.tenantsSearched.emit(result);
        console.log("index:" + this.index);
       }
       
@@ -69,40 +127,37 @@ export class SearchFormComponent {
   
   
   
-   searchTenants(): void {  
+   searchTenants(searchCity,searchAreas,typesOfTenant): void {  
      
-      if (this.searchForm.dirty && this.searchForm.valid) {
-            this.index = 0;//show results from top
-            this.dontSearchFurther = false;
-            //this.resetTenantArray = true;
-            
-            this.resetTenantsArray.emit(true);
-            
-            console.log(this.searchForm.value.searchCity,
-                      this.searchForm.value.searchArea,
-                      this.searchForm.value. search_type_of_tenant);
-            this.getTenants(this.searchForm.value.searchCity,
-                      this.searchForm.value.searchArea,
-                      this.searchForm.value. search_type_of_tenant, this.index, this.numOfTenantsToShow);
-      }
+     console.log(searchCity);
+     console.log(searchAreas);
+     console.log(typesOfTenant);
+     this.searchCity = searchCity;
+     this.searchAreas = searchAreas; 
+     this.typesOfTenant = typesOfTenant;
+      
+     this.index = 0;//show results from top
+     this.dontSearchFurther = false;
+     this.resetTenantsArray.emit(true);
+     
+     if(searchCity == ""){
+       this.errorMsg = this.errorCityEmpty;
+       return;
+     }
+     
+     this.getTenants(searchCity,searchAreas,typesOfTenant,this.index, this.numOfTenantsToShow);
+      
     }
-
+   
     handlePageScrollEvent(event){
       console.log("From searchForm Component:");
       this.index = this.index + this.numOfTenantsToShow;
-      
-       this.getTenants(this.searchForm.value.searchCity,
-                      this.searchForm.value.searchArea,
-                      this.searchForm.value. search_type_of_tenant, this.index, this.numOfTenantsToShow);
-       
+      this.getTenants(this.searchCity,this.searchAreas,this.typesOfTenant,this.index, this.numOfTenantsToShow);
     }
 
-
-    // onClick(tenant:Tenant) {
-    //   console.log("onClick:" + tenant.userEmail);
-    //   this.showDialog = !this.showDialog;
-    //   this.tenant_email = tenant.userEmail;
-    // }
-    
+    onChange(event){
+      console.log("got following from search form");
+      console.log(event);
+    }    
 
 }

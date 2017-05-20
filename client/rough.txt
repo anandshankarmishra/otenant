@@ -1,1 +1,3 @@
 1. handle landscape mode of homepage.
+
+db.users.find({userDesiredCity:"noida",userDesiredArea:"sec52",userTypeOfTenant: {$in:['BB','GOG']} }).pretty().count();

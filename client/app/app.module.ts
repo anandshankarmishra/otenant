@@ -3,6 +3,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { HttpModule }    from '@angular/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ImageUploadModule} from 'angular2-image-upload';
+import {MultiselectDropdownModule} from 'angular-2-dropdown-multiselect/src/multiselect-dropdown';
 
 //component imports
 import { AppComponent }  from './app.component';
@@ -18,7 +19,7 @@ import { NotificationComponent} from './common/notifications/component/notificat
 import { DeleteAccountComponent} from './tenantHome/component/deleteAccount.component';
 import {TestComponent} from './test/component/test.component';
 import {TrackScrollComponent} from './test/component/test.component';
-
+import {UpdateProfileComponent} from './tenantHome/component/updateProfile.component';
 //import { SearchTenantsComponent } from './searchTenants/component/searchTenants.component';
 
 //service imports
@@ -32,7 +33,6 @@ import { TenantService } from './tenantHome/services/tenantHome.services';
 import { SearchFormService} from './common/search/services/searchForm.service'
 import { UploadImageComponent } from './common/uploadImage/component/uploadImage.component';
 
-
 import { AppRoutingModule }     from './app-routing.module';
 
 
@@ -44,7 +44,9 @@ import { AppRoutingModule }     from './app-routing.module';
     FormsModule,
     ReactiveFormsModule,
     AppRoutingModule,
+    MultiselectDropdownModule,
     ImageUploadModule.forRoot(),
+    
   ],
   
   declarations: [ 
@@ -54,14 +56,13 @@ import { AppRoutingModule }     from './app-routing.module';
     LoginComponent,
     ControlMessagesComponent,
     SearchTenantsComponent,
-    SearchFormComponent,
     InviteTenantComponent,
     TenantHomeComponent,
     NotificationComponent,
     UploadImageComponent,
     DeleteAccountComponent,
-    TestComponent,
-    TrackScrollComponent
+    TrackScrollComponent,
+    UpdateProfileComponent
   ],
 
   providers: [ 
@@ -71,8 +72,7 @@ import { AppRoutingModule }     from './app-routing.module';
     SearchTenantsService,
     InviteTenantService,
     AuthGuard,
-    TenantService,
-    SearchFormService
+    TenantService
   ],
   bootstrap: [ AppComponent ]
 })
