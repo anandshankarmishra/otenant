@@ -24,8 +24,8 @@ var SignUpComponent = (function () {
         //@Input() visible: boolean;
         //private submitted = false;
         //onSubmit() { this.submitted = true; }
-        this.type_of_tenant = ['Couple', 'Single',
-            'Super Hot', 'Weather Changer'];
+        this.type_of_tenant = ['Group Of Girls', 'Bachelor',
+            'Family', 'Others'];
         //Print the result of SignUpService
         this.sucx = 0; //set 0 for sign up form,  1 for sign up success, 2 for error
         this.signUpMessage = "";

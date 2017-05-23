@@ -54,7 +54,7 @@ export class SearchTenantsComponent implements OnInit {
         checked: 'checked',
         checkedPlural: 'checked',
         searchPlaceholder: 'Search...',
-        defaultTitle: 'Select test',
+        defaultTitle: 'SELECT TYPE OF TENANTS',
     };
 
     private searchedTenants:Tenant[] = [];

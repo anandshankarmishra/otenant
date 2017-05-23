@@ -51,7 +51,7 @@ var SearchTenantsComponent = (function () {
             checked: 'checked',
             checkedPlural: 'checked',
             searchPlaceholder: 'Search...',
-            defaultTitle: 'Select test',
+            defaultTitle: 'SELECT TYPE OF TENANTS',
         };
         this.searchedTenants = [];
         //tenant_email:string ='';    

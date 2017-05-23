@@ -37,8 +37,8 @@ export class SignUpComponent {
     
     //onSubmit() { this.submitted = true; }
 
-    private type_of_tenant = ['Couple', 'Single',
-            'Super Hot', 'Weather Changer'];
+    private type_of_tenant = ['Group Of Girls', 'Bachelor',
+            'Family', 'Others'];
 
     //SignUp Form Object for validation, control etc
     private signUpForm: any;

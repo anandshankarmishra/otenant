@@ -1,7 +1,16 @@
 /*
  * Created by moksh on 18/4/16.
  */
+ $(window).resize(function() 
+            {
 
+            var viewportWidth = $(window).width();
+
+            var viewportHeight = $(window).height();
+
+            //do your layout change here.
+
+            });
 
 $(document).ready(function() {
 
@@ -34,9 +43,14 @@ $(document).ready(function() {
 
             $('body').addClass('test');
 
-
-
         })
 
+       
+            
+
     }
+
 )
+
+
+

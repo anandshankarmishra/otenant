@@ -1,6 +1,6 @@
         <nav class="navbar nav-style">
             <div class="container-fluid max-nav">
-                <div class="navbar-header" style="display: inline-block">
+                <div class="navbar-header " style="display: inline-block">
                     <a class="navbar-brand" href="#">
                         <img src="app/searchTenants/images/O-tenant.svg" class="logo-position1" style="margin-top: -7px">
                     </a>
@@ -8,18 +8,15 @@
      
                 <track-scroll [dontEmit]="dontSearchFurther" (pageScrolled)="handlePageScrollEvent($event)"></track-scroll>           
                 <form class="form-inline" id="commentForm" role="form" >
-                <table>
+                <table style="margin:0 auto">
                     <tr>
-                        <td><input name="searchCity" type="text" class="width-fld margin-top1" placeholder="CITY_homepage" [(ngModel)]="searchCity" aria-required="true"  required></td>
-                        <td><input type="text" name="searchAreas" class="width-fld" placeholder="AREA_homepage" [(ngModel)]="searchAreas" aria-required="true" ></td>
+                        <td><input name="searchCity" type="text" class="width-fld margin-top1" placeholder="CITY" [(ngModel)]="searchCity" aria-required="true"  required></td>
+                        <td><input type="text" name="searchAreas" class="width-fld" placeholder="AREA" [(ngModel)]="searchAreas" aria-required="true" ></td>
                         <td>
                             <ss-multiselect-dropdown name="types_of_tenant" [(ngModel)]="selectedOptions" (ngModelChange)="onChange($event)" [options]="myOptions" [texts]="myTexts" [settings]="mySettings">
                             </ss-multiselect-dropdown>
                          </td>
-                         <td>
-                              <!--<button class="button-style2" id="btnimage" type="button" (click)="searchTenants(searchCity.value,searchAreas.value,selectedOptions)">
-                                    1
-                                </button>-->
+                         <td style="text-align: center;">
                                <button class="button-style2" id="btnimage" type="button" (click)="onClickResetAndSearch(searchCity,searchAreas,selectedOptions)" style="margin-left: 18px;">
                                     1
                                 </button>
@@ -44,7 +41,7 @@
                         <div class="pull-left profile-pic-style">
                             <img src="app/searchTenants/images/DUMMMY-IMAGE.png" >
                         </div>
-                            <div class="font-style-13 pad-right " >Current Area:SaketSakeSaketSakeSaketSake</div>
+                            <div class="font-style-13 pad-right " >Current Area:Saket</div>
                             <div class="font-style-13 " >Desired Area:Saket</div>
                 <div class="font-style-14" style="padding-top:10px;" >
                     Requirement Description:
