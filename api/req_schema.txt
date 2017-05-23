@@ -1,0 +1,15 @@
+//userprofile is half filled at the time of signup.
+userprofile:
+        {
+            "fullname":"Mohit Mittal",
+            "email":"mohit.f2004760@gmail.com",
+            "password":"simple",
+            "desired_city":"",
+            "desired_area":"",
+            "type_of_tenant":"group_single_boys/group_single_girls/single_boy/single_girl/livein_couple/family"
+            "current_city":"",
+            "current_area":"",
+            "phone_no":"",
+            "requirement_description":""
+        }
+        
