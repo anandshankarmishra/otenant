@@ -140,14 +140,22 @@ router.route("/login")
 
     // If a user is found
     if(user){
-    console.log("user is found" + user);
+    console.log("user is found " + user.userFullName);
       token = user.generateJwt();
 	//req.session.token = token;
     //console.log("tok:" + req.session.token);
     
       res.status(200);
       res.json({
-        "token" : token
+        "token" : token,
+        "userFullName" : user.userFullName,
+        "userEmail" : user.userEmail,
+        "userCurrentArea" : user.userCurrentArea,
+        "userDesiredArea" : user.userDesiredArea,
+        "userCurrentCity" : user.userCurrentCity,
+        "userDesiredCity" : user.userDesiredCity,
+        "userPhoneNo": user.userPhoneNo,
+        "userRequirementDescription": user.userRequirementDescription
       }
       
       )
@@ -204,8 +212,8 @@ router.route("/login")
 
 router.route("/getUserProfile") 
    .get(function(req,res){  
-       if (req.query.token) {
-           console.log("getting token" + req.query.token);
+       if (req.query.token && req.query.token != undefined) {
+           console.log("****inside get user profile****");
 
             let token = req.query.token;
             var decoded = jwt.verify(token, 'MY_SECRET');
@@ -222,36 +230,21 @@ router.route("/getUserProfile")
             UserProfile.findOne({'_id': id}, function (err,reqdUser){
             if(err) {
                 response = {"error" : true,"message" : "Error fetching data"};
+                res.json(response);
             }
             else{
                 //console.log("reqdUser:" + reqdUser);
                 response = reqdUser;
+                res.json(response);                
             }  
 
-            return res.json(response);
+            
         });
-
-            return;
-       }
-       if(!req.session.token){
-           console.log("get user p NO:" + JSON.stringify(req.session.user));
+       } else {
            return res.status(401).send("You are not authorized to access this api"); 
-       }
-       else{
-           console.log("get user YES:" + req.session.token);
-           var response = {};
-         /*  UserProfile.findOne({'userEmail': req.session.user.userEmail}, function (err,reqdUser){
-            if(err) {
-                response = {"error" : true,"message" : "Error fetching data"};
-            }
-            else{
-                res.json(reqdUser);
-            }  
-       });*/
-       }
-       
+       }       
     });
-
+/*
 router.route("/updateUserProfile/")
 .put(function(req,res){
     if(!req.session.user){
@@ -295,6 +288,82 @@ router.route("/updateUserProfile/")
          });
     }
 })
+*/
+
+router.route("/updateUserProfile/")
+.put(function(req,res){
+           console.log("********Start inside update: ********");
+   if (req.body.token && req.body.token != undefined) {
+           //console.log("getting token" + req.query.token);
+
+            let token = req.body.token;
+            var decoded = jwt.verify(token, 'MY_SECRET');
+            
+            //var id = getUserIdFromToken(token);
+            let id = decoded._id;
+            let email = req.body.userEmail;
+            let current_area = req.body.userCurrentArea;
+            let desired_city = req.body.userDesiredCity;
+            let desired_area = req.body.userDesiredArea;
+            let phone_no = req.body.userPhoneNo;
+            let requirement_description = req.body.userRequirementDescription;
+
+            console.log("id:" + id) // bar
+            //console.log("email:" + email) // bar
+            console.log("city:" + desired_city) // bar
+            //console.log("phone:" + phone_no) // bar
+
+                       
+            var response = {};
+    
+            UserProfile.findOne({'_id': id}, function (err,updatingUser){
+              if(err) {
+                response = {"error" : true,"message" : "Error fetching data"};
+            } 
+            else if (updatingUser != null && updatingUser.length == 0) {
+                response = {"error" : false,"message" : "No user with given id"};
+
+            } else 
+            {
+                // we got data from Mongo.
+                // change it accordingly.
+                if(desired_city != undefined)
+                    {updatingUser.userDesiredCity = desired_city;}     
+                if(desired_area != undefined)
+                    {updatingUser.userDesiredArea = desired_area;}
+                // if(current_city !== undefined)
+                //     {updatingUser.userCurrentCity = current_city;}     
+                if(current_area != undefined)
+                    {updatingUser.userCurrentArea = current_area;}            
+                // if(type_of_tenant !== undefined)
+                //     {updatingUser.userTypeOfTenant = type_of_tenant;}  
+                if(phone_no != undefined)
+                    {updatingUser.userPhoneNo = phone_no;}    
+                if(requirement_description != undefined)
+                    {updatingUser.userRequirementDescription = requirement_description;}    
+                
+                updatingUser.save(function(err, updatedUser){
+                        if(err) {
+                            response = {"error" : true,"message" : "Error updating data"};
+                            res.json(response);
+                        } else {
+                            response = {"error" : false,"message" : "Data is updated"};
+                            console.log("updated user city for example");
+                            console.log(updatedUser.userDesiredCity);
+
+                            res.json(updatedUser);
+                            
+                        }
+                        //res.json(response);
+                    });
+             }
+         });
+    } else {
+        res.send.status(401);
+    }
+
+})
+
 
 router.route("/changePassword/")
       .put(function(req,res){
@@ -419,15 +488,22 @@ router.route("/changePassword/")
 //var upload = multer({dest:'uploads/'}).single('photo');
 router.route("/uploadPhoto")
         .post(function(req,res){
-            if(!req.body.token){
+            let token = req.headers.authorization;
+            console.log("body:" + token);
+            /*if(!req.body.token){
              return res.status(401).send("You are not authorized to access this api.");
          }
          else
          {
-             
-             var response = {};
-             var imgFileName =  require('crypto').createHash('sha1').update(req.session.user.userEmail).digest('base64');
-             var storage =   multer.diskStorage({
+             */
+            if (token && token!= undefined) {
+                
+                var decoded = jwt.verify(token, 'MY_SECRET');
+                var id = decoded._id;
+                console.log("upload img for user id:" + decoded._id) // bar
+                
+                var imgFileName =  id;//require('crypto').createHash('sha1').update(req.session.user.userEmail).digest('base64');
+                var storage =   multer.diskStorage({
                  destination: function (req, file, callback) {
                      callback(null, 'uploads/');
                     },
@@ -435,42 +511,50 @@ router.route("/uploadPhoto")
                         callback(null, imgFileName + '.jpg');
                     }
                 });
-             var upload = multer({ storage : storage}).single('photo');
-             upload(req,res,function(err){
-                 if (err){
-                     return res.end("Error in uploading file");
-                 }
-                 else
-                 {
+                var upload = multer({ storage : storage}).single('photo');
+                var response = {};
+
+                upload(req,res,function(err){
+                    if (err){
+                        console.log("error in upload:" + err);
+                        response = {"error" : true,"status":900};
+                        return res.json(response);
+                        //return res.end("Error in uploading file");
+                    } else {
                      console.log(req.file);
-                     return res.end("File uploaded!");
-                 }
-             })
-             
-             UserProfile.findOne({'userEmail': req.session.user.userEmail}, function (err,updatingUser){
-                if(err) {
-                    response = {"error" : true,"message" : "Error fetching data"};
-                }
-                else{
-                     // we got data from Mongo.
-                     // change it accordingly.
-                if(imgFileName !== undefined)
-                    {
-                        updatingUser.userPhotoFileName = imgFileName;
-                    }     
-                
-                updatingUser.save(function(err){
+                     UserProfile.findOne({'_id': id}, function (err,updatingUser){
                         if(err) {
-                            response = {"error" : true,"message" : "Error updating data"};
-                        } else {
-                            response = {"error" : false,"message" : "User photo file name is updated for --> "+req.session.user.userEmail};
+                            response = {"error" : true,"message" : "Error fetching data"};
                         }
-                        res.json(response);
-                    });
+                        else{
+                            // we got data from Mongo.
+                            // change it accordingly.
+                            if (updatingUser != null) {
+                                if(imgFileName !== undefined)
+                            {
+                                updatingUser.userPhotoFileName = imgFileName;
+                            }     
+                        
+                            updatingUser.save(function(err){
+                                if(err) {
+                                    response = {"error" : true,"status" : 900};
+                                } else {
+                                    response = {"error" : false, "status" : 999};
+                                }
+                                res.json(response);
+                            });
+                            } else { // user not found
+                                return res.status(401).send("You are not authorized to access this api.");
+                            }
+               
                 } 
               })
-             
-         }
+                
+                 }
+             })
+            } else { // no token or token is undefined
+                return res.status(401).send("You are not authorized to access this api.");
+            }
   }); 
 
 router.route("/activateAccount")
@@ -686,26 +770,26 @@ router.route("/inviteTenant/")
               })
     });    
 
-function getUserIdFromToken(token) {
-	var payload = token.split('.')[1];
-//            console.log("plpp:" + payload);
+// function getUserIdFromToken(token) {
+// 	var payload = token.split('.')[1];
+// //            console.log("plpp:" + payload);
             
-            payload = atob(payload);
-            payload = JSON.parse(payload);
+//             payload = atob(payload);
+//             payload = JSON.parse(payload);
 
-            //let id =  JSON.stringify(payload._id);
-            var id = payload._id;
-            console.log("in getUserIdFromToken gotid:" + id);
-            console.log("got email:" + payload.userEmail);
-	    return id;
+//             //let id =  JSON.stringify(payload._id);
+//             var id = payload._id;
+//             console.log("in getUserIdFromToken gotid:" + id);
+//             console.log("got email:" + payload.userEmail);
+// 	    return id;
 
-}
+// }
 
 router.route("/getNotifications/")
       .get(function(req,res){
 
 	if (req.query.token) {
-        console.log("getting token" + req.query.token);
+        console.log("inside get notifications");
         let token = req.query.token;
          
         var decoded = jwt.verify(token,'MY_SECRET');
@@ -780,20 +864,22 @@ router.route("/updateNotifications/")
  router.route("/approveNotification/")
       .put(function(req,res){
          if (req.body.token && req.body.notification)  {
-            console.log("approv token" + req.query.token);
+            console.log("approv token" + req.body.token);
             let token = req.body.token;
          
-	        var user_id = getUserIdFromToken(token);
-            //var notif_id = req.body.notification;
-            
+	       	let decoded = jwt.verify(token,'MY_SECRET');
+
+            let id = decoded._id;
+            let notification = req.body.notification;
+        	console.log("in put, gotid:" + id + " notif:" + notification);    
 
             var response = {};
-            var notification = req.body.notification;//JSON.stringify(req.body.notification);
-            console.log("in put, gotid:" + user_id + " notif:" + notification);
-
+        
+            if(notification !== undefined)
+			{
             notification.approved = true; //approve the notification
 
-            UserProfile.findOneAndUpdate({'_id': user_id,
+            UserProfile.findOneAndUpdate({'_id': id,
                          'userNotifications._id':notification._id},{$set:{'userNotifications.$':notification}},
                          function (err,doc){
                              if(err){
@@ -814,6 +900,7 @@ router.route("/updateNotifications/")
             res.json(response);
             return;
          }
+		}
 /*	if(!req.session.user){
              return res.status(401).send("You are not authorized to access this api.");
          }
@@ -882,49 +969,79 @@ router.route("/updateNotifications/")
 
 router.route('/searchTenants/')
       .get(function(req,res){
-	console.log("searching now tenants..." + req.query.desired_city + " ," +  req.query.desired_areas + " ," + req.query.types_of_tenant);
+    	console.log("searching now tenants..." + req.query.desired_city + " ," +  req.query.desired_areas + " ," + req.query.types_of_tenant);
           //collect the search parameters
+          var queryJSON = {};
           var desiredCity = "";
           var desiredAreas = [];
           var typesOfTenant = [];
+                    
           if(req.query.desired_city !== undefined)
           {
               desiredCity = req.query.desired_city;
-		//console.log("desiredCity:" + desiredCity);
+              console.log("desiredCity: "+desiredCity);
+              queryJSON['userDesiredCity']=desiredCity;
           }
           if(req.query.desired_areas !== undefined)
           {
-              desiredAreas = req.query.desired_areas; //has to be an array of desired areas
+            var desired_areas = req.query.desired_areas;
+            if(desired_areas != null && desired_areas != undefined && desired_areas != '')
+            {
+                desiredAreas = desired_areas.split(',');
+                console.log("desiredAreas: "+desiredAreas);
+                queryJSON['userDesiredArea']={$in:desiredAreas};
+            }
           }
           if(req.query.types_of_tenant !== undefined)
           {
-              typesOfTenant = req.query.types_of_tenant;
+            var types_of_tenant = req.query.types_of_tenant;
+            if(types_of_tenant != null && types_of_tenant != undefined && types_of_tenant != '')
+            {
+                typesOfTenant = types_of_tenant.split(',');
+                console.log("typesOfTenant: "+typesOfTenant);
+                queryJSON['userTypeOfTenant']={$in:typesOfTenant};
+            }
           }
+
+          console.log(queryJSON);
           
           let indx = req.query.index;
           let lim = req.query.limit;
           
           console.log("index:" + indx + " lim:" + lim);
+          console.log("Array of the areas:");
+          console.log(desiredAreas);
+          console.log("Array of the types of tenants:");
+          console.log(typesOfTenant);
           //make a search in the db
-          UserProfile.find({'userDesiredCity':desiredCity
-//				'userTypeOfTenant':{$in:typesOfTenant},
-//				'userDesiredArea':{$in:desiredAreas}
-				}).skip(indx).limit(lim).exec(function(err,reqdUsers){
+          
+          if(queryJSON == {})
+          {
+              // No parameters supplied, hence returning an error for now, need to look into it.
+                console.log ("NO tenants found:!");
+                response = {"error": true,"message" : "query string empty"};
+		        return res.json(response);
+          }
+          
+          
+          UserProfile.find(queryJSON).skip(indx).limit(lim).exec(function(err,reqdUsers){
               if(err) {
-				console.log (" NO tenants found:!");
-                response = {"error" : true,"message" : "Error fetching data"};
-		//comment this line later 
-		return res.json(response);
+				console.log ("Error fetching data. No tenants found:!");
+                response = {"error" : true,"message" : "Error fetching data.db ERROR."};
+    	        return res.json(response);
              }
              else{
-                 if (reqdUsers && reqdUsers.length == 0) {
+				if (reqdUsers && reqdUsers.length == 0) {
                      console.log("no tenants to return!");
-                     response = {"error" : false,"message" : "no tenants to return"}
-                     return  res.json(response);
+                     //response = {"error" : false,"message" : "no tenants to return"}
+                     //return  res.json(response);
+                     console.log(reqdUsers);
+                     return res.send(reqdUsers);
                  }
               //return res.json(reqdUsers);
-		console.log ("found tenants!");
-		return res.send(reqdUsers);
+        		console.log ("found tenants!");
+		        console.log(reqdUsers);
+                return res.send(reqdUsers);
              }  
                             
           });

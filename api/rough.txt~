@@ -1,6 +1,5 @@
-This is a change from 30jan branch.
 require('crypto').createHash('sha1').update(req.body.password).digest('base64');
-
+this is a change from branch 30 jan
 APIs yet to be written 
 
 -signup
