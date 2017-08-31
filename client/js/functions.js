@@ -1,6 +1,9 @@
 /*
  * Created by moksh on 18/4/16.
  */
+
+//Following is not working
+
  $(window).resize(function() 
             {
 
@@ -45,12 +48,29 @@ $(document).ready(function() {
 
         })
 
-       
-            
-
     }
-
 )
+
+
+       
+1
+2
+
+
+
+$(document).on('hide.bs.modal','#resultSuccessModal', function () {
+  //alert('hey this is invite tenant modal opening up man');
+  //$("#myModal4").empty();
+  //$(this).$setUntouched();
+  //document.location.reload();
+
+})
+
+$(function() {  
+  
+  
+});
+
 
 
 

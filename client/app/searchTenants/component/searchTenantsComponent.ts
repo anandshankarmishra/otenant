@@ -19,12 +19,23 @@ import { DOCUMENT } from '@angular/platform-browser';
 export class SearchTenantsComponent implements OnInit {
     showDialog = false;
     tenant_email:string ='';
-    
+    //success:number=0;
+    //config:any;
    private errorCityEmpty="The city field can not be empty, please supply a value.";
     private errorMsg = "";
     private searchCity; private searchAreas; private typesOfTenant:string[];
     private selectedOptions: String[];
-   
+    private keyValuePairs = 
+    {
+      GOG:'Group of Girls', 
+      BB:'Bachelor Boy', 
+      FAM:'Family', 
+      BG:'Bachelor Girl', 
+      GOB:'Group of Boys',
+      UC:'Unmarried Couple',
+      OTH:'Others'
+    };
+
     private myOptions: IMultiSelectOption[] = [
         { id: 'GOG', name: 'GROUP OF GIRLS' },
         { id: 'BB', name: 'BACHELOR BOY' },
@@ -108,7 +119,11 @@ export class SearchTenantsComponent implements OnInit {
                   if (result.length % 20 !=0) {
                     console.log("from %20 wala if");
                     console.log(result);
-                    result.map(te => this.searchedTenants.push(te));
+                    result.map(te => 
+                      {
+                        te.userTypeOfTenant= this.keyValuePairs[te.userTypeOfTenant]; 
+                        this.searchedTenants.push(te)
+                      });
                     this.dontSearchFurther = true;
                     return;
                     
@@ -143,6 +158,8 @@ export class SearchTenantsComponent implements OnInit {
     onClickInvite(tenant:Tenant) {
       console.log("onClickInvite:" + tenant.userEmail);
       this.tenant_email = tenant.userEmail;
+      //this.success = 0;
+      //this.config = {tenantEmail:this.tenant_email,success:this.success}
     }
 }
 

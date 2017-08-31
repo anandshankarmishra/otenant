@@ -55,7 +55,7 @@ var NotificationComponent = (function () {
         //this.isDisabled = true;
         {
             {
-                document.getElementById(notf._id).style.visibility = "hidden";
+                document.getElementById("notf._id").style.visibility = "hidden";
             }
         }
     };

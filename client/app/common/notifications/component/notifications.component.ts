@@ -75,7 +75,7 @@ export class NotificationComponent implements OnInit {
         if (this.approved = true)
         //this.isDisabled = true;
         {
-            {document.getElementById(notf._id).style.visibility="hidden";}
+            {document.getElementById("notf._id").style.visibility="hidden";}
         }
         
     }

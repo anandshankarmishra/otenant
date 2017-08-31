@@ -45,6 +45,7 @@ var TenantHomeComponent = (function () {
         this.tenantService.getTenantProfile(token)
             .subscribe(function (data) {
             _this.tenant = (data);
+            _this.name = _this.tenant.userFullName;
             //We may need the following line later, keep it for now, dont delete it.
             //this.newNotf = this.getNewNotifications(this.tenant);
         });
@@ -104,6 +105,22 @@ var TenantHomeComponent = (function () {
         });
         //   this.emitNotifEvent.emit();
     };
+    TenantHomeComponent.prototype.toggleEditUser = function () {
+        this.editUser = !this.editUser;
+    };
+    TenantHomeComponent.prototype.changeUserFullName = function () {
+        var _this = this;
+        // Make a server call here for updating the user's full name.
+        console.log("Got the name as:" + this.name);
+        this.editUser = !this.editUser;
+        this.tenantService.updateTenantFullName(this.myTokn, this.name).
+            subscribe(function (data) {
+            _this.tenant = data;
+            console.log(data);
+        }, function (err) {
+            console.log("error:" + JSON.stringify(err));
+        });
+    };
     return TenantHomeComponent;
 }());
 TenantHomeComponent = __decorate([
@@ -111,7 +128,7 @@ TenantHomeComponent = __decorate([
         selector: 'tenant-view',
         moduleId: module.id,
         templateUrl: '../tenantHome.html',
-        styleUrls: ['../tenantHome.css']
+        styleUrls: ['../style-tenant-home.css']
         //  templateUrl:'../tenant-homepage.html',
         //  styleUrls:['../style-tenant-home.css']
     }),

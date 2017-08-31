@@ -1,0 +1,80 @@
+<!--<script src="../../js/jquery-2.1.4.js"></script>-->
+    <!--<script src="../../js/bootstrap.min.js"></script>-->
+
+<div>
+<a href="http://localhost:3000/">
+            <img src="app/homepage/images/O-tenant.svg" class="img-height" >
+            </a>  <a id="notif" (click)="onClickNotification()">Notifications</a>
+
+    
+<notif-dialog [notifs]="notifications" [(visible)]="showDialog"> </notif-dialog>
+Welcome {{tenant.userFullName}}! <a id="myLink" (click)="logout();">Sign Out</a>
+<br><br>
+<br><br>
+
+<div> 
+{{tenant.userFullName}}   
+</div>
+
+<div> 
+    <table>
+    <tr>
+        <td><img src="http://localhost:3005/{{tenant.userPhotoFileName}}.jpg" class="img-height"/></td>
+        <td><button name="upload" type="submit" data-toggle="modal" data-target="#myModal5" class="btn btn-default btn-property-2 font-style-2"> Upload Image </button>
+        <uploadImage></uploadImage>
+        </td>
+        </tr>
+        
+</table>
+</div>
+
+<div>Email Id: <div>{{tenant.userEmail}}</div>
+<br>
+
+<div> 
+    <table>
+    <tr>
+        <td><updateProfile-view [tenant]="tenant"></updateProfile-view> 
+        </td>
+
+        <td style="width:400px"> </td>
+        <td>
+
+            <div align="right"><button type="submit" (click)="showPswdDiv()"> Change Password </button>
+            <div>{{errorMsg}} </div>
+            <div *ngIf="chngPswd">
+                <form [formGroup]="chngPswdForm" (submit)="changePassword()"> 
+                    
+                    <div>
+                        <input type="password" id="password" placeholder="Current Password" formControlName="cur_pswd"/> 
+                        <control-messages [control]="chngPswdForm.controls.cur_pswd"></control-messages>
+                    </div>
+                    <div>
+                        <input type="password" id="password" placeholder="New Password" formControlName="new_pswd" />
+                        <control-messages [control]="chngPswdForm.controls.new_pswd"></control-messages>
+                    </div>
+                    <div>
+                        <input type="password" id="password" placeholder="Re-type new Password" formControlName="new_repswd" />
+                        <control-messages [control]="chngPswdForm.controls.new_repswd"></control-messages>    
+                    </div>
+                    <div [hidden]="!nomatch"> Passwords don't match.
+                    </div>
+                    <div>
+                        <button type="submit" (click)="chngPswd=!chngPswd"> Cancel </button>    
+                        <button type="submit" [disabled]="!chngPswdForm.valid"> Change Password </button> 
+                    </div>
+                </form>
+            </div>
+            <br><br>
+            <div align="right"><button type="submit" (click)="deleteAccount()"> Delete Account </button></div>
+            <br/> 
+
+            
+            </div>
+
+
+        </td>
+        </tr>
+        
+</table>
+</div>

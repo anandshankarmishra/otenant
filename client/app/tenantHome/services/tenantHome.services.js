@@ -47,6 +47,17 @@ var TenantService = (function () {
                 .map(function (res) { return res.json(); });
         }
     };
+    TenantService.prototype.updateTenantFullName = function (token, name) {
+        if (token) {
+            var headers = new http_2.Headers();
+            headers.append('Content-Type', 'application/json');
+            var userFullName = name;
+            console.log("updating:" + userFullName);
+            var json = JSON.stringify({ token: token, userFullName: userFullName });
+            return this.http.put(app_routes_1.AppRoutes.updateUserFullNameURL, json, { headers: headers })
+                .map(function (res) { return res.json(); });
+        }
+    };
     TenantService.prototype.updateTenantProfile = function (token, tenant) {
         if (token) {
             var headers = new http_2.Headers();

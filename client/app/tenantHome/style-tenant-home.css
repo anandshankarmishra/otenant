@@ -1,0 +1,682 @@
+/*for radio button copied from codepen*/
+
+a
+{
+    text-decoration: none;
+    cursor: pointer;
+}
+
+div {
+    margin:0 0 0.75em 0;
+}
+
+input[type="radio"] {
+    display:none;
+}
+input[type="radio"] + label {
+    color: #000;
+    font-family:Arial, sans-serif;
+    font-size:15px;
+}
+input[type="radio"] + label span {
+    display:inline-block;
+    width:39px;
+    height:39px;
+    margin:-1px 4px 0 0;
+    vertical-align:middle;
+    cursor:pointer;
+    -moz-border-radius:  50%;
+    border-radius:  50%;
+    border: 1px solid black;
+}
+
+input[type="radio"] + label span {
+    background-color:White;
+    margin-left: 40px;
+}
+
+input[type="radio"]:checked + label span{
+    background-color:Green;
+}
+
+input[type="radio"] + label span,
+input[type="radio"]:checked + label span {
+    -webkit-transition:background-color 0.4s linear;
+    -o-transition:background-color 0.4s linear;
+    -moz-transition:background-color 0.4s linear;
+    transition:background-color 0.4s linear;
+}
+.logo-position
+{
+    margin-left: 40px;
+    height:50px;
+}
+
+.nav-style
+{
+    background-color: whitesmoke;
+    height: 75px;
+    border: none;
+    border-bottom: 1px solid black;
+    border-radius: 0;
+
+
+
+}
+.font-style-4
+{
+    font-family: "helvetica neue", helvetica, arial, sans-serif;
+    font-size: 19px;
+    font-weight: 700;
+}
+
+.font-style-5
+{
+    font-family: "helvetica neue", helvetica, arial, sans-serif;
+    font-size: 14px;
+    margin-top: 28px;
+}
+
+
+.font-style-6
+{
+    font-family: "helvetica neue", helvetica, arial, sans-serif;
+    font-size: 14px;
+    margin-top:13px;
+    margin-right: 20px;
+    text-decoration: none;
+    color: #0C0C0C;
+
+}
+
+
+.font-style-7
+{
+    font-family: "helvetica neue", helvetica, arial, sans-serif;
+    font-size: 17px;
+    font-weight: 600;
+}
+
+.font-style-8
+{
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-size: 16px;
+    font-weight: lighter;
+    color: #636363;
+}
+
+.textbox-styling
+{
+    border: medium;
+    border: none;
+    border-radius: 5px;
+
+}
+
+.button-style3
+{
+    height: 30px;
+    text-decoration: none;
+    border-radius: 5px;
+    border: solid 1px black;
+    border-color: black;
+    color: grey;
+    background-color: white;
+    word-spacing: 1px;
+    font-family: "helvetica neue", helvetica, arial, sans-serif;
+    position: relative;
+    alignment: right;
+    margin-top: 2px;
+}
+
+.button-style3:visited,
+.button-style3:hover,
+.button-style3:active,
+.button-style3:focus
+
+{
+    background-color: white;
+    text-decoration: none;
+    color: black;
+    outline-style: none;
+    outline:0 !important;
+}
+
+hr
+{
+    display: block;
+    height: 1px;
+    border: 0;
+    border-top: 1px solid #b50202;
+}
+
+/*round button*/
+
+.btn-circle {
+    width: 30px;
+    height: 30px;
+    text-align: center;
+    padding: 6px 0;
+    font-size: 12px;
+    line-height: 1.428571429;
+    border-radius: 15px;
+    background-color:#b50202 ;
+    margin-top: 7px;
+    border: none;
+    text-decoration: none;
+}
+
+
+button.btn-circle:visited,
+button.btn-circle:hover,
+button.btn-circle:active,
+button.btn-circle:focus
+
+{
+    background-color: red;
+    text-decoration: none;
+    border:none;
+    outline-style: none;
+    outline:0 !important;
+}
+
+.navbar-nav > li > a:hover{
+    background: transparent;
+}
+
+.invisible-mob
+{
+    display: block;
+}
+
+.visible-mob
+{
+    display: none;
+}
+
+.equal-space
+{
+    padding-left: 50px;
+    padding-right: 50px;
+}
+
+.pos-rel
+{
+    position: relative;
+}
+
+.pos-abs-image-btn
+{
+    position: absolute;
+    top: 65px;
+    right:0px;
+}
+
+.btn-pos1
+{
+    margin-top: 17px;
+}
+
+.pos-label1
+{
+    top: 25px;
+    position: absolute;
+}
+
+.pos-label2
+{
+    top: 50px;
+    position: absolute;
+}
+
+.pos-label3
+{
+    top: 90px;
+    position: absolute;
+}
+
+.pos-label4
+{
+    top: 115px;
+    position: absolute;
+}
+
+.pos-label5
+{
+    top: 165px;
+    position: absolute;
+}
+
+.pos-label6
+{
+    top: 190px;
+    position: absolute;
+}
+
+.pos-label7
+{
+    top: 230px;
+    position: absolute;
+}
+
+.pos-label8
+{
+    top: 255px;
+    position: absolute;
+}
+
+.pos-label9
+{
+    top: 295px;
+    position: absolute;
+}
+
+.pos-label10
+{
+    top: 320px;
+    position: absolute;
+}
+
+.pos-label11
+{
+    top: 360px;
+    position: absolute;
+}
+
+.pos-label12
+{
+    top: 385px;
+    position: absolute;
+}
+
+.pos-label13
+{
+    top: 425px;
+    position: absolute;
+}
+
+.pos-label14
+{
+    top: 450px;
+    position: absolute;
+}
+
+.pos-label15
+{
+    top: 790px;
+    position: absolute;
+}
+
+.form-feed-input2
+{
+    border: 1px solid #3a3a3a;
+    margin-left: 0;
+    box-sizing: border-box;
+    word-spacing: 1px;
+    letter-spacing: 1px;
+    box-shadow: none;
+    border-radius: 3px;
+    cursor: pointer;
+}
+
+.form-feed-input2:hover,
+.form-feed-input2:visited,
+.form-feed-input2:focus
+{
+    outline: none;
+    box-shadow: none;
+    border: 1px solid black;
+
+}
+textarea
+{
+    resize: none;
+    text-align: justify;
+    white-space: pre-line;
+    -moz-text-align-last: left;
+    text-align-last: left;
+    outline: none;
+    border: none;
+    text-decoration: none;
+    -webkit-box-shadow: none;
+    -moz-box-shadow: none;
+    box-shadow: none;
+    overflow-x: hidden;
+    overflow-y: hidden;
+    font-size: 12px;
+
+}
+
+textarea:hover,
+textarea:visited,
+textarea:focus,
+
+{
+    outline: none;
+    border: none;
+    text-decoration: none;
+    -webkit-box-shadow: none;
+    -moz-box-shadow: none;
+    box-shadow: none;
+}
+
+.btn-property-submit
+{
+    height: 30px;
+    width: 550px;
+    text-decoration: none;
+    border-radius: 5px;
+    border: none;
+    color: white;
+    background-color: #9EA6AD;
+    word-spacing: 1px;
+    font-family: "helvetica neue", helvetica, arial, sans-serif;
+}
+
+.btn-property-submit:visited,
+.btn-property-submit:hover,
+.btn-property-submit:active,
+.btn-property-submit:focus
+
+{
+    background-color: #9EA6AD;
+    text-decoration: none;
+    border:none;
+    color: white;
+    outline-style: none;
+    outline:0 !important;
+}
+
+.btn-property-pswd
+{
+    height: 40px;
+    width: 300px;
+    text-decoration: none;
+    border-radius: 5px;
+    border: none;
+    color: white;
+    background-color: #9EA6AD;
+    word-spacing: 1px;
+    font-family: "helvetica neue", helvetica, arial, sans-serif;
+    position: relative;
+    alignment: right;
+    margin-top: 2px;
+}
+
+.btn-property-pswd:visited,
+.btn-property-pswd:hover,
+.btn-property-pswd:active,
+.btn-property-pswd:focus
+
+{
+    background-color: #9EA6AD;
+    text-decoration: none;
+    border:none;
+    color: white;
+    outline-style: none;
+    outline:0 !important;
+}
+
+.pos-btn-dlt
+{
+    margin-top: 50px;
+}
+
+.pos-label16
+{
+    margin-top: 50px;
+    margin-left: -131px;
+}
+
+.pos-label17
+{
+    margin-top: 30px;
+    margin-left: -221px;
+}
+
+
+.pos-label18
+{
+    margin-top: 0px;
+    margin-left: -182px;
+}
+
+
+.font-style-9
+{
+    font-size: 14px;
+    color: lightgray;
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
+.font-style-10
+{
+    font-size: 15px;
+    color: black;
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
+input[type=radio] {
+    border: 0px;
+    width: 100%;
+    height: 2em;
+
+}
+
+
+
+@media only screen and (max-width:795px )
+{
+
+
+    #myModal3{
+        height: 200px;
+        width: 170px;
+        display: none;
+        position: absolute;
+        top: 0 !important;
+        right: 0 !important;
+        left: auto;
+        background-color: white;
+        z-index: 10000;
+        /*padding: 10px;*/
+        /*border: 1px solid red;*/
+    }
+
+
+    .modal-title-style
+    {
+        height: 60px;
+        padding-top: 14px;
+        font-size: 15px;
+        font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+        color: grey;
+        border-bottom: 1px lightgrey solid;
+    }
+
+    .position-modal-option
+    {
+        padding-top: 2px;
+        padding-bottom: 2px;
+
+    }
+    .position-modal-option:visited,
+    .position-modal-option:hover,
+    .position-modal-option:active,
+    .position-modal-option:focus
+    {
+        text-decoration: none;
+        border:none;
+        outline-style: none;
+        outline:0 !important;
+
+    }
+
+
+    .body
+    {
+        overflow-x: hidden !important;
+        margin-right: 0px !important;
+    }
+    .visible-mob
+    {
+        display: block;
+        overflow-x: hidden !important
+    }
+
+    .invisible-mob
+    {
+        display: none;
+    }
+
+
+
+    .button-caret-style
+    {
+        background-color: transparent;
+        margin-right: 0px;
+        margin-left: 20px;
+        padding-top: 10px;
+    }
+
+
+
+    .dropdown-style
+    {
+        position: relative;
+        z-index: 10;
+    }
+
+    .equal-space
+    {
+        padding-left: 25px;
+        padding-right: 25px;
+    }
+
+
+    .btn-circle {
+        width: 25px;
+        height: 25px;
+        padding: 6px 0;
+        font-size: 12px;
+        border-radius: 15px;
+    }
+    .logo-position
+    {
+        margin-left: 0px;
+        height:4px;
+    }
+
+    .nav-style
+    {
+        height: auto;
+
+    }
+
+    .pos-abs-left
+    {
+        position: absolute;
+        float: left;
+        left: 20px;
+        top: 20px;
+
+    }
+
+
+    .pos-abs-rgt
+    {
+        position: absolute;
+        float: right;
+        right: 20px;
+        top: 20px;
+    }
+
+    .space-below-nav
+    {
+        padding-bottom: 70px;
+    }
+    .space-above-nav
+    {
+        padding-top: 20px;
+    }
+
+    .img-size {
+        height: 10em;
+    }
+
+    .pos-abs-image-btn
+    {
+        top: 50px;
+
+    }
+    .font-style-4
+    {
+        font-size: 16px;
+    }
+
+    .font-style-7
+    {
+        font-size: 14px;
+    }
+
+    .btn-pos1
+    {
+        margin-top: 13px;
+    }
+
+    .btn-property-submit
+    {
+        width: 300px;
+    }
+
+
+}
+
+@media only screen and (max-width:400px )
+{
+
+    .invisible-mob
+    {
+        display: none;
+    }
+
+    .visible-mob
+    {
+        display: block;
+    }
+
+
+    .button-caret-style {
+        margin-right: 0px;
+    }
+
+    .pos-abs-left {
+        left: 0px;
+    }
+    .logo-position {
+        margin-left: 20px;
+
+    }
+    .img-size {
+        height: 6em;
+    }
+
+    .pos-abs-image-btn
+    {
+        top: 32px;
+
+    }
+
+    .button-style3
+    {
+        height: 20px;
+        font-size: 10px;
+        padding-top: 4px;
+    }
+
+    .btn-pos1
+    {
+        margin-top: 24px;
+    }
+
+}

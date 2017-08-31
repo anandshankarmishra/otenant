@@ -3,8 +3,10 @@
   <button *ngIf="closable" (click)="close()" aria-label="Close" class="dialog__close-btn">X</button>
 
   <div *ngIf="newNotf > 0"> {{newNotf}} </div>
+    <div style="text-align:center;margin-top:20px;font:Helvetica">NOTIFICATIONS</div>
+    <hr>
     <div *ngFor="let notf of notifs">
-        -->  {{ notf.landlordMessage}} <button *ngIf="!notf.approved" [id]="notf._id" type = "submit" (click)="approve(notf); disableButton()">Approve</button>
+       {{ notf.landlordMessage}} <button *ngIf="!notf.approved" id="notf._id" type = "submit" (click)="approve(notf); disableButton()">Approve</button>
     </div>
 
 </div>

@@ -22,8 +22,19 @@ var SearchTenantsComponent = (function () {
         this.route = route;
         this.showDialog = false;
         this.tenant_email = '';
+        //success:number=0;
+        //config:any;
         this.errorCityEmpty = "The city field can not be empty, please supply a value.";
         this.errorMsg = "";
+        this.keyValuePairs = {
+            GOG: 'Group of Girls',
+            BB: 'Bachelor Boy',
+            FAM: 'Family',
+            BG: 'Bachelor Girl',
+            GOB: 'Group of Boys',
+            UC: 'Unmarried Couple',
+            OTH: 'Others'
+        };
         this.myOptions = [
             { id: 'GOG', name: 'GROUP OF GIRLS' },
             { id: 'BB', name: 'BACHELOR BOY' },
@@ -86,7 +97,10 @@ var SearchTenantsComponent = (function () {
             if (result.length % 20 != 0) {
                 console.log("from %20 wala if");
                 console.log(result);
-                result.map(function (te) { return _this.searchedTenants.push(te); });
+                result.map(function (te) {
+                    te.userTypeOfTenant = _this.keyValuePairs[te.userTypeOfTenant];
+                    _this.searchedTenants.push(te);
+                });
                 _this.dontSearchFurther = true;
                 return;
             }
@@ -115,6 +129,8 @@ var SearchTenantsComponent = (function () {
     SearchTenantsComponent.prototype.onClickInvite = function (tenant) {
         console.log("onClickInvite:" + tenant.userEmail);
         this.tenant_email = tenant.userEmail;
+        //this.success = 0;
+        //this.config = {tenantEmail:this.tenant_email,success:this.success}
     };
     return SearchTenantsComponent;
 }());

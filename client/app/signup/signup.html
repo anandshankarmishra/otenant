@@ -34,38 +34,50 @@
       <div class="form-group text-center">
       <input type="text" class="form-control form-feed-input " placeholder="Full Name" formControlName="name" id="name" />
 
-      <control-messages style="color:red" [control]="signUpForm.controls.name"></control-messages>
+      <control-messages [control]="signUpForm.controls.name"  style="color:#dd4b39;margin:3px 0 0;font-size:12px;font-weight:100;float:left;padding-left:126px;"></control-messages>
       </div>
     
     <div class="form-group text-center">
     <input type="text" class="form-control form-feed-input " placeholder="Email" formControlName="email" id="email" />
-  <control-messages  style="color:red" [control]="signUpForm.controls.email"></control-messages>
+  <control-messages [control]="signUpForm.controls.email"  style="color:#dd4b39;margin:3px 0 0;font-size:12px;font-weight:100;float:left;padding-left:126px;"></control-messages>
   </div>
   
-  <div class="form-group text-center"> 
+      <div class="form-group text-center"> 
       <input type="password" class="form-control form-feed-input "placeholder="Password" formControlName="password" id="password" />
 
-      <control-messages  style="color:red" [control]="signUpForm.controls.password"></control-messages>
+      <control-messages [control]="signUpForm.controls.password"  style="color:#dd4b39;margin:3px 0 0;font-size:12px;font-weight:100;float:left;padding-left:126px;"></control-messages>
       </div>
 
       <div class="form-group text-center">
       <input  type="password" class="form-control form-feed-input " placeholder="Re-enter Password" formControlName="repassword" id="repassword" />
 
-      <control-messages  style="color:red" [control]="signUpForm.controls.repassword"></control-messages>
+      <control-messages [control]="signUpForm.controls.repassword"  style="color:#dd4b39;margin:3px 0 0;font-size:12px;font-weight:100;float:left;padding-left:126px;"></control-messages>
       </div>
 
-      <div [hidden]="!nomatch"> Passwords don't match.
-        </div>
-      <div  class="form-group text-center">
-      <input type="text" class="form-control form-feed-input " placeholder="City" formControlName="city" id="city" />
+      
+      <div class="form-group text-center" *ngIf="signUpForm.controls.repassword.errors?.MatchPassword">
+        <span style="color:#dd4b39;margin:3px 0 0;font-size:12px;font-weight:100;float:left;padding-left:126px;">
+         Passwords do not match.
+        </span>
+      </div>
+      
 
-      <control-messages  style="color:red" [control]="signUpForm.controls.city"></control-messages>
+      <div class="form-group text-center" [hidden]="!nomatch">
+        <span style="color:#dd4b39;margin:3px 0 0;font-size:12px;font-weight:100;float:left;padding-left:126px;">
+         Passwords don't match.
+        </span>
+      </div>
+
+      <div  class="form-group text-center">
+      <input type="text" class="form-control form-feed-input " placeholder="City where looking for a property." formControlName="city" id="city" />
+
+      <control-messages [control]="signUpForm.controls.city"  style="color:#dd4b39;margin:3px 0 0;font-size:12px;font-weight:100;float:left;padding-left:126px;"></control-messages>
       </div>
 
       <div class="form-group text-center">
-      <input type="text" class="form-control form-feed-input " placeholder="Area" formControlName="area" id="area" />
+      <input type="text" class="form-control form-feed-input " placeholder="Area where looking for a property." formControlName="area" id="area" />
 
-      <control-messages  style="color:red" [control]="signUpForm.controls.area"></control-messages>
+      <control-messages [control]="signUpForm.controls.area"  style="color:#dd4b39;margin:3px 0 0;font-size:12px;font-weight:100;float:left;padding-left:126px;"></control-messages>
       </div>
 
        <div class="form-group text-center">

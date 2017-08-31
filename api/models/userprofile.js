@@ -1,6 +1,6 @@
 var mongoose    =   require("mongoose");
 var jwt = require('jsonwebtoken');
-mongoose.connect('mongodb://127.0.0.1:27017/otenantDb');
+mongoose.connect('mongodb://127.0.0.1:27017/otenantDb', { useMongoClient: true });
 // create instance of Schema
  var mongoSchema =   mongoose.Schema;
 // create schema

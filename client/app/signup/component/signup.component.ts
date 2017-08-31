@@ -8,6 +8,7 @@ import { Router } from '@angular/router';
 import {SignUpService} from '../services/signup.service';
 import {ValidationService} from '../services/validation.service';
 import {Constants} from '../../stringconstants';
+import { PasswordValidation } from './password-validation';
 
 declare var jQuery:any;
 
@@ -37,9 +38,7 @@ export class SignUpComponent {
     
     //onSubmit() { this.submitted = true; }
 
-    private type_of_tenant = ['Group Of Girls', 'Bachelor',
-            'Family', 'Others'];
-
+    private type_of_tenant = ['Family','Bachelor Boy','Bachelor Girl','Group of Boys','Group of Girls','Unmarried Couple', 'Others'];
     //SignUp Form Object for validation, control etc
     private signUpForm: any;
 
@@ -65,6 +64,8 @@ export class SignUpComponent {
       'area': ['', Validators.required],
       'type_of_tenant' : ['', Validators.required]
       
+    },{
+      validator: PasswordValidation.MatchPassword
     });
   }
 
@@ -108,7 +109,21 @@ export class SignUpComponent {
 
   //calls signUp service
     signUp(fullName, email, password, city, area: String[], type_of_tenant){               
-
+        //['Family','Bachelor Boy','Bachelor Girl','Group of Boys','Group of Girls','Unmarried Couple', 'Others'];
+        if(type_of_tenant == "Family")
+          type_of_tenant = "FAM";
+        else if(type_of_tenant == "Bachelor Boy")
+          type_of_tenant = "BB";
+        else if(type_of_tenant == "Bachelor Girl")
+          type_of_tenant = "BG";
+        else if(type_of_tenant == "Group of Boys")
+          type_of_tenant = "GOB";
+        else if(type_of_tenant == "Group of Girls")
+          type_of_tenant = "GOG";
+        else if(type_of_tenant == "Unmarried Couple")
+          type_of_tenant = "UC";
+        else if(type_of_tenant == "Others")
+          type_of_tenant = "OTH";  
         this.signupservice.signUp( fullName, email, password, 
                             city, area, type_of_tenant )
         .subscribe( result=> 

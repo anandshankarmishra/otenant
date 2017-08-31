@@ -35,14 +35,14 @@
                 <div class="text-center pipe-style" >|</div>
                 <div class="font-style-12 text-center" >{{te.userTypeOfTenant}}</div>
                 <div class="text-center pipe-style">|</div>
-                <div class="font-style-12 text-center">City:New Delhi</div>
+                <div class="font-style-12 text-center">Desired City&nbsp;:&nbsp;{{te.userDesiredCity}}</div>
 
                 <hr/>
                         <div class="pull-left profile-pic-style">
                             <img src="app/searchTenants/images/DUMMMY-IMAGE.png" >
                         </div>
-                            <div class="font-style-13 pad-right " >Current Area:Saket</div>
-                            <div class="font-style-13 " >Desired Area:Saket</div>
+                            <div class="font-style-13 pad-right " *ngIf="te.userCurrentArea">Current Area:{{te.userCurrentArea}}</div>
+                            <div class="font-style-13 " >Desired Area&nbsp;:&nbsp;{{te.userDesiredArea}}</div>
                 <div class="font-style-14" style="padding-top:10px;" >
                     Requirement Description:
                         <div style="padding-bottom:10px"></div>
@@ -52,10 +52,11 @@
                             wxyz abcd efghijkl mnop qrstuv wxyz abcd efghijkl mnop qrstuv wxyz abcd efghijkl mnop qrstuv wxyz abcd
                             efghijkl mnop qrstuv wxyz abcd efghijkl mnop qrstuv wxyz abcd efghijkl mnop qrstuv wxyz
                         </div>
-                <button name="inviteTenant" type="submit"(click)="onClickInvite(te)" class="btn btn-default  btn-property-submit font-style-2" data-toggle="modal" data-target="#myModal4" >
+                <invite-dialog [tenantEmail]=tenant_email></invite-dialog>        
+                <button name="inviteTenant" type="submit"(click)="onClickInvite(te)" class="btn btn-default  btn-property-submit font-style-2" data-toggle="modal" data-target="#myModal4">
                     INVITE TENANT TO VISIT PROPERTY
                 </button>
-                <invite-dialog [(tenantEmail)]="tenant_email"></invite-dialog>
+                
 
         </span>
         

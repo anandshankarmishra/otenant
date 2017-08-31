@@ -21,7 +21,7 @@ db.users.remove({});
 db.users.insert({
 	"_id" : ObjectId("588c1f807d6893d132bee730"),
 	"userTypeOfTenant" : typeStub,
-	"userDesiredCity" : "'"+cityStub+"'",
+	"userDesiredCity" : ""+cityStub+"",
 	//"userFullName" : typeStub+"_"+cityStub+"_"+areaStub+"Mohit",
     "userFullName" : username,
 	"userPassword" : "deadsea123",
@@ -33,7 +33,7 @@ db.users.insert({
     "__v" : 0
    });
 //CHANGE NUMBER HERE FOR A CERTAIN NUMBER OF RECORDS
-for (i = 1; i <= 1000; i++) {
+for (i = 1; i <= 10; i++) {
 
    cityStub = city[Math.floor(Math.random() * 7)];
    areaStub = areas[Math.floor(Math.random() * 7)];

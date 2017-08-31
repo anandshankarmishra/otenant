@@ -19,7 +19,9 @@ var passport = require('passport')
 passport.use(new LocalStrategy(
   function(username, password, done) {
       console.log("inside passport");
-    UserProfile.findOne({userEmail:username}, function (err, user) {
+      console.log("U:"+username);
+      console.log("P:"+password);
+    UserProfile.findOne({userEmail:username,userPassword:password}, function (err, user) {
         //console.log("passport use" + user);
 
       if (err) { 
@@ -27,7 +29,7 @@ passport.use(new LocalStrategy(
           return done(err); }
       if (!user) {
           console.log("user nahin");
-        return done(null, false, { message: 'Incorrect username.' });
+        return done(null, false, { message: 'Incorrect username or password.' });
       }
       
      /* if (!user.validPassword(password)) {
@@ -93,9 +95,12 @@ router.route("/signup")
         if(req.body.fullname !== undefined)
             {newUser.userFullName = req.body.fullname;} 
         if(req.body.desired_city !== undefined)
-            {newUser.userDesiredCity = req.body.desired_city;}     
+            {newUser.userDesiredCity = req.body.desired_city.toLowerCase();}     
         if(req.body.desired_area !== undefined)
-            {newUser.userDesiredArea = req.body.desired_area;}        
+            { 
+                var x = req.body.desired_area.toLowerCase().split(',');
+                newUser.userDesiredArea = x.map(s => s.trim());
+            }        
         if(req.body.type_of_tenant !== undefined)
             {newUser.userTypeOfTenant = req.body.type_of_tenant;}        
            
@@ -133,7 +138,7 @@ router.route("/login")
 
     // If Passport throws/catches an error
     if (err) {
-        console.log("passport error");
+      console.log("passport error");
       res.status(404).json(err);
       return;
     }
@@ -347,9 +352,9 @@ router.route("/updateUserProfile/")
                             response = {"error" : true,"message" : "Error updating data"};
                             res.json(response);
                         } else {
-                            response = {"error" : false,"message" : "Data is updated"};
-                            console.log("updated user city for example");
-                            console.log(updatedUser.userDesiredCity);
+                            // response = {"error" : false,"message" : "Data is updated"};
+                            // console.log("updated user city for example");
+                            // console.log(updatedUser.userDesiredCity);
 
                             res.json(updatedUser);
                             
@@ -430,13 +435,15 @@ router.route("/changePassword/")
                             updatingUser.userFullName = req.body.userFullName;
 
 
-                        updatingUser.save(function(err){
+                        updatingUser.save(function(err,updatedUser){
                                     if(err) {
                                         response = {"error" : true, "status": 400};
+                                        res.json(response);
                                     } else {
-                                        response = {"error" : false, "status": 200};
+                                        //response = {"error" : false, "status": 200};
+                                        res.json(updatedUser);
                                     }
-                                    res.json(response);
+                                    //res.json(response);
                                 });
                         }            
                     }
@@ -978,13 +985,13 @@ router.route('/searchTenants/')
                     
           if(req.query.desired_city !== undefined)
           {
-              desiredCity = req.query.desired_city;
+              desiredCity = req.query.desired_city.toLowerCase();
               console.log("desiredCity: "+desiredCity);
               queryJSON['userDesiredCity']=desiredCity;
           }
           if(req.query.desired_areas !== undefined)
           {
-            var desired_areas = req.query.desired_areas;
+            var desired_areas = req.query.desired_areas.toLowerCase();
             if(desired_areas != null && desired_areas != undefined && desired_areas != '')
             {
                 desiredAreas = desired_areas.split(',');

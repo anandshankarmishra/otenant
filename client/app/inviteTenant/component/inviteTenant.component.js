@@ -23,22 +23,36 @@ var InviteTenantComponent = (function () {
         this.successMsg = "You have successfully invited ";
         this.errorMsg = "There was some error. Please invite the tenant again!";
         this.invited = false;
+        console.log("Entered the constructor of inviteTenant component");
+        //this.tenantEmail = this.config.tenantEmail;
+        //this.success = this.config.success;
         this.inviteTenantForm = this.formBuilder.group({
             'name': ['', forms_1.Validators.required],
             'email': ['', [forms_1.Validators.required, validation_service_1.ValidationService.emailValidator]],
-            'contact': ['', [forms_1.Validators.required, validation_service_1.ValidationService.phoneNumValidator]],
+            //'contact': ['', [Validators.required, ValidationService.phoneNumValidator]],
+            'contact': [''],
             'message': ['']
         });
     }
     InviteTenantComponent.prototype.close = function () {
         //this.visible = false;
         //this.visibleChange.emit(this.visible);
+        console.log("called close");
+        this.inviteTenantForm = this.formBuilder.group({
+            'name': ['', forms_1.Validators.required],
+            'email': ['', [forms_1.Validators.required, validation_service_1.ValidationService.emailValidator]],
+            //'contact': ['', [Validators.required, ValidationService.phoneNumValidator]],
+            'contact': [''],
+            'message': ['']
+        });
+        this.success = 0;
     };
     //if the form is valid, call login service
     InviteTenantComponent.prototype.inviteTenant = function (tenantEmail) {
         var _this = this;
         if (this.inviteTenantForm.dirty && this.inviteTenantForm.valid) {
             console.log("tenant email:" + tenantEmail);
+            //this.success = 0; //Re init the success.
             this.inviteTenantservice.inviteTenant(tenantEmail, this.inviteTenantForm.value.name, this.inviteTenantForm.value.email, this.inviteTenantForm.value.contact, this.inviteTenantForm.value.message)
                 .subscribe(function (result) {
                 if (result == false) {

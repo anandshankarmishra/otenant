@@ -1,45 +1,65 @@
-<!--<script src="../../js/jquery-2.1.4.js"></script>-->
-    <!--<script src="../../js/bootstrap.min.js"></script>-->
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <!-- adding icon to the title bar -->
+    <link rel='mask-icon' href='images/O-tenant.svg' color='#176C37'>
+    <title>O-tenant</title>
+    <link rel="icon" href="images/O-tenant.svg"> <!--svg is not supported in all browsers-->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0 , maximum-scale=1.0, user-scalable=0">
+    <link href="css/bootstrap.min.css" rel="stylesheet"/>
+    <script src="js/jquery-2.1.4.js"></script>
+    <script src="js/smooth-scroll.js"></script>
+    <script src="js/bootstrap.min.js"></script>
 
-<div>
-    
-<nav class="navbar nav-style invisible-mob">
+
+    <link rel="stylesheet" href="style1.css"/>
+    <link rel="stylesheet" href="style-tenant-home.css"/>
+    <script src="js/functions.js" type="text/javascript"></script>
+</head>
+<body>
+
+
+    <!--code for navbar-->
+    <!--visible on big screens above 780px-->
+
+
+
+    <nav class="navbar nav-style invisible-mob">
         <div class="container-fluid">
             <div class="navbar-header" style="display: inline-block">
-                <a class="navbar-brand" href="http://localhost:3000/">
-                    <img src="app/homepage/images/O-tenant.svg" class="logo-position" >
+                <a class="navbar-brand" href="#">
+                    <img src="images/O-tenant.svg" class="logo-position" >
                 </a>
             </div>
 
             <ul class="nav navbar-nav pull-right ">
                 <!--notification-->
                 <li style="display: inline-block">
-                    <a id="notif" (click)="onClickNotification()">
+                    <a href="#">
                         <button type="button" class="btn btn-circle">
                             1
                         </button>
                     </a>
-                    
-                </li>
-                <li>
-                    <notif-dialog [notifs]="notifications" [(visible)]="showDialog"> </notif-dialog>
                 </li>
                 <li class="font-style-5" style="display: inline-block">
-                    Welcome {{tenant.userFullName}}!
+                    Welcome partner
                 </li>
                 <li style="display: inline-block">
-                    <a class="font-style-6" (click)="logout();">Sign Out</a>
+                    <a href="#" class="font-style-6" >Sign Out</a>
                 </li>
             </ul>
         </div>
-</nav>
+    </nav>
 
-<!--visible on small screens below 780px-->
+
+
+    <!--visible on small screens below 780px-->
 
 
     <div class=" nav-style visible-mob space-below-nav">
         <div class="pos-abs-left">
-            <img src="app/homepage/images/O-tenant.svg" class="logo-position" height="278px" width="112px">
+            <img src="images/O-tenant.svg" class="logo-position" >
         </div>
         <div id="notification" class="pos-abs-rgt" >
 
@@ -64,7 +84,7 @@
         <div class="modal-dialog" role="document">
             <div class="modal-title-style">
                 <span>
-                    Welcome {{tenant.userFullName}}!
+                    Welcome Partner
                 </span>
             </div>
 
@@ -92,20 +112,12 @@
     <div class="container-fluid space-above-nav">
             <div class = "col-lg-6 col-md-6 col-sm-6 col-xs-12 equal-space ">
                 <div>
-                    <span class="font-style-4" *ngIf="!editUser">
-                        {{tenant.userFullName}}
-                    </span>
-                    <span *ngIf="editUser">
-                        <input id="fullname" [(ngModel)]="name" class="font-style-4" style="padding: 2px 10px;;border: 1px solid #ccc;border-radius: 4px;box-sizing: border-box;" type="text" value='{{tenant.userFullName}}' />
+                    <span class="font-style-4">
+                        PARTNER LUCKY
                     </span>
                     <span class=" pull-right">
-                         <button name="edit" type="submit" *ngIf="!editUser" (click)="toggleEditUser()" class="btn btn-default button-style3">
+                         <button name="edit" type="submit" class="btn btn-default button-style3">
                              EDIT
-                         </button>
-                    </span>
-                    <span class=" pull-right">
-                         <button name="edit" type="submit" *ngIf="editUser" (click)="changeUserFullName()" class="btn btn-default button-style3">
-                             DONE
                          </button>
                     </span>
                 </div>
@@ -115,7 +127,7 @@
                 <div class="pos-rel">
 
                     <div style="display: inline-block">
-                        <img src="app/homepage/images/DUMMMY-IMAGE.png" class="img-size" >
+                        <img src="images/DUMMMY-IMAGE.png" class="img-size" >
                     </div>
                     <div class=" pos-abs-image-btn" style="display: inline-block">
                         <button name="edit" type="submit" class="btn btn-default button-style3">
@@ -202,7 +214,6 @@
                         <textarea  name="comments" >
                            Requirement description Requirement description Requirement description Requirement description Requirement description Requirement description Requirement description Requirement description Requirement description Requirement description Requirement description Requirement description Requirement description Requirement description Requirement description Requirement description Requirement description Requirement description Requirement description Requirement description Requirement description Requirement description Requirement description Requirement description
                            ption Requirement description Requirement description Requirement description Requirement description Requirement description Requirement description Requirement description Requirement description Requirement description Requirement description Requirement description Requirement description Requirement description Requirement description Requirement description Requirement description Requirement description Requirement description Requirement description Requirement description Requirement description
-                           abcde
                         </textarea>
                     </div>
                     <div class="pos-label15">
@@ -246,3 +257,8 @@
 
         </div>
     </div>
+
+
+
+</body>
+</html>

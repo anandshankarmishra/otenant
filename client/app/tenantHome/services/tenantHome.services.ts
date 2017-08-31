@@ -50,11 +50,23 @@ export class TenantService {
     
     }
 
+    updateTenantFullName(token:string, name:string)
+    {
+        if(token) {
+            var headers = new Headers();
+            headers.append('Content-Type','application/json');
+            let userFullName = name;
+            console.log("updating:" + userFullName);
+            var json = JSON.stringify({token, userFullName});
+            return this.http.put(AppRoutes.updateUserFullNameURL, json,{headers: headers})
+                .map((res)=> res.json());
+        }
+    }
+
     updateTenantProfile(token:string, tenant:Tenant) {
       if(token) {
         var headers = new Headers();
         headers.append('Content-Type','application/json');
-
         let userDesiredArea = tenant.userDesiredArea;
         let userDesiredCity = tenant.userDesiredCity;
         let userPhoneNo  = tenant.userPhoneNo;

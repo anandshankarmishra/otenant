@@ -14,7 +14,7 @@ import {ValidationService} from '../../common/validation/services/validation.ser
  selector:'tenant-view',
  moduleId:module.id,
  templateUrl:'../tenantHome.html',
- styleUrls:['../tenantHome.css']
+ styleUrls:['../style-tenant-home.css']
 //  templateUrl:'../tenant-homepage.html',
 //  styleUrls:['../style-tenant-home.css']
 })
@@ -23,7 +23,7 @@ export class TenantHomeComponent implements OnInit{
 
     tenant:Tenant = new Tenant();
     private showDialog = false;
-
+    private name;
     private myTokn = "";      //get tenant profile
     private newNotf:number; //new notifications
    
@@ -58,6 +58,7 @@ export class TenantHomeComponent implements OnInit{
         .subscribe((data) => {
 
             this.tenant = (data);
+            this.name = this.tenant.userFullName;
             //We may need the following line later, keep it for now, dont delete it.
             //this.newNotf = this.getNewNotifications(this.tenant);
         });
@@ -126,5 +127,29 @@ export class TenantHomeComponent implements OnInit{
             console.log("error! handle me please");
         })
      //   this.emitNotifEvent.emit();
+    }
+
+    toggleEditUser()
+    {
+        this.editUser = !this.editUser;
+    }
+
+    changeUserFullName()
+    {
+        // Make a server call here for updating the user's full name.
+        console.log("Got the name as:"+ this.name);
+        this.editUser = !this.editUser;
+        
+        this.tenantService.updateTenantFullName(this.myTokn, this.name).
+        subscribe((data) => 
+        {
+            this.tenant = data;
+            console.log(data);
+
+        },
+        (err) => {
+            console.log("error:" + JSON.stringify(err));
+        }
+        )
     }
 }
